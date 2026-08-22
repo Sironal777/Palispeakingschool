@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ပါဠိစကားပြောသင်တန်း - Zoom Link</title>
+    <style>
+        :root {
+            --primary-color: #6C63FF;
+            --primary-light: #8b85ff;
+            --secondary-color: #2F2E41;
+            --accent-color: #FF6584;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Pyidaungsu, 'Myanmar Text', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        /* Decorative circle in header */
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+        }
+
+        .title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 40px 30px 30px;
+        }
+
+        .info-group {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-group:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.1);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .copy-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .zoom-link-container {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .zoom-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .zoom-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(47, 46, 65, 0.3);
+        }
+
+        .zoom-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .schedule {
+            text-align: center;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 0.95rem;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        @media (max-width: 480px) {
+            .card-body {
+                padding: 30px 20px 20px;
+            }
+            .title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="title">ပါဠိစကားပြောသင်တန်း<br>ဒုတိယအကြိမ်</div>
+            <div class="subtitle">(ပါဠိသာကစ္ဆာအဖွဲ့၊ မြန်မာ)</div>
+        </div>
+
+        <div class="card-body">
+            
+            <div class="info-group">
+                <div>
+                    <span class="info-label">ZOOM ID</span>
+                    <div class="info-value" id="zoomId">490 630 1512</div>
+                </div>
+                <button class="copy-btn" onclick="copyText('4906301512', 'ZOOM ID')" title="Copy ID">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+            </div>
+
+            <div class="info-group">
+                <div>
+                    <span class="info-label">Passcode</span>
+                    <div class="info-value" id="zoomPc">palibhasa</div>
+                </div>
+                <button class="copy-btn" onclick="copyText('palibhasa', 'Passcode')" title="Copy Passcode">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+            </div>
+
+            <div class="zoom-link-container">
+                <a href="https://us06web.zoom.us/j/85767262010?pwd=Kk6bnatuoSPRQPmGMRxOT0k6Mkf6eI.1" target="_blank" class="zoom-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.585 13.607l-.27-.012H4.31c-1.556 0-2.816-1.26-2.816-2.816V7.054a2.816 2.816 0 0 1 2.816-2.816h7.458a2.816 2.816 0 0 1 2.816 2.816v3.725c0 1.556-1.26 2.816-2.816 2.816h-7.184zm10.743-1.636V6.657a.895.895 0 0 1 1.411-.73l4.636 3.26a.895.895 0 0 1 0 1.461l-4.636 3.261a.895.895 0 0 1-1.411-.73l.002-1.208z" fill-rule="evenodd"/>
+                    </svg>
+                    Zoom Link မှ တိုက်ရိုက်ဝင်မည်
+                </a>
+            </div>
+
+            <div class="schedule">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး ဖွင့်လှစ်သည်။
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Copy ကူးယူပြီးပါပြီ</div>
+
+    <script>
+        function copyText(text, type) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast(type + " ကို Copy ကူးယူပြီးပါပြီ ✅");
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                showToast("Copy ကူးရာတွင် အမှားအယွင်းဖြစ်နေပါသည် ❌");
+            });
+        }
+
+        function showToast(message) {
+            var toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "toast show";
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("show", ""); 
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

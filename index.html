@@ -1,684 +1,791 @@
-html_template = """<!DOCTYPE html>
-<html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ပါဠိစကားပြောသင်တန်း - Dashboard</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
-        
-        :root {
-            --primary-color: #3b82f6; /* Tailwind Blue 500 */
-            --primary-light: #60a5fa; /* Tailwind Blue 400 */
-            --secondary-color: #1e293b; /* Tailwind Slate 800 */
-            --bg-gradient-start: #0f172a; /* Tailwind Slate 900 */
-            --bg-gradient-end: #1e1b4b; /* Tailwind Indigo 950 */
-            --card-bg: rgba(30, 41, 59, 0.6); /* Semi-transparent Slate 800 */
-            --text-main: #f8fafc; /* Tailwind Slate 50 */
-            --text-muted: #cbd5e1; /* Tailwind Slate 300 */
-            --success: #34d399; /* Tailwind Emerald 400 */
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
+:root {
+        --primary-color: #3b82f6; 
+        --primary-light: #60a5fa; 
+        --secondary-color: #1e293b; 
+        --bg-gradient-start: #0f172a; 
+        --bg-gradient-end: #1e1b4b; 
+        --card-bg: rgba(30, 41, 59, 0.6); 
+        --text-main: #f8fafc; 
+        --text-muted: #cbd5e1; 
+        --success: #34d399; 
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Padauk', 'Segoe UI', Tahoma, sans-serif;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Padauk', 'Segoe UI', Tahoma, sans-serif;
+    }
 
-        body {
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--text-main);
-            overflow: hidden; /* Prevent scrolling if possible */
-        }
+    body {
+        background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--text-main);
+        background-attachment: fixed;
+    }
 
-        /* Ambient Background Glows for 3D effect */
-        .ambient-glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            z-index: -1;
-        }
-        .glow-1 {
-            top: -10%;
-            left: -10%;
-            width: 300px;
-            height: 300px;
-            background: rgba(59, 130, 246, 0.4); /* Blue */
-        }
-        .glow-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(139, 92, 246, 0.3); /* Purple */
-        }
+    /* Ambient Background Glows */
+    .ambient-glow {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.5;
+        z-index: -1;
+    }
+    .glow-1 {
+        top: -10%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background: rgba(59, 130, 246, 0.4); 
+    }
+    .glow-2 {
+        bottom: -10%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: rgba(139, 92, 246, 0.3); 
+    }
 
-        /* 3D Glassmorphism Card */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 800px;
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    /* 3D Glassmorphism Card */
+    .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        width: 100%;
+        max-width: 800px;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .card-header {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-            border-radius: 24px 24px 0 0;
-            position: relative;
-        }
+    .card-header {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--glass-border);
+        border-radius: 24px 24px 0 0;
+        position: relative;
+    }
 
-        /* Central Logo/Icon */
-        .logo-circle {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4), inset 0 2px 4px rgba(255,255,255,0.3);
-            border: 2px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo-circle:hover {
-            transform: scale(1.1);
-        }
+    .logo-circle {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 15px auto;
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4), inset 0 2px 4px rgba(255,255,255,0.3);
+        border: 2px solid rgba(255,255,255,0.1);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo-circle:hover {
+        transform: scale(1.1);
+    }
 
-        .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            line-height: 1.4;
-            background: linear-gradient(to right, #60a5fa, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+    .title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        line-height: 1.4;
+        background: linear-gradient(to right, #60a5fa, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
 
-        .subtitle {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
+    .subtitle {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+    }
 
-        /* Post Container Styles */
-        .post-container {
-            padding: 30px;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
+    /* Post Container */
+    .post-container {
+        padding: 30px;
+        max-height: 65vh;
+        overflow-y: auto;
+    }
 
-        .post-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        .post-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        .post-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
+    .post-container::-webkit-scrollbar {
+        width: 6px;
+    }
+    .post-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+    .post-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
 
-        .post-card {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(255,255,255,0.02);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-        
-        .post-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(96, 165, 250, 0.3);
-            background: rgba(15, 23, 42, 0.6);
-        }
+    /* Individual Post Card */
+    .post-card {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .post-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+        border-color: rgba(96, 165, 250, 0.3);
+    }
 
-        .post-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #60a5fa;
-            margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
+    .post-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 12px;
+    }
 
-        .post-content {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-            white-space: pre-wrap; /* Preserve line breaks */
-        }
-        
-        .post-content a {
-            color: #34d399;
-            text-decoration: underline;
-            transition: color 0.2s;
-        }
-        
-        .post-content a:hover {
-            color: #10b981;
-        }
+    .post-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #60a5fa;
+        display: flex;
+        align-items: center;
+    }
 
-        /* Admin Panel Overlay Styles */
-        .admin-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
+    .post-meta {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-        .admin-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+    /* The Content inside the post */
+    .post-content {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-main);
+        /* Important for Facebook-style formatting rendering */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    .post-content a {
+        color: #34d399;
+        text-decoration: underline;
+        transition: color 0.2s;
+    }
+    
+    .post-content a:hover {
+        color: #10b981;
+    }
 
-        .admin-modal {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
+    /* Default Zoom Info Styling overrides */
+    .zoom-info-box {
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-        .admin-overlay.active .admin-modal {
-            transform: translateY(0);
-        }
+    /* Overlay & Modals */
+    .admin-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        overflow-y: auto;
+        padding: 20px;
+    }
 
-        /* Form Inputs */
-        .input-group {
-            margin-bottom: 20px;
-        }
+    .admin-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
 
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
+    .admin-modal {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        width: 100%;
+        max-width: 650px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+        margin: auto;
+    }
 
-        .custom-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 12px 15px;
-            color: white;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
+    .admin-overlay.active .admin-modal {
+        transform: translateY(0);
+    }
 
-        .custom-input:focus {
-            border-color: var(--accent);
-        }
-        
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-        }
-        
-        .tool-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: all 0.2s;
-        }
-        
-        .tool-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .color-picker {
-            border: none;
-            background: transparent;
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-            padding: 0;
-        }
+    /* Forms */
+    .input-group {
+        margin-bottom: 20px;
+    }
 
-        /* Content Editable Div */
-        .editor-content {
-            min-height: 150px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            color: white;
-            outline: none;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-        
-        .editor-content:empty:before {
-            content: attr(placeholder);
-            color: rgba(255, 255, 255, 0.3);
-        }
+    .input-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        font-weight: bold;
+    }
 
-        .editor-content:focus {
-            border-color: var(--accent);
-        }
+    .custom-input {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 14px 16px;
+        color: white;
+        font-family: inherit;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .custom-input:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+    }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
+    /* Facebook-style Toolbar */
+    .editor-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-bottom: none;
+        align-items: center;
+    }
+    
+    .tool-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: var(--text-muted);
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s;
+    }
+    
+    .tool-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        transform: translateY(-1px);
+    }
 
-        .btn-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        
-        .btn-close:hover {
-            color: white;
-        }
+    .tool-separator {
+        width: 1px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 4px;
+    }
 
-        /* Password Prompt */
-        #passwordPrompt {
-            text-align: center;
-        }
-        
-        #adminForm {
-            display: none;
-        }
-        
-        .delete-post-btn {
-            float: right;
-            background: transparent;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.2s;
-        }
-        .delete-post-btn:hover {
-            opacity: 1;
-        }
+    .tool-select {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 6px 10px;
+        outline: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    .tool-select option {
+        background: var(--secondary-color);
+    }
 
-        .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
-        }
+    .color-picker-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 4px 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+    }
+    .color-picker-wrapper:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .color-picker-wrapper i {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
+    .color-picker {
+        border: none;
+        background: transparent;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 4px;
+    }
 
-    <!-- Ambient Background Glows -->
-    <div class="ambient-glow glow-1"></div>
-    <div class="ambient-glow glow-2"></div>
+    /* Editable Area */
+    .editor-content {
+        min-height: 200px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0 0 10px 10px;
+        padding: 20px;
+        color: white;
+        outline: none;
+        overflow-y: auto;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        transition: background 0.3s;
+    }
+    
+    .editor-content:empty:before {
+        content: attr(placeholder);
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
 
-    <!-- Main Public View -->
-    <div class="glass-card">
-        <div class="card-header">
-            <!-- Click logo to trigger Admin Login -->
-            <div class="logo-circle" onclick="openAdminPanel()" title="Admin Login">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
-                    <path d="M12 6v6l4 2"></path>
-                </svg>
-            </div>
-            <div class="title">ပါဠိစကားပြောသင်တန်း<br>ဒုတိယအကြိမ်</div>
-            <div class="subtitle">(ပါဠိသာကစ္ဆာအဖွဲ့၊ မြန်မာ)</div>
+    .editor-content:focus {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: var(--primary-light);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 24px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255,255,255,0.05);
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        border: none;
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .btn-close:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .delete-post-btn {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        cursor: pointer;
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s;
+        margin-left: 10px;
+    }
+    .delete-post-btn:hover {
+        background: #ef4444;
+        color: white;
+    }
+
+    .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        margin-left: 10px;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Utility classes for dynamic backgrounds applied from toolbar */
+    .bg-custom-post {
+        padding: 15px;
+        border-radius: 8px;
+    }
+</style>
+<!-- Ambient Glows -->
+<div class="ambient-glow glow-1"></div>
+<div class="ambient-glow glow-2"></div>
+
+<!-- Main View -->
+<div class="glass-card">
+    <div class="card-header">
+        <div class="logo-circle" onclick="openAdminPanel()" title="Admin Login">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                <path d="M12 6v6l4 2"></path>
+            </svg>
         </div>
-
-        <div class="post-container" id="publicPosts">
-            <div class="text-center text-slate-400 py-10" id="loadingPostsText">
-                <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i><br>
-                ကြေညာချက်များ ရှာဖွေနေပါသည်...
-            </div>
-            <!-- Posts will be injected here by Firebase -->
-        </div>
+        <div class="title">ပါဠိစကားပြောသင်တန်း<br>ဒုတိယအကြိမ်</div>
+        <div class="subtitle">(ပါဠိသာကစ္ဆာအဖွဲ့၊ မြန်မာ)</div>
     </div>
 
-    <!-- Admin Overlay & Modal -->
-    <div class="admin-overlay" id="adminOverlay">
-        <div class="admin-modal relative">
-            <button class="btn-close" onclick="closeAdminPanel()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="post-container" id="publicPosts">
+        <div class="text-center text-slate-400 py-10" id="loadingPostsText">
+            <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i><br>
+            ကြေညာချက်များ ရှာဖွေနေပါသည်...
+        </div>
+        <!-- Dynamic Posts from Firebase -->
+    </div>
+</div>
+
+<!-- Admin Overlay & Form -->
+<div class="admin-overlay" id="adminOverlay">
+    <div class="admin-modal relative">
+        <button class="btn-close" onclick="closeAdminPanel()"><i class="fa-solid fa-xmark"></i></button>
+        
+        <!-- Step 1: Login -->
+        <div id="passwordPrompt">
+            <h2 class="text-2xl font-bold mb-2 text-blue-400"><i class="fa-solid fa-shield-halved mr-2"></i> Admin Access</h2>
+            <p class="text-sm text-slate-400 mb-8">ပို့စ်တင်ရန်နှင့် ဖျက်ရန် လျှို့ဝှက်ကုဒ်ရိုက်ထည့်ပါ။</p>
+            <div class="input-group">
+                <input type="password" id="adminPassword" class="custom-input text-center text-xl tracking-widest" placeholder="••••••••">
+            </div>
+            <button class="btn-primary" onclick="checkPassword()">ဝင်မည်</button>
+            <p id="passwordError" class="text-red-400 text-sm mt-3 hidden text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">ကုဒ်မှားယွင်းနေပါသည်။ ပြန်စမ်းကြည့်ပါ။</p>
+        </div>
+
+        <!-- Step 2: Facebook-style Post Editor -->
+        <div id="adminForm" style="display:none;">
+            <h2 class="text-2xl font-bold mb-6 text-emerald-400"><i class="fa-solid fa-pen-nib mr-2"></i> ကြေညာချက်အသစ်တင်ရန်</h2>
             
-            <!-- Step 1: Password Prompt -->
-            <div id="passwordPrompt">
-                <h2 class="text-xl font-bold mb-4 text-blue-400"><i class="fa-solid fa-lock mr-2"></i> Admin Access</h2>
-                <p class="text-sm text-slate-400 mb-6">ကျေးဇူးပြု၍ လျှို့ဝှက်ကုဒ်ရိုက်ထည့်ပါ။</p>
-                <div class="input-group">
-                    <input type="password" id="adminPassword" class="custom-input text-center text-lg" placeholder="Password...">
-                </div>
-                <button class="btn-primary" onclick="checkPassword()">ဝင်မည်</button>
-                <p id="passwordError" class="text-red-400 text-sm mt-3 hidden">ကုဒ်မှားယွင်းနေပါသည်။</p>
+            <div class="input-group">
+                <label class="input-label">ခေါင်းစဉ် (Title)</label>
+                <input type="text" id="postTitle" class="custom-input" placeholder="ဘာအကြောင်းအရာလဲ? (ဥပမာ - မှတ်တမ်းဗီဒီယိုများ)">
             </div>
 
-            <!-- Step 2: Post Creation Form -->
-            <div id="adminForm">
-                <h2 class="text-xl font-bold mb-6 text-emerald-400"><i class="fa-solid fa-pen-to-square mr-2"></i> ကြေညာချက်အသစ်တင်ရန်</h2>
+            <div class="input-group">
+                <label class="input-label">အကြောင်းအရာ (Content)</label>
                 
-                <div class="input-group">
-                    <label class="input-label">ခေါင်းစဉ် (Title)</label>
-                    <input type="text" id="postTitle" class="custom-input" placeholder="ဥပမာ - မှတ်တမ်းဗီဒီယို လင့်ခ်များ">
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">အကြောင်းအရာ (Content)</label>
+                <!-- Advanced Editor Toolbar -->
+                <div class="editor-toolbar">
+                    <!-- Font Size -->
+                    <select class="tool-select" onchange="formatText('fontSize', this.value)" title="Font Size">
+                        <option value="3">ပုံမှန် (Normal)</option>
+                        <option value="1">သေးငယ် (Small)</option>
+                        <option value="5">ကြီးမား (Large)</option>
+                        <option value="7">အလွန်ကြီး (Huge)</option>
+                    </select>
                     
-                    <!-- Formatting Toolbar -->
-                    <div class="toolbar">
-                        <button class="tool-btn" onclick="formatText('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
-                        <button class="tool-btn" onclick="formatText('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
-                        <button class="tool-btn" onclick="formatText('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
-                        
-                        <div class="w-px h-6 bg-slate-600 mx-2"></div> <!-- Divider -->
-                        
-                        <button class="tool-btn" onclick="insertLink()" title="Add Link"><i class="fa-solid fa-link"></i></button>
-                        
-                        <div class="w-px h-6 bg-slate-600 mx-2"></div> <!-- Divider -->
-                        
-                        <!-- Text Color -->
-                        <label class="tool-btn flex items-center gap-1 cursor-pointer" title="Text Color">
-                            <i class="fa-solid fa-font"></i>
-                            <input type="color" id="textColor" class="color-picker" onchange="formatText('foreColor', this.value)">
-                        </label>
-                        
-                        <!-- Background Color -->
-                        <label class="tool-btn flex items-center gap-1 cursor-pointer" title="Highlight Color">
-                            <i class="fa-solid fa-fill-drip"></i>
-                            <input type="color" id="bgColor" class="color-picker" onchange="formatText('hiliteColor', this.value)">
-                        </label>
-                    </div>
+                    <div class="tool-separator"></div>
 
-                    <!-- Editable Content Area -->
-                    <div id="postContent" class="editor-content" contenteditable="true" placeholder="ကြေညာချက် ရိုက်ထည့်ပါ..."></div>
+                    <!-- Basic Formatting -->
+                    <button class="tool-btn" onclick="formatText('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                    <button class="tool-btn" onclick="formatText('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                    <button class="tool-btn" onclick="formatText('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                    
+                    <div class="tool-separator"></div>
+                    
+                    <!-- Alignment -->
+                    <button class="tool-btn" onclick="formatText('justifyLeft')" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+                    <button class="tool-btn" onclick="formatText('justifyCenter')" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
+                    
+                    <div class="tool-separator"></div>
+                    
+                    <!-- Lists & Links -->
+                    <button class="tool-btn" onclick="formatText('insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+                    <button class="tool-btn" onclick="insertLink()" title="Add Link"><i class="fa-solid fa-link"></i></button>
+                    
+                    <div class="tool-separator"></div>
+                    
+                    <!-- Colors -->
+                    <div class="color-picker-wrapper" title="စာလုံး အရောင် (Text Color)">
+                        <i class="fa-solid fa-font"></i>
+                        <input type="color" id="textColor" class="color-picker" value="#ffffff" onchange="formatText('foreColor', this.value)">
+                    </div>
+                    
+                    <div class="color-picker-wrapper" title="နောက်ခံ အရောင် (Highlight Color)">
+                        <i class="fa-solid fa-fill-drip"></i>
+                        <input type="color" id="bgColor" class="color-picker" value="#0f172a" onchange="formatText('hiliteColor', this.value)">
+                    </div>
                 </div>
 
-                <button class="btn-primary mt-4" id="submitBtn" onclick="publishPost()">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> တင်မည်
-                    <div class="loading-spinner" id="submitSpinner"></div>
-                </button>
+                <!-- The Writing Area -->
+                <div id="postContent" class="editor-content" contenteditable="true" placeholder="ဒီနေရာမှာ သင်ရေးချင်တဲ့ အကြောင်းအရာကို ရိုက်ထည့်ပါ... Facebook မှာ ပို့စ်တင်သလိုမျိုး စာလုံးအရောင်၊ နောက်ခံအရောင် ပြောင်းလို့ရပါတယ်။"></div>
             </div>
+
+            <button class="btn-primary mt-6" id="submitBtn" onclick="publishPost()">
+                <i class="fa-solid fa-paper-plane mr-2"></i> ယခု တင်မည် (Publish)
+                <div class="loading-spinner" id="submitSpinner"></div>
+            </button>
         </div>
     </div>
+</div>
 
-    <!-- Firebase SDK Integration -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<!-- Firebase SDK Integration -->
+<script type="module">
+    import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js)";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "[https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js)";
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBgZ1pdU96FxwFbhSFWKPwq7RKaVw9JHRk",
-            authDomain: "palispeaking-e2407.firebaseapp.com",
-            projectId: "palispeaking-e2407",
-            storageBucket: "palispeaking-e2407.firebasestorage.app",
-            messagingSenderId: "52655990560",
-            appId: "1:52655990560:web:349d0ab432f703dd48d945",
-            measurementId: "G-QXQYCGL3RF"
+    // Your specific Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBgZ1pdU96FxwFbhSFWKPwq7RKaVw9JHRk",
+        authDomain: "palispeaking-e2407.firebaseapp.com",
+        projectId: "palispeaking-e2407",
+        storageBucket: "palispeaking-e2407.firebasestorage.app",
+        messagingSenderId: "52655990560",
+        appId: "1:52655990560:web:349d0ab432f703dd48d945"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    let isAdmin = false;
+
+    // Formats the timestamp nicely (e.g., "August 23, 2026 at 10:22 PM")
+    function formatDateTime(date) {
+        const options = { 
+            year: 'numeric', month: 'short', day: 'numeric', 
+            hour: '2-digit', minute: '2-digit'
         };
+        return new Intl.DateTimeFormat('my-MM', options).format(date);
+    }
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
+    async function loadPosts() {
+        const postContainer = document.getElementById('publicPosts');
+        postContainer.innerHTML = ''; 
 
-        let isAdmin = false;
-
-        // --- Load Posts from Firestore ---
-        async function loadPosts() {
-            const postContainer = document.getElementById('publicPosts');
-            postContainer.innerHTML = ''; // Clear existing
-
-            // Default Static Post for Zoom Info
-            const defaultPostHTML = `
-                <div class="post-card">
-                    <h2 class="post-title"><i class="fa-solid fa-video mr-2"></i> ZOOM ID & Link</h2>
-                    <div class="post-content"><span style="color: #60a5fa; font-weight: bold;">ID -</span> 83643961099
-<span style="color: #60a5fa; font-weight: bold;">Pc -</span> 185447
-
-<a href="https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1" target="_blank"><i class="fa-solid fa-link"></i> Zoom Meeting သို့ဝင်ရန် နှိပ်ပါ</a>
-
-<div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; margin-top: 15px; color: #34d399; font-weight: bold; text-align: center;">
-    <i class="fa-regular fa-calendar-check mr-2"></i> အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး ဖွင့်လှစ်သည်။
-</div></div>
+        // Zoom Pinned Post
+        const defaultPostHTML = `
+            <div class="post-card" style="border-top: 4px solid var(--primary-light);">
+                <div class="post-header-flex">
+                    <div class="post-title"><i class="fa-solid fa-thumbtack text-rose-400 mr-2 text-sm"></i> Pinned: ZOOM ID & Link</div>
                 </div>
-            `;
-            postContainer.innerHTML = defaultPostHTML;
-
-            try {
-                const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
-                const querySnapshot = await getDocs(q);
-                
-                querySnapshot.forEach((document) => {
-                    const data = document.data();
-                    const docId = document.id;
+                <div class="post-content zoom-info-box">
+                    <span style="color: #60a5fa; font-weight: bold;">ID -</span> 836 439 61099 <br>
+                    <span style="color: #60a5fa; font-weight: bold;">Pc -</span> 185447 <br><br>
+                    <a href="[https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1](https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1)" target="_blank" style="display:inline-block; background: var(--primary-color); color:white; padding: 10px 15px; border-radius: 8px; text-decoration:none; font-weight:bold; margin-bottom:15px;"><i class="fa-solid fa-video mr-2"></i> Zoom Meeting သို့ဝင်ရန် နှိပ်ပါ</a>
                     
-                    let deleteBtnHTML = '';
-                    if(isAdmin) {
-                        deleteBtnHTML = `<button class="delete-post-btn" onclick="deletePost('${docId}')" title="ဖျက်မည်"><i class="fa-solid fa-trash"></i></button>`;
-                    }
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; color: #34d399; font-weight: bold; text-align: center; border: 1px solid rgba(52,211,153,0.2);">
+                        <i class="fa-regular fa-calendar-check mr-2"></i> အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး ဖွင့်လှစ်သည်။
+                    </div>
+                </div>
+            </div>
+        `;
+        postContainer.innerHTML = defaultPostHTML;
 
-                    const newPostHTML = `
-                        <div class="post-card" id="post-${docId}" style="animation: slideIn 0.3s ease;">
-                            ${deleteBtnHTML}
-                            <h2 class="post-title"><i class="fa-solid fa-bullhorn mr-2"></i> ${data.title}</h2>
-                            <div class="post-content">${data.content}</div>
-                        </div>
-                    `;
-                    postContainer.insertAdjacentHTML('beforeend', newPostHTML);
-                });
-            } catch (error) {
-                console.error("Error loading posts: ", error);
-                postContainer.insertAdjacentHTML('beforeend', `<div class="text-center text-red-400 mt-4">ပို့စ်များ ယူရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။</div>`);
-            }
-        }
-
-        // --- Publish Post to Firestore ---
-        window.publishPost = async function() {
-            const title = document.getElementById('postTitle').value.trim();
-            const content = document.getElementById('postContent').innerHTML.trim();
-            const submitSpinner = document.getElementById('submitSpinner');
-            const submitBtn = document.getElementById('submitBtn');
-
-            if (!title || !content) {
-                alert("ခေါင်းစဉ်နှင့် အကြောင်းအရာ အပြည့်အစုံထည့်ပါ။");
-                return;
-            }
-
-            // Show loading
-            submitBtn.disabled = true;
-            submitSpinner.style.display = 'inline-block';
-
-            try {
-                await addDoc(collection(db, "posts"), {
-                    title: title,
-                    content: content,
-                    timestamp: new Date()
-                });
-
-                document.getElementById('postTitle').value = '';
-                document.getElementById('postContent').innerHTML = '';
-                closeAdminPanel();
-                alert("✅ ကြေညာချက် အောင်မြင်စွာ တင်ပြီးပါပြီ။");
+        try {
+            const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+            
+            querySnapshot.forEach((document) => {
+                const data = document.data();
+                const docId = document.id;
                 
-                // Reload posts to show the new one
-                loadPosts(); 
+                // Parse Date
+                let timeString = "မသိရပါ";
+                if(data.timestamp) {
+                    const dateObj = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+                    timeString = formatDateTime(dateObj);
+                }
+                
+                let deleteBtnHTML = '';
+                if(isAdmin) {
+                    deleteBtnHTML = `<button class="delete-post-btn" onclick="deletePost('${docId}')" title="ပိုစ်ဖျက်မည်"><i class="fa-solid fa-trash"></i></button>`;
+                }
+
+                const newPostHTML = `
+                    <div class="post-card" id="post-${docId}">
+                        <div class="post-header-flex">
+                            <div>
+                                <div class="post-title">${data.title}</div>
+                                <div class="post-meta"><i class="fa-regular fa-clock"></i> ${timeString}</div>
+                            </div>
+                            ${deleteBtnHTML}
+                        </div>
+                        <div class="post-content bg-custom-post">${data.content}</div>
+                    </div>
+                `;
+                postContainer.insertAdjacentHTML('beforeend', newPostHTML);
+            });
+        } catch (error) {
+            console.error("Error loading posts: ", error);
+            postContainer.insertAdjacentHTML('beforeend', `<div class="text-center text-red-400 mt-4 bg-red-400/10 p-4 rounded-lg">ဒေတာယူရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။ (Firebase Rules များကို စစ်ဆေးပါ)</div>`);
+        }
+    }
+
+    window.publishPost = async function() {
+        const title = document.getElementById('postTitle').value.trim();
+        const content = document.getElementById('postContent').innerHTML.trim();
+        const submitSpinner = document.getElementById('submitSpinner');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (!title || !content || content === "<br>") {
+            alert("ခေါင်းစဉ်နှင့် အကြောင်းအရာ အပြည့်အစုံထည့်ပါ။");
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitSpinner.style.display = 'inline-block';
+
+        try {
+            await addDoc(collection(db, "posts"), {
+                title: title,
+                content: content,
+                timestamp: new Date()
+            });
+
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postContent').innerHTML = '';
+            closeAdminPanel();
+            loadPosts(); 
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            alert("ပို့စ်တင်ရန် ခွင့်ပြုချက်မရှိပါ။ (Firebase Security Rules အား စစ်ဆေးပါ)");
+        } finally {
+            submitBtn.disabled = false;
+            submitSpinner.style.display = 'none';
+        }
+    };
+
+    window.deletePost = async function(docId) {
+        if(confirm("ဤကြေညာချက်ကို အပြီးတိုင် ဖျက်ရန် သေချာပါသလား?")) {
+            try {
+                await deleteDoc(doc(db, "posts", docId));
+                document.getElementById(`post-${docId}`).style.opacity = '0';
+                setTimeout(() => document.getElementById(`post-${docId}`).remove(), 300);
             } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("တင်ရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။");
-            } finally {
-                // Hide loading
-                submitBtn.disabled = false;
-                submitSpinner.style.display = 'none';
-            }
-        };
-
-        // --- Delete Post from Firestore ---
-        window.deletePost = async function(docId) {
-            if(confirm("ဤကြေညာချက်ကို ဖျက်ရန် သေချာပါသလား?")) {
-                try {
-                    await deleteDoc(doc(db, "posts", docId));
-                    document.getElementById(`post-${docId}`).remove();
-                } catch (error) {
-                    console.error("Error deleting document: ", error);
-                    alert("ဖျက်ရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။");
-                }
-            }
-        };
-
-        // Initial Load
-        loadPosts();
-
-        // Admin Auth Global Expose
-        window.setAdminStatus = function(status) {
-            isAdmin = status;
-            loadPosts(); // Reload posts to show/hide delete buttons
-        }
-    </script>
-
-    <!-- UI Interaction Scripts -->
-    <script>
-        const overlay = document.getElementById('adminOverlay');
-        const passPrompt = document.getElementById('passwordPrompt');
-        const adminForm = document.getElementById('adminForm');
-        const passInput = document.getElementById('adminPassword');
-        const passError = document.getElementById('passwordError');
-
-        function openAdminPanel() {
-            overlay.classList.add('active');
-            passInput.value = '';
-            passError.classList.add('hidden');
-            passPrompt.style.display = 'block';
-            adminForm.style.display = 'none';
-            setTimeout(() => passInput.focus(), 100);
-        }
-
-        function closeAdminPanel() {
-            overlay.classList.remove('active');
-        }
-
-        function checkPassword() {
-            if (passInput.value === 'palivoice') {
-                passPrompt.style.display = 'none';
-                adminForm.style.display = 'block';
-                document.getElementById('postTitle').value = '';
-                document.getElementById('postContent').innerHTML = '';
-                // Tell Firebase script that admin is logged in
-                if(typeof window.setAdminStatus === 'function') {
-                    window.setAdminStatus(true);
-                }
-            } else {
-                passError.classList.remove('hidden');
+                console.error("Error deleting document: ", error);
+                alert("ဖျက်ရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။");
             }
         }
+    };
 
-        passInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkPassword();
+    loadPosts();
+
+    window.setAdminStatus = function(status) {
+        isAdmin = status;
+        loadPosts(); 
+    }
+</script>
+
+<!-- UI Interaction Scripts -->
+<script>
+    const overlay = document.getElementById('adminOverlay');
+    const passPrompt = document.getElementById('passwordPrompt');
+    const adminForm = document.getElementById('adminForm');
+    const passInput = document.getElementById('adminPassword');
+    const passError = document.getElementById('passwordError');
+    const editor = document.getElementById('postContent');
+
+    function openAdminPanel() {
+        overlay.classList.add('active');
+        passInput.value = '';
+        passError.classList.add('hidden');
+        passPrompt.style.display = 'block';
+        adminForm.style.display = 'none';
+        setTimeout(() => passInput.focus(), 100);
+    }
+
+    function closeAdminPanel() {
+        overlay.classList.remove('active');
+    }
+
+    function checkPassword() {
+        if (passInput.value === 'palivoice') {
+            passPrompt.style.display = 'none';
+            adminForm.style.display = 'block';
+            document.getElementById('postTitle').value = '';
+            editor.innerHTML = '';
+            // Authenticate local admin view
+            if(typeof window.setAdminStatus === 'function') {
+                window.setAdminStatus(true);
             }
-        });
-
-        function formatText(command, value = null) {
-            document.execCommand(command, false, value);
-            document.getElementById('postContent').focus();
+        } else {
+            passError.classList.remove('hidden');
         }
+    }
 
-        function insertLink() {
-            const url = prompt("Link ထည့်ပါ (ဥပမာ - https://...):", "https://");
-            if (url) {
-                const linkHTML = `<a href="${url}" target="_blank" style="color: #34d399; text-decoration: underline;">${url}</a>`;
-                document.execCommand('insertHTML', false, linkHTML);
-            }
-            document.getElementById('postContent').focus();
+    passInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkPassword();
         }
-    </script>
-</body>
-</html>
-"""
-with open('Pali_Class_Firebase_Dashboard_Final.html', 'w', encoding='utf-8') as f:
-    f.write(html_template)
-print("File Generated")
+    });
+
+    // Ensure editor clicks stay in focus
+    function formatText(command, value = null) {
+        // Restore selection if lost
+        editor.focus();
+        document.execCommand(command, false, value);
+    }
+
+    function insertLink() {
+        const url = prompt("Link ထည့်ပါ (ဥပမာ - [https://drive.google.com/](https://drive.google.com/)...):", "https://");
+        if (url) {
+            const linkHTML = `<a href="${url}" target="_blank" style="color: #34d399; text-decoration: underline; font-weight:bold;">${url}</a>`;
+            editor.focus();
+            document.execCommand('insertHTML', false, linkHTML);
+        }
+    }
+    
+    // Handle Paste in editor to strip bad formatting but keep structure
+    editor.addEventListener("paste", function(e) {
+        e.preventDefault();
+        const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+        document.execCommand('insertText', false, text);
+    });
+
+</script>

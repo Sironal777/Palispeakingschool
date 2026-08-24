@@ -3,766 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ပါဠိစကားပြောသင်တန်း - Dashboard</title>
+    <title>ပါဠိစကားပြောသင်တန်း</title>
     
-    <!-- PWA Web App Settings (Fixed Unicode & Short Name) -->
-    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%22%2C%20%22short_name%22%3A%20%22Pali%20Speaking%22%2C%20%22description%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%20%28%E1%80%92%E1%80%AF%E1%80%90%E1%80%AD%E1%80%9A%E1%80%A1%E1%80%80%E1%80%BC%E1%80%AD%E1%80%99%E1%80%BA%29%20Dashboard%22%2C%20%22start_url%22%3A%20%22./index.html%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%230f172a%22%2C%20%22theme_color%22%3A%20%22%233b82f6%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22icon-192.png%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%7D%2C%20%7B%22src%22%3A%20%22icon-512.png%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%7D%5D%7D'>
-    <meta name="theme-color" content="#3b82f6">
+    <!-- PWA Settings -->
+    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%22%2C%20%22short_name%22%3A%20%22Pali%20Speaking%22%2C%20%22description%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%20%28%E1%80%92%E1%80%AF%E1%80%90%E1%80%AD%E1%80%9A%E1%80%A1%E1%80%80%E1%80%BC%E1%80%AD%E1%80%99%E1%80%BA%29%22%2C%20%22start_url%22%3A%20%22./index.html%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%230f172a%22%2C%20%22theme_color%22%3A%20%22%233b82f6%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22icon-192.png%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%7D%2C%20%7B%22src%22%3A%20%22icon-512.png%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%7D%5D%7D'>
+    <meta name="theme-color" content="#0f172a">
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
         
-        :root {
-            --primary-color: #3b82f6; 
-            --primary-light: #60a5fa; 
-            --secondary-color: #1e293b; 
-            --bg-gradient-start: #0f172a; 
-            --bg-gradient-end: #1e1b4b; 
-            --card-bg: rgba(30, 41, 59, 0.6); 
-            --text-main: #f8fafc; 
-            --text-muted: #cbd5e1; 
-            --success: #34d399; 
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
+        body {
+            font-family: 'Padauk', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Padauk', 'Segoe UI', Tahoma, sans-serif;
+            overflow-x: hidden;
         }
 
-        body {
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--text-main);
-            background-attachment: fixed;
-        }
-
-        /* Ambient Background Glows */
+        /* Ambient Glow */
         .ambient-glow {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
+            filter: blur(100px);
+            opacity: 0.4;
             z-index: -1;
+            pointer-events: none;
         }
-        .glow-1 {
-            top: -10%;
-            left: -10%;
-            width: 300px;
-            height: 300px;
-            background: rgba(59, 130, 246, 0.4); 
-        }
-        .glow-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(139, 92, 246, 0.3); 
+        .glow-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(59, 130, 246, 0.4); }
+        .glow-2 { bottom: 10%; right: -10%; width: 500px; height: 500px; background: rgba(139, 92, 246, 0.2); }
+
+        /* Desktop Navbar */
+        .desktop-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* 3D Glassmorphism Card */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 800px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .nav-link {
+            color: #94a3b8;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-link:hover { color: #fff; }
+        .nav-link.active { color: #60a5fa; border-bottom-color: #60a5fa; }
+
+        /* Mobile Bottom Tab */
+        .bottom-nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .tab-btn {
+            color: #64748b;
+            transition: all 0.3s;
+        }
+        .tab-btn.active { color: #60a5fa; transform: translateY(-2px); }
+
+        /* Install Banner */
+        #installBanner {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #installBanner.show { transform: translateY(0); }
+
+        /* Content Area */
+        .main-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 15px 100px 15px; /* bottom padding for mobile nav */
+        }
+        @media (min-width: 768px) {
+            .main-content { padding: 40px 20px; }
         }
 
-        /* --- Header with Background Image --- */
-        .card-header {
-            /* Using LOGO-2.png as background */
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.95)), url('LOGO-2.png');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: overlay;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-            border-radius: 24px 24px 0 0;
-            position: relative;
-        }
+        .tab-pane { display: none; animation: fadeIn 0.4s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .logo-circle {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4), inset 0 2px 4px rgba(255,255,255,0.3);
-            border: 2px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo-circle:hover {
-            transform: scale(1.1);
-        }
-
-        .title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            line-height: 1.4;
-            background: linear-gradient(to right, #93c5fd, #d8b4fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: #cbd5e1;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-        }
-
-        /* Post Container */
-        .post-container {
-            padding: 30px;
-            max-height: 65vh;
-            overflow-y: auto;
-        }
-
-        .post-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .post-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-        .post-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-        }
-
-        /* Individual Post Card */
+        /* Post Cards */
         .post-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
-        
-        .post-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-            border-color: rgba(96, 165, 250, 0.3);
-        }
+        .post-card:hover { border-color: rgba(96, 165, 250, 0.3); }
 
-        .post-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
-        }
+        .post-title { font-size: 1.3rem; font-weight: bold; color: #60a5fa; margin-bottom: 8px; }
+        .post-meta { font-size: 0.8rem; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 12px; }
+        .post-content { font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; }
+        .post-content a { color: #34d399; text-decoration: underline; }
 
-        .post-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #60a5fa;
-            display: flex;
-            align-items: center;
+        /* Modals & Inputs */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center; z-index: 100;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-box { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
 
-        .post-meta {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .editor-content { min-height: 150px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; outline: none; }
+        .editor-content:focus { border-color: #60a5fa; }
+        .editor-content:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.3); }
 
-        .post-content {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-main);
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-        
-        .post-content a {
-            color: #34d399;
-            text-decoration: underline;
-            transition: color 0.2s;
-        }
-        
-        .post-content a:hover {
-            color: #10b981;
-        }
-
-        /* --- Zoom Box & Copy Buttons --- */
-        .zoom-info-box {
-            background: rgba(15, 23, 42, 0.4);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .info-group {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .info-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .info-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #e2e8f0;
-        }
-
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--primary-light);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .copy-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .zoom-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, var(--primary-color), #2563eb);
-            color: white;
-            text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        .zoom-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* Overlay & Modals */
-        .admin-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .admin-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .admin-modal {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            width: 100%;
-            max-width: 650px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            margin: auto;
-        }
-
-        .admin-overlay.active .admin-modal {
-            transform: translateY(0);
-        }
-
-        /* Forms */
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: bold;
-        }
-
-        .custom-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            padding: 14px 16px;
-            color: white;
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .custom-input:focus {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
-        }
-
-        /* Editor Toolbar */
-        .editor-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 10px 10px 0 0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-bottom: none;
-            align-items: center;
-        }
-        
-        .tool-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.2s;
-        }
-        
-        .tool-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        .tool-separator {
-            width: 1px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 0 4px;
-        }
-
-        .tool-select {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 6px 10px;
-            outline: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .tool-select option {
-            background: var(--secondary-color);
-        }
-
-        .color-picker-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 8px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-        }
-        .color-picker-wrapper:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .color-picker {
-            border: none;
-            background: transparent;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            padding: 0;
-            border-radius: 4px;
-        }
-
-        /* Editable Area */
-        .editor-content {
-            min-height: 200px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 0 0 10px 10px;
-            padding: 20px;
-            color: white;
-            outline: none;
-            overflow-y: auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            transition: background 0.3s;
-        }
-        
-        .editor-content:empty:before {
-            content: attr(placeholder);
-            color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
-        }
-
-        .editor-content:focus {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-light);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 14px 24px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn-danger-outline {
-            background: transparent;
-            color: #ef4444;
-            border: 1px solid #ef4444;
-            border-radius: 12px;
-            padding: 14px 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .btn-danger-outline:hover {
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .btn-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.05);
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .btn-close:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        .delete-post-btn {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            cursor: pointer;
-            width: 32px; height: 32px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.2s;
-            margin-left: 10px;
-        }
-        .delete-post-btn:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Toast Notification */
-        .toast {
-            visibility: hidden;
-            min-width: 280px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            color: #fff;
-            text-align: center;
-            border-radius: 12px;
-            padding: 16px;
-            position: fixed;
-            z-index: 100;
-            left: 50%;
-            bottom: -50px;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.4s, bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 40px;
-        }
-
-        .bg-custom-post {
-            padding: 15px;
-            border-radius: 8px;
-        }
+        .zoom-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Glows -->
+    <!-- Background -->
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
 
-    <!-- Main View -->
-    <div class="glass-card">
-        <!-- Logo and Header -->
-        <div class="card-header">
-            <div class="logo-circle" onclick="openAdminPanel()" title="Admin Area">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
-                    <path d="M12 6v6l4 2"></path>
-                </svg>
+    <!-- PWA Install Banner -->
+    <div id="installBanner" class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-3 text-white">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white rounded-lg flex justify-center items-center text-blue-600 font-bold text-xl"><i class="fa-solid fa-dharmachakra"></i></div>
+            <div>
+                <div class="font-bold text-sm">ပါဠိစကားပြောသင်တန်း</div>
+                <div class="text-xs opacity-80">App အဖြစ် ဖုန်းတွင် ထည့်သွင်းရန်</div>
             </div>
-            <div class="title">ပါဠိစကားပြောသင်တန်း<br>ဒုတိယအကြိမ်</div>
-            <div class="subtitle">(ပါဠိသာကစ္ဆာအဖွဲ့၊ မြန်မာ)</div>
         </div>
-
-        <div class="post-container" id="publicPosts">
-            <div class="text-center text-slate-400 py-10" id="loadingPostsText">
-                <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i><br>
-                ကြေညာချက်များ ရှာဖွေနေပါသည်...
-            </div>
-            <!-- Dynamic Posts from Firebase -->
+        <div class="flex gap-2">
+            <button id="installBtn" class="bg-white text-blue-600 px-3 py-1.5 rounded-full font-bold text-sm shadow-md">Install</button>
+            <button onclick="document.getElementById('installBanner').classList.remove('show')" class="p-2"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">
-        <svg fill="none" stroke="#34d399" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span id="toast-msg">Copy ကူးယူပြီးပါပြီ</span>
-    </div>
+    <!-- Desktop Navbar -->
+    <nav class="desktop-nav hidden md:flex justify-between items-center px-8 py-4 sticky top-0 z-40">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex justify-center items-center text-white text-xl shadow-lg border border-white/20"><i class="fa-solid fa-dharmachakra"></i></div>
+            <div>
+                <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-blue-300 to-purple-300 text-transparent bg-clip-text">ပါဠိစကားပြောသင်တန်း</h1>
+            </div>
+        </div>
+        <div class="flex gap-6 font-semibold">
+            <a href="#home" class="nav-link py-2" data-tab="home"><i class="fa-solid fa-house mr-1"></i> ကြေညာချက်များ</a>
+            <a href="#zoom" class="nav-link py-2" data-tab="zoom"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
+            <a href="#books" class="nav-link py-2" data-tab="books"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
+            <a href="#records" class="nav-link py-2" data-tab="records"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
+        </div>
+        <div>
+            <button onclick="openAdmin()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-4 py-2 rounded-lg text-sm transition"><i class="fa-solid fa-lock mr-1"></i> Admin</button>
+        </div>
+    </nav>
 
-    <!-- Admin Overlay & Form -->
-    <div class="admin-overlay" id="adminOverlay">
-        <div class="admin-modal relative">
-            <button class="btn-close" onclick="closeAdminPanel()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Mobile Header -->
+    <header class="md:hidden flex justify-between items-center px-4 py-4 bg-slate-900/80 backdrop-blur sticky top-0 z-30 border-b border-white/10">
+        <h1 class="font-bold text-lg bg-gradient-to-r from-blue-300 to-purple-300 text-transparent bg-clip-text">ပါဠိစကားပြော</h1>
+        <button onclick="openAdmin()" class="text-slate-400 text-xl"><i class="fa-solid fa-circle-user"></i></button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- 1. HOME TAB -->
+        <div id="tab-home" class="tab-pane active">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-blue-400"><i class="fa-solid fa-bullhorn mr-2"></i> နောက်ဆုံးရ ကြေညာချက်များ</h2>
+            </div>
+            <div id="homePosts">
+                <div class="text-center text-slate-500 py-10"><i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2"></i><br>ရှာဖွေနေပါသည်...</div>
+            </div>
+        </div>
+
+        <!-- 2. ZOOM TAB -->
+        <div id="tab-zoom" class="tab-pane">
+            <h2 class="text-xl font-bold text-blue-400 mb-6"><i class="fa-solid fa-video mr-2"></i> သင်တန်း Zoom အချက်အလက်</h2>
             
-            <!-- Step 1: Login -->
-            <div id="passwordPrompt">
-                <h2 class="text-2xl font-bold mb-2 text-blue-400"><i class="fa-solid fa-shield-halved mr-2"></i> Admin Access</h2>
-                <p class="text-sm text-slate-400 mb-8">ပို့စ်တင်ရန်နှင့် ဖျက်ရန် လျှို့ဝှက်ကုဒ်ရိုက်ထည့်ပါ။</p>
-                <div class="input-group">
-                    <input type="password" id="adminPassword" class="custom-input text-center text-xl tracking-widest" placeholder="••••••••">
-                </div>
-                <button class="btn-primary" onclick="checkPassword()">ဝင်မည်</button>
-                <p id="passwordError" class="text-red-400 text-sm mt-3 hidden text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">ကုဒ်မှားယွင်းနေပါသည်။ ပြန်စမ်းကြည့်ပါ။</p>
-            </div>
-
-            <!-- Step 2: Post Editor -->
-            <div id="adminForm" style="display:none;">
-                <h2 class="text-2xl font-bold mb-6 text-emerald-400"><i class="fa-solid fa-pen-nib mr-2"></i> ကြေညာချက်အသစ်တင်ရန်</h2>
-                
-                <div class="input-group">
-                    <label class="input-label">ခေါင်းစဉ် (Title)</label>
-                    <input type="text" id="postTitle" class="custom-input" placeholder="ဘာအကြောင်းအရာလဲ? (ဥပမာ - မှတ်တမ်းဗီဒီယိုများ)">
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">အကြောင်းအရာ (Content)</label>
-                    
-                    <div class="editor-toolbar">
-                        <select class="tool-select" onchange="formatText('fontSize', this.value)" title="Font Size">
-                            <option value="3">ပုံမှန် (Normal)</option>
-                            <option value="1">သေးငယ် (Small)</option>
-                            <option value="5">ကြီးမား (Large)</option>
-                            <option value="7">အလွန်ကြီး (Huge)</option>
-                        </select>
-                        <div class="tool-separator"></div>
-                        <button class="tool-btn" onclick="formatText('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
-                        <button class="tool-btn" onclick="formatText('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
-                        <button class="tool-btn" onclick="formatText('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
-                        <div class="tool-separator"></div>
-                        <button class="tool-btn" onclick="formatText('justifyLeft')" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
-                        <button class="tool-btn" onclick="formatText('justifyCenter')" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
-                        <div class="tool-separator"></div>
-                        <button class="tool-btn" onclick="formatText('insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
-                        <button class="tool-btn" onclick="insertLink()" title="Add Link"><i class="fa-solid fa-link"></i></button>
-                        <div class="tool-separator"></div>
-                        <div class="color-picker-wrapper" title="စာလုံး အရောင် (Text Color)">
-                            <i class="fa-solid fa-font"></i>
-                            <input type="color" id="textColor" class="color-picker" value="#ffffff" onchange="formatText('foreColor', this.value)">
+            <div class="post-card border-t-4 border-t-blue-400">
+                <div class="zoom-box">
+                    <div class="flex justify-between items-center mb-3 bg-black/20 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-1">ZOOM ID</span>
+                            <div class="font-bold text-xl text-white">836 439 61099</div>
                         </div>
-                        <div class="color-picker-wrapper" title="နောက်ခံ အရောင် (Highlight Color)">
-                            <i class="fa-solid fa-fill-drip"></i>
-                            <input type="color" id="bgColor" class="color-picker" value="#0f172a" onchange="formatText('hiliteColor', this.value)">
-                        </div>
+                        <button onclick="copyToClip('83643961099')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-blue-500 text-blue-400 hover:text-white transition flex justify-center items-center"><i class="fa-regular fa-copy"></i></button>
                     </div>
 
-                    <div id="postContent" class="editor-content" contenteditable="true" placeholder="ဒီနေရာမှာ သင်ရေးချင်တဲ့ အကြောင်းအရာကို ရိုက်ထည့်ပါ... Facebook မှာ ပို့စ်တင်သလိုမျိုး စာလုံးအရောင်၊ နောက်ခံအရောင် ပြောင်းလို့ရပါတယ်။"></div>
-                </div>
+                    <div class="flex justify-between items-center mb-4 bg-black/20 p-3 rounded-lg border border-white/5">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-1">Passcode</span>
+                            <div class="font-bold text-xl text-white">185447</div>
+                        </div>
+                        <button onclick="copyToClip('185447')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-blue-500 text-blue-400 hover:text-white transition flex justify-center items-center"><i class="fa-regular fa-copy"></i></button>
+                    </div>
 
-                <button class="btn-primary" id="submitBtn" onclick="publishPost()">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> ယခု တင်မည် (Publish)
-                    <div class="loading-spinner" id="submitSpinner"></div>
+                    <a href="https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1" target="_blank" class="block text-center bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/30 transition mb-4">
+                        <i class="fa-solid fa-video mr-2"></i> Zoom Meeting သို့ ဝင်မည်
+                    </a>
+
+                    <div class="text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-xl text-sm font-bold">
+                        <i class="fa-regular fa-calendar-check mr-1"></i> အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး
+                    </div>
+                </div>
+            </div>
+            <!-- Zoom specific posts will load here -->
+            <div id="zoomPosts"></div>
+        </div>
+
+        <!-- 3. BOOKS TAB -->
+        <div id="tab-books" class="tab-pane">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-purple-400"><i class="fa-solid fa-book-open mr-2"></i> စာအုပ်စာတမ်းများ</h2>
+            </div>
+            <div id="booksPosts"></div>
+        </div>
+
+        <!-- 4. RECORDS TAB -->
+        <div id="tab-records" class="tab-pane">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-emerald-400"><i class="fa-solid fa-folder-open mr-2"></i> သင်တန်းမှတ်တမ်း ဗီဒီယိုများ</h2>
+            </div>
+            <div id="recordsPosts"></div>
+        </div>
+
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="bottom-nav flex md:hidden justify-around items-center fixed bottom-0 w-full z-40 pt-3">
+        <a href="#home" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="home">
+            <i class="fa-solid fa-house text-xl"></i>
+            <span class="text-[10px] font-bold">ပင်မ</span>
+        </a>
+        <a href="#zoom" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="zoom">
+            <i class="fa-solid fa-video text-xl"></i>
+            <span class="text-[10px] font-bold">ZOOM</span>
+        </a>
+        <a href="#books" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="books">
+            <i class="fa-solid fa-book-open text-xl"></i>
+            <span class="text-[10px] font-bold">စာအုပ်</span>
+        </a>
+        <a href="#records" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="records">
+            <i class="fa-solid fa-folder-open text-xl"></i>
+            <span class="text-[10px] font-bold">မှတ်တမ်း</span>
+        </a>
+    </nav>
+
+    <!-- Admin Modal -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box relative">
+            <button onclick="closeAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            
+            <!-- Login State -->
+            <div id="loginView">
+                <h2 class="text-xl font-bold text-blue-400 mb-2"><i class="fa-solid fa-lock mr-2"></i> Admin Login</h2>
+                <p class="text-sm text-slate-400 mb-6">ပို့စ်တင်ရန် လျှို့ဝှက်ကုဒ် ရိုက်ပါ။</p>
+                <input type="password" id="adminPwd" class="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white mb-4 outline-none focus:border-blue-400 text-center tracking-widest" placeholder="••••••••">
+                <button onclick="checkPwd()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold p-3 rounded-lg transition">ဝင်မည်</button>
+            </div>
+
+            <!-- Post Editor State -->
+            <div id="editorView" style="display: none;">
+                <h2 class="text-xl font-bold text-emerald-400 mb-4"><i class="fa-solid fa-pen-nib mr-2"></i> ပို့စ်အသစ်တင်ရန်</h2>
+                
+                <label class="block text-sm text-slate-400 mb-1">ပို့စ် ကဏ္ဍ (Category)</label>
+                <select id="postCategory" class="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white mb-4 outline-none focus:border-blue-400">
+                    <option value="home">ကြေညာချက် (Home)</option>
+                    <option value="zoom">ZOOM အချက်အလက်</option>
+                    <option value="books">စာအုပ်စာတမ်းများ</option>
+                    <option value="records">သင်တန်းမှတ်တမ်းများ</option>
+                </select>
+
+                <label class="block text-sm text-slate-400 mb-1">ခေါင်းစဉ်</label>
+                <input type="text" id="postTitle" class="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white mb-4 outline-none focus:border-blue-400" placeholder="ခေါင်းစဉ်...">
+
+                <label class="block text-sm text-slate-400 mb-1">အကြောင်းအရာ</label>
+                <div class="flex gap-2 mb-2 bg-black/30 p-2 rounded-t-lg border border-white/10 border-b-0 flex-wrap">
+                    <button onclick="format('bold')" class="w-8 h-8 rounded hover:bg-white/10 text-slate-300"><i class="fa-solid fa-bold"></i></button>
+                    <button onclick="format('italic')" class="w-8 h-8 rounded hover:bg-white/10 text-slate-300"><i class="fa-solid fa-italic"></i></button>
+                    <div class="w-px h-6 bg-white/10 my-1"></div>
+                    <button onclick="addLink()" class="w-8 h-8 rounded hover:bg-white/10 text-slate-300"><i class="fa-solid fa-link"></i></button>
+                    <div class="w-px h-6 bg-white/10 my-1"></div>
+                    <label class="flex items-center gap-1 text-slate-300 text-sm cursor-pointer hover:bg-white/10 p-1 rounded">
+                        <i class="fa-solid fa-font"></i> <input type="color" onchange="format('foreColor', this.value)" class="w-5 h-5 p-0 border-0 bg-transparent">
+                    </label>
+                </div>
+                <div id="postContent" contenteditable="true" class="editor-content mb-4" placeholder="ဒီမှာ ရေးပါ..."></div>
+
+                <button id="submitBtn" onclick="publish()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold p-3 rounded-lg transition mb-3">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> တင်မည်
                 </button>
-                <button class="btn-danger-outline" onclick="logoutAdmin()">
-                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> အကောင့်မှထွက်မည် (Logout)
+                <button onclick="logout()" class="w-full bg-transparent border border-red-500/50 text-red-400 hover:bg-red-500/10 font-bold p-3 rounded-lg transition">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> ထွက်မည် (Logout)
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- PWA Service Worker Inline Setup -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                self.addEventListener('install', (e) => {
-                  console.log('[Service Worker] Install');
-                });
-                self.addEventListener('fetch', (e) => {});
-            `;
-            const blob = new Blob([swCode], {type: 'application/javascript'});
-            const swUrl = URL.createObjectURL(blob);
-            
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register(swUrl)
-                    .then(reg => console.log('PWA Ready & Registered'))
-                    .catch(err => console.log('Service Worker Failed', err));
-            });
-        }
-    </script>
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 border border-slate-600 text-white px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-10 z-50 flex items-center gap-3 min-w-[250px]">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-xl" id="toastIcon"></i>
+        <span id="toastMsg" class="font-bold"></span>
+    </div>
 
-    <!-- Global Copy & Toast Function -->
-    <script>
-        function copyText(text, type) {
-            navigator.clipboard.writeText(text).then(function() {
-                showToast(type + " ကို Copy ကူးယူပြီးပါပြီ", false);
-            }).catch(function(err) {
-                showToast("Copy ကူးရာတွင် အမှားအယွင်းဖြစ်နေပါသည်", true);
-            });
-        }
-
-        function showToast(message, isError = false) {
-            var toast = document.getElementById("toast");
-            var toastMsg = document.getElementById("toast-msg");
-            
-            toastMsg.innerText = message;
-            
-            if (isError) {
-                toast.style.borderColor = "rgba(239, 68, 68, 0.3)"; 
-                toast.querySelector('svg').outerHTML = '<svg fill="none" stroke="#ef4444" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-            } else {
-                toast.style.borderColor = "rgba(52, 211, 153, 0.3)"; 
-                toast.querySelector('svg').outerHTML = '<svg fill="none" stroke="#34d399" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-            }
-
-            toast.className = "toast show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-        }
-    </script>
-
-    <!-- Firebase SDK Integration -->
+    <!-- Logic Scripts -->
     <script type="module">
+        // 1. Firebase Initialization
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -777,242 +328,236 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        
-        // Check if device is already remembered
-        let isAdmin = localStorage.getItem('pali_admin_access') === 'true';
 
-        function formatDateTime(date) {
-            const options = { 
-                year: 'numeric', month: 'short', day: 'numeric', 
-                hour: '2-digit', minute: '2-digit'
-            };
-            return new Intl.DateTimeFormat('my-MM', options).format(date);
+        // 2. Global State & Routing
+        window.isAdmin = localStorage.getItem('pali_admin') === 'true';
+        let allPosts = []; // Cache posts
+
+        function navigate() {
+            let hash = window.location.hash.substring(1) || 'home';
+            const validTabs = ['home', 'zoom', 'books', 'records'];
+            if (!validTabs.includes(hash)) hash = 'home';
+
+            // Switch Content
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + hash).classList.add('active');
+
+            // Switch Nav Highlights
+            document.querySelectorAll('.nav-link, .tab-btn').forEach(el => {
+                if(el.dataset.tab === hash) el.classList.add('active');
+                else el.classList.remove('active');
+            });
+
+            // Scroll to top safely
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
+        window.addEventListener('hashchange', navigate);
+        window.navigate = (hash) => { window.location.hash = hash; };
 
-        async function loadPosts() {
-            const postContainer = document.getElementById('publicPosts');
-            postContainer.innerHTML = ''; 
-
-            // Zoom Pinned Post with Copy Buttons
-            const defaultPostHTML = `
-                <div class="post-card" style="border-top: 4px solid var(--primary-light);">
-                    <div class="post-header-flex">
-                        <div class="post-title"><i class="fa-solid fa-thumbtack text-rose-400 mr-2 text-sm"></i> Pinned: ZOOM ID & Link</div>
-                    </div>
-                    <div class="post-content zoom-info-box">
-                        
-                        <div class="info-group">
-                            <div>
-                                <span class="info-label">ZOOM ID</span>
-                                <div class="info-value">836 439 61099</div>
-                            </div>
-                            <button class="copy-btn" onclick="copyText('83643961099', 'ZOOM ID')" title="Copy ID">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            </button>
-                        </div>
-
-                        <div class="info-group">
-                            <div>
-                                <span class="info-label">Passcode</span>
-                                <div class="info-value">185447</div>
-                            </div>
-                            <button class="copy-btn" onclick="copyText('185447', 'Passcode')" title="Copy Passcode">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            </button>
-                        </div>
-
-                        <a href="https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1" target="_blank" class="zoom-btn">
-                            <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4.585 13.607l-.27-.012H4.31c-1.556 0-2.816-1.26-2.816-2.816V7.054a2.816 2.816 0 0 1 2.816-2.816h7.458a2.816 2.816 0 0 1 2.816 2.816v3.725c0 1.556-1.26 2.816-2.816 2.816h-7.184zm10.743-1.636V6.657a.895.895 0 0 1 1.411-.73l4.636 3.26a.895.895 0 0 1 0 1.461l-4.636 3.261a.895.895 0 0 1-1.411-.73l.002-1.208z" fill-rule="evenodd"/>
-                            </svg>
-                            Zoom Meeting သို့ဝင်ရန် နှိပ်ပါ
-                        </a>
-                        
-                        <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 8px; color: #34d399; font-weight: bold; text-align: center; border: 1px solid rgba(52,211,153,0.2);">
-                            <i class="fa-regular fa-calendar-check mr-2"></i> အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး ဖွင့်လှစ်သည်။
-                        </div>
-                    </div>
-                </div>
-            `;
-            postContainer.innerHTML = defaultPostHTML;
-
+        // 3. Data Fetching & Rendering
+        async function fetchPosts() {
             try {
                 const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
-                const querySnapshot = await getDocs(q);
+                const snap = await getDocs(q);
+                allPosts = [];
+                snap.forEach(d => { allPosts.push({id: d.id, ...d.data()}); });
+                renderPosts();
                 
-                querySnapshot.forEach((document) => {
-                    const data = document.data();
-                    const docId = document.id;
-                    
-                    let timeString = "မသိရပါ";
-                    if(data.timestamp) {
-                        const dateObj = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
-                        timeString = formatDateTime(dateObj);
-                    }
-                    
-                    let deleteBtnHTML = '';
-                    if(isAdmin) {
-                        deleteBtnHTML = `<button class="delete-post-btn" onclick="deletePost('${docId}')" title="ပိုစ်ဖျက်မည်"><i class="fa-solid fa-trash"></i></button>`;
-                    }
-
-                    const newPostHTML = `
-                        <div class="post-card" id="post-${docId}">
-                            <div class="post-header-flex">
-                                <div>
-                                    <div class="post-title">${data.title}</div>
-                                    <div class="post-meta"><i class="fa-regular fa-clock"></i> ${timeString}</div>
-                                </div>
-                                ${deleteBtnHTML}
-                            </div>
-                            <div class="post-content bg-custom-post">${data.content}</div>
-                        </div>
-                    `;
-                    postContainer.insertAdjacentHTML('beforeend', newPostHTML);
-                });
-            } catch (error) {
-                console.error("Error loading posts: ", error);
-                postContainer.insertAdjacentHTML('beforeend', `<div class="text-center text-red-400 mt-4 bg-red-400/10 p-4 rounded-lg">ဒေတာယူရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။ (Firebase Rules များကို စစ်ဆေးပါ)</div>`);
+                // Request Notification Permission on first successful load
+                if(Notification && Notification.permission === "default") {
+                    Notification.requestPermission();
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById('homePosts').innerHTML = '<div class="text-red-400 text-center py-5">ဒေတာချိတ်ဆက်မှု အမှားဖြစ်နေပါသည်။</div>';
             }
         }
 
-        window.publishPost = async function() {
-            const title = document.getElementById('postTitle').value.trim();
-            const content = document.getElementById('postContent').innerHTML.trim();
-            const submitSpinner = document.getElementById('submitSpinner');
-            const submitBtn = document.getElementById('submitBtn');
+        function renderPosts() {
+            const containers = {
+                'home': document.getElementById('homePosts'),
+                'zoom': document.getElementById('zoomPosts'),
+                'books': document.getElementById('booksPosts'),
+                'records': document.getElementById('recordsPosts')
+            };
 
-            if (!title || !content || content === "<br>") {
-                alert("ခေါင်းစဉ်နှင့် အကြောင်းအရာ အပြည့်အစုံထည့်ပါ။");
+            // Clear all first
+            Object.values(containers).forEach(c => c.innerHTML = '');
+
+            if(allPosts.length === 0) {
+                containers['home'].innerHTML = '<div class="text-slate-500 text-center py-10">ကြေညာချက် မရှိသေးပါ။</div>';
                 return;
             }
 
-            submitBtn.disabled = true;
-            submitSpinner.style.display = 'inline-block';
+            allPosts.forEach(post => {
+                const cat = post.category || 'home';
+                const targetContainer = containers[cat] || containers['home'];
+
+                // Format Date
+                let timeStr = "";
+                if(post.timestamp) {
+                    const d = post.timestamp.toDate ? post.timestamp.toDate() : new Date(post.timestamp);
+                    timeStr = new Intl.DateTimeFormat('my-MM', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(d);
+                }
+
+                const delBtn = window.isAdmin ? `<button onclick="delPost('${post.id}')" class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white p-2 rounded-lg transition"><i class="fa-solid fa-trash"></i></button>` : '';
+
+                const html = `
+                    <div class="post-card" id="post-${post.id}">
+                        <div class="post-header-flex">
+                            <div>
+                                <div class="post-title">${post.title}</div>
+                                <div class="post-meta"><i class="fa-regular fa-clock mr-1"></i> ${timeStr}</div>
+                            </div>
+                            ${delBtn}
+                        </div>
+                        <div class="post-content">${post.content}</div>
+                    </div>
+                `;
+                targetContainer.insertAdjacentHTML('beforeend', html);
+            });
+            
+            // Show empty states for other tabs if no posts
+            ['zoom', 'books', 'records'].forEach(cat => {
+                if(containers[cat].innerHTML === '') {
+                    containers[cat].innerHTML = `<div class="text-slate-500 text-center py-10 text-sm">ယခုကဏ္ဍတွင် ပို့စ်မရှိသေးပါ။</div>`;
+                }
+            });
+        }
+
+        // 4. Publish Post
+        window.publish = async function() {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = document.getElementById('postContent').innerHTML.trim();
+            const category = document.getElementById('postCategory').value;
+            const btn = document.getElementById('submitBtn');
+
+            if(!title || !content || content === "<br>") return window.toast("အချက်အလက် ပြည့်စုံစွာထည့်ပါ။", true);
+
+            btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
 
             try {
-                await addDoc(collection(db, "posts"), {
-                    title: title,
-                    content: content,
-                    timestamp: new Date()
-                });
-
-                document.getElementById('postTitle').value = '';
-                document.getElementById('postContent').innerHTML = '';
-                closeAdminPanel();
-                loadPosts(); 
-                showToast("✅ ကြေညာချက် အောင်မြင်စွာ တင်ပြီးပါပြီ။", false);
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                showToast("ပို့စ်တင်ရန် ခွင့်ပြုချက်မရှိပါ။ (Firebase Rules စစ်ဆေးပါ)", true);
-            } finally {
-                submitBtn.disabled = false;
-                submitSpinner.style.display = 'none';
-            }
-        };
-
-        window.deletePost = async function(docId) {
-            if(confirm("ဤကြေညာချက်ကို အပြီးတိုင် ဖျက်ရန် သေချာပါသလား?")) {
-                try {
-                    await deleteDoc(doc(db, "posts", docId));
-                    document.getElementById(`post-${docId}`).style.opacity = '0';
-                    setTimeout(() => document.getElementById(`post-${docId}`).remove(), 300);
-                } catch (error) {
-                    console.error("Error deleting document: ", error);
-                    showToast("ဖျက်ရာတွင် အမှားအယွင်းဖြစ်နေပါသည်။", true);
+                await addDoc(collection(db, "posts"), { title, content, category, timestamp: new Date() });
+                
+                // Show Local Notification if permitted
+                if(Notification && Notification.permission === "granted") {
+                    new Notification("ကြေညာချက်အသစ်: " + title, { body: "ပါဠိစကားပြောသင်တန်းတွင် ပို့စ်အသစ်တင်လိုက်ပါပြီ။", icon: "icon-192.png" });
                 }
+
+                window.closeAdmin();
+                window.toast("အောင်မြင်စွာ တင်ပြီးပါပြီ။");
+                fetchPosts(); // Reload
+            } catch (e) {
+                window.toast("ပို့စ်တင်ခွင့် မရှိပါ။", true);
+            } finally {
+                btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> တင်မည်';
             }
         };
 
-        window.setAdminStatus = function(status) {
-            isAdmin = status;
-            loadPosts(); 
-        }
-        
-        // Initial Load
-        loadPosts();
+        // 5. Delete Post
+        window.delPost = async function(id) {
+            if(!confirm("အပြီးတိုင် ဖျက်မည်မှာ သေချာပါသလား?")) return;
+            try {
+                await deleteDoc(doc(db, "posts", id));
+                document.getElementById(`post-${id}`).style.display = 'none';
+                window.toast("ဖျက်လိုက်ပါပြီ။");
+            } catch(e) { window.toast("ဖျက်မရပါ။", true); }
+        };
+
+        // Init
+        navigate();
+        fetchPosts();
+
     </script>
 
-    <!-- UI Interaction Scripts -->
+    <!-- UI & PWA Scripts -->
     <script>
-        const overlay = document.getElementById('adminOverlay');
-        const passPrompt = document.getElementById('passwordPrompt');
-        const adminForm = document.getElementById('adminForm');
-        const passInput = document.getElementById('adminPassword');
-        const passError = document.getElementById('passwordError');
-        const editor = document.getElementById('postContent');
+        // Copy to clipboard
+        window.copyToClip = function(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                window.toast("Copy ကူးယူပြီးပါပြီ");
+            });
+        };
 
-        function showEditor() {
-            passPrompt.style.display = 'none';
-            adminForm.style.display = 'block';
-            document.getElementById('postTitle').value = '';
-            editor.innerHTML = '';
-            if(typeof window.setAdminStatus === 'function') {
-                window.setAdminStatus(true);
-            }
-        }
+        // Toast System
+        window.toast = function(msg, isErr = false) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            document.getElementById('toastIcon').className = isErr ? "fa-solid fa-circle-xmark text-red-400 text-xl" : "fa-solid fa-circle-check text-emerald-400 text-xl";
+            t.style.opacity = '1'; t.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translate(-50%, 40px)'; }, 3000);
+        };
 
-        function openAdminPanel() {
-            overlay.classList.add('active');
-            
-            // Check Device Memory (Local Storage)
-            if (localStorage.getItem('pali_admin_access') === 'true') {
-                showEditor();
+        // Admin Panel Logic
+        function openAdmin() {
+            document.getElementById('adminModal').classList.add('active');
+            if(window.isAdmin) {
+                document.getElementById('loginView').style.display = 'none';
+                document.getElementById('editorView').style.display = 'block';
             } else {
-                passInput.value = '';
-                passError.classList.add('hidden');
-                passPrompt.style.display = 'block';
-                adminForm.style.display = 'none';
-                setTimeout(() => passInput.focus(), 100);
+                document.getElementById('loginView').style.display = 'block';
+                document.getElementById('editorView').style.display = 'none';
             }
         }
+        window.openAdmin = openAdmin;
 
-        function closeAdminPanel() {
-            overlay.classList.remove('active');
-        }
+        window.closeAdmin = function() { document.getElementById('adminModal').classList.remove('active'); };
 
-        function logoutAdmin() {
-            localStorage.removeItem('pali_admin_access');
-            if(typeof window.setAdminStatus === 'function') {
-                window.setAdminStatus(false);
-            }
-            closeAdminPanel();
-            showToast("Admin အကောင့်မှ ထွက်ပြီးပါပြီ။", false);
-        }
-
-        function checkPassword() {
-            if (passInput.value === 'palivoice') {
-                // Save access to Device Memory
-                localStorage.setItem('pali_admin_access', 'true');
-                showEditor();
+        window.checkPwd = function() {
+            if(document.getElementById('adminPwd').value === 'palivoice') {
+                localStorage.setItem('pali_admin', 'true');
+                window.isAdmin = true;
+                openAdmin(); // refresh view
+                location.reload(); // Quick reload to show delete buttons
             } else {
-                passError.classList.remove('hidden');
+                window.toast("Password မှားနေပါသည်။", true);
             }
-        }
+        };
 
-        passInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') checkPassword();
-        });
+        window.logout = function() {
+            localStorage.removeItem('pali_admin');
+            window.isAdmin = false;
+            window.closeAdmin();
+            location.reload();
+        };
 
-        function formatText(command, value = null) {
-            editor.focus();
-            document.execCommand(command, false, value);
-        }
-
-        function insertLink() {
-            const url = prompt("Link ထည့်ပါ (ဥပမာ - https://...):", "https://");
-            if (url) {
-                const linkHTML = `<a href="${url}" target="_blank" style="color: #34d399; text-decoration: underline; font-weight:bold;">${url}</a>`;
-                editor.focus();
-                document.execCommand('insertHTML', false, linkHTML);
+        // Editor Formatter
+        window.format = function(cmd, val = null) {
+            document.getElementById('postContent').focus();
+            document.execCommand(cmd, false, val);
+        };
+        window.addLink = function() {
+            const url = prompt("Link ထည့်ပါ:", "https://");
+            if(url) {
+                document.getElementById('postContent').focus();
+                document.execCommand('insertHTML', false, `<a href="${url}" target="_blank" style="color:#34d399;text-decoration:underline;">${url}</a>`);
             }
-        }
-        
-        editor.addEventListener("paste", function(e) {
+        };
+
+        // PWA Install Logic
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
-            const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-            document.execCommand('insertText', false, text);
+            deferredPrompt = e;
+            // Show custom install banner
+            setTimeout(() => { document.getElementById('installBanner').classList.add('show'); }, 2000);
         });
 
+        document.getElementById('installBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                document.getElementById('installBanner').classList.remove('show');
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            }
+        });
+
+        // Inline Service Worker
+        if ('serviceWorker' in navigator) {
+            const swCode = `self.addEventListener('install', (e)=>{}); self.addEventListener('fetch', (e)=>{});`;
+            const blob = new Blob([swCode], {type: 'application/javascript'});
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
     </script>
 </body>
 </html>

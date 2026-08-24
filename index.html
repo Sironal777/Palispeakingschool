@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ပါဠိစကားပြောသင်တန်း - Dashboard</title>
     
-    <!-- PWA Web App Settings -->
-    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%22%E1%80%95%E1%80%AB%E1%80%B8%E1%80%A1%E1%80%92%E1%80%AC%E1%80%B8%E1%80%80%E1%80%BB%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%84%E1%80%BA%E1%80%B8%22%2C%22short_name%22%3A%22Pali%20Class%22%2C%22description%22%3A%22%E1%80%95%E1%80%AB%E1%80%B8%E1%80%A1%E1%80%92%E1%80%AC%E1%80%B8%E1%80%80%E1%80%BB%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%84%E1%80%BA%E1%80%B8%20(%E1%80%92%E1%80%AF%E1%80%90%E1%80%AD%E1%80%9A%E1%80%A1%E1%80%80%E1%80%BC%E1%80%AD%E1%80%99%E1%80%BA)%20Dashboard%22%2C%22start_url%22%3A%22./index.html%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%233b82f6%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22icon-192.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%7D%2C%7B%22src%22%3A%22icon-512.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D'>
+    <!-- PWA Web App Settings (Fixed Unicode & Short Name) -->
+    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%22%2C%20%22short_name%22%3A%20%22Pali%20Speaking%22%2C%20%22description%22%3A%20%22%E1%80%95%E1%80%AB%E1%80%A0%E1%80%AD%E1%80%85%E1%80%80%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%B1%E1%80%AC%E1%80%9E%E1%80%84%E1%80%BA%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%20%28%E1%80%92%E1%80%AF%E1%80%90%E1%80%AD%E1%80%9A%E1%80%A1%E1%80%80%E1%80%BC%E1%80%AD%E1%80%99%E1%80%BA%29%20Dashboard%22%2C%20%22start_url%22%3A%20%22./index.html%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%230f172a%22%2C%20%22theme_color%22%3A%20%22%233b82f6%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22icon-192.png%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%7D%2C%20%7B%22src%22%3A%20%22icon-512.png%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%7D%5D%7D'>
     <meta name="theme-color" content="#3b82f6">
     <link rel="apple-touch-icon" href="icon-192.png">
 
@@ -89,7 +89,7 @@
 
         /* --- Header with Background Image --- */
         .card-header {
-            /* Use LOGO-2.png as background, overlaid with dark gradient for readability */
+            /* Using LOGO-2.png as background */
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.95)), url('LOGO-2.png');
             background-size: cover;
             background-position: center;
@@ -370,7 +370,7 @@
             box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
         }
 
-        /* Facebook-style Toolbar */
+        /* Editor Toolbar */
         .editor-toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -437,10 +437,6 @@
         }
         .color-picker-wrapper:hover {
             background: rgba(255, 255, 255, 0.1);
-        }
-        .color-picker-wrapper i {
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
 
         .color-picker {
@@ -662,7 +658,7 @@
                 <p id="passwordError" class="text-red-400 text-sm mt-3 hidden text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">ကုဒ်မှားယွင်းနေပါသည်။ ပြန်စမ်းကြည့်ပါ။</p>
             </div>
 
-            <!-- Step 2: Facebook-style Post Editor -->
+            <!-- Step 2: Post Editor -->
             <div id="adminForm" style="display:none;">
                 <h2 class="text-2xl font-bold mb-6 text-emerald-400"><i class="fa-solid fa-pen-nib mr-2"></i> ကြေညာချက်အသစ်တင်ရန်</h2>
                 
@@ -674,7 +670,6 @@
                 <div class="input-group">
                     <label class="input-label">အကြောင်းအရာ (Content)</label>
                     
-                    <!-- Advanced Editor Toolbar -->
                     <div class="editor-toolbar">
                         <select class="tool-select" onchange="formatText('fontSize', this.value)" title="Font Size">
                             <option value="3">ပုံမှန် (Normal)</option>
@@ -682,37 +677,27 @@
                             <option value="5">ကြီးမား (Large)</option>
                             <option value="7">အလွန်ကြီး (Huge)</option>
                         </select>
-                        
                         <div class="tool-separator"></div>
-
                         <button class="tool-btn" onclick="formatText('bold')" title="Bold"><i class="fa-solid fa-bold"></i></button>
                         <button class="tool-btn" onclick="formatText('italic')" title="Italic"><i class="fa-solid fa-italic"></i></button>
                         <button class="tool-btn" onclick="formatText('underline')" title="Underline"><i class="fa-solid fa-underline"></i></button>
-                        
                         <div class="tool-separator"></div>
-                        
                         <button class="tool-btn" onclick="formatText('justifyLeft')" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
                         <button class="tool-btn" onclick="formatText('justifyCenter')" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
-                        
                         <div class="tool-separator"></div>
-                        
                         <button class="tool-btn" onclick="formatText('insertUnorderedList')" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
                         <button class="tool-btn" onclick="insertLink()" title="Add Link"><i class="fa-solid fa-link"></i></button>
-                        
                         <div class="tool-separator"></div>
-                        
                         <div class="color-picker-wrapper" title="စာလုံး အရောင် (Text Color)">
                             <i class="fa-solid fa-font"></i>
                             <input type="color" id="textColor" class="color-picker" value="#ffffff" onchange="formatText('foreColor', this.value)">
                         </div>
-                        
                         <div class="color-picker-wrapper" title="နောက်ခံ အရောင် (Highlight Color)">
                             <i class="fa-solid fa-fill-drip"></i>
                             <input type="color" id="bgColor" class="color-picker" value="#0f172a" onchange="formatText('hiliteColor', this.value)">
                         </div>
                     </div>
 
-                    <!-- The Writing Area -->
                     <div id="postContent" class="editor-content" contenteditable="true" placeholder="ဒီနေရာမှာ သင်ရေးချင်တဲ့ အကြောင်းအရာကို ရိုက်ထည့်ပါ... Facebook မှာ ပို့စ်တင်သလိုမျိုး စာလုံးအရောင်၊ နောက်ခံအရောင် ပြောင်းလို့ရပါတယ်။"></div>
                 </div>
 

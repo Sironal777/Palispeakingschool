@@ -23,6 +23,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* Ambient Glow */
@@ -37,18 +38,45 @@
         .glow-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(59, 130, 246, 0.4); }
         .glow-2 { bottom: 10%; right: -10%; width: 500px; height: 500px; background: rgba(139, 92, 246, 0.2); }
 
+        /* Uiverse Button Style */
+        .uiverse-btn {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: none;
+            outline: none;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: rgb(14, 14, 26);
+            color: rgb(234, 234, 234);
+            font-weight: 700;
+            transition: 0.6s;
+            box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.5);
+            -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.3));
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .uiverse-btn:active {
+            transform: scale(0.92);
+        }
+
+        .uiverse-btn:hover {
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+            color: rgb(4, 4, 38);
+            box-shadow: 0px 0px 60px rgba(31, 215, 232, 0.6);
+        }
+
         /* Desktop Navbar */
         .desktop-nav {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        .nav-link {
-            color: #94a3b8;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
-        }
+        .nav-link { color: #94a3b8; border-bottom: 2px solid transparent; transition: all 0.3s; }
         .nav-link:hover { color: #fff; }
         .nav-link.active { color: #60a5fa; border-bottom-color: #60a5fa; }
 
@@ -59,10 +87,7 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             padding-bottom: env(safe-area-inset-bottom);
         }
-        .tab-btn {
-            color: #64748b;
-            transition: all 0.3s;
-        }
+        .tab-btn { color: #64748b; transition: all 0.3s; }
         .tab-btn.active { color: #60a5fa; transform: translateY(-2px); }
 
         /* Install Banner */
@@ -78,11 +103,9 @@
         .main-content {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px 15px 100px 15px; /* bottom padding for mobile nav */
+            padding: 20px 15px 100px 15px; 
         }
-        @media (min-width: 768px) {
-            .main-content { padding: 40px 20px; }
-        }
+        @media (min-width: 768px) { .main-content { padding: 40px 20px; } }
 
         .tab-pane { display: none; animation: fadeIn 0.4s ease; }
         .tab-pane.active { display: block; }
@@ -97,14 +120,32 @@
             padding: 24px;
             margin-bottom: 24px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.3s;
+            scroll-margin-top: 100px; /* Offset for deep linking scroll */
         }
         .post-card:hover { border-color: rgba(96, 165, 250, 0.3); }
+        .post-card.highlight {
+            animation: highlightGlow 2s ease-out;
+        }
+        @keyframes highlightGlow {
+            0% { box-shadow: 0 0 0 2px rgba(31, 215, 232, 0.8), 0 0 30px rgba(31, 215, 232, 0.5); }
+            100% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+        }
 
         .post-title { font-size: 1.3rem; font-weight: bold; color: #60a5fa; margin-bottom: 8px; }
         .post-meta { font-size: 0.8rem; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 12px; }
-        .post-content { font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; }
+        .post-content { font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; }
         .post-content a { color: #34d399; text-decoration: underline; }
+
+        .share-btn {
+            color: #64748b;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .share-btn:hover { background: rgba(96, 165, 250, 0.2); color: #60a5fa; }
 
         /* Modals & Inputs */
         .modal-overlay {
@@ -119,7 +160,7 @@
         .editor-content:focus { border-color: #60a5fa; }
         .editor-content:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.3); }
 
-        .zoom-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .zoom-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -145,27 +186,27 @@
 
     <!-- Desktop Navbar -->
     <nav class="desktop-nav hidden md:flex justify-between items-center px-8 py-4 sticky top-0 z-40">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="openAdmin()" title="Secret Admin Login">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex justify-center items-center text-white text-xl shadow-lg border border-white/20"><i class="fa-solid fa-dharmachakra"></i></div>
             <div>
                 <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-blue-300 to-purple-300 text-transparent bg-clip-text">ပါဠိစကားပြောသင်တန်း</h1>
             </div>
         </div>
         <div class="flex gap-6 font-semibold">
-            <a href="#home" class="nav-link py-2" data-tab="home"><i class="fa-solid fa-house mr-1"></i> ကြေညာချက်များ</a>
-            <a href="#zoom" class="nav-link py-2" data-tab="zoom"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
-            <a href="#books" class="nav-link py-2" data-tab="books"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
-            <a href="#records" class="nav-link py-2" data-tab="records"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
+            <a href="#home" class="nav-link py-2" data-tab="home" onclick="navTo('home')"><i class="fa-solid fa-house mr-1"></i> ကြေညာချက်များ</a>
+            <a href="#zoom" class="nav-link py-2" data-tab="zoom" onclick="navTo('zoom')"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
+            <a href="#books" class="nav-link py-2" data-tab="books" onclick="navTo('books')"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
+            <a href="#records" class="nav-link py-2" data-tab="records" onclick="navTo('records')"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
         </div>
-        <div>
-            <button onclick="openAdmin()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-4 py-2 rounded-lg text-sm transition"><i class="fa-solid fa-lock mr-1"></i> Admin</button>
-        </div>
+        <div class="w-10"></div> 
     </nav>
 
     <!-- Mobile Header -->
     <header class="md:hidden flex justify-between items-center px-4 py-4 bg-slate-900/80 backdrop-blur sticky top-0 z-30 border-b border-white/10">
         <h1 class="font-bold text-lg bg-gradient-to-r from-blue-300 to-purple-300 text-transparent bg-clip-text">ပါဠိစကားပြော</h1>
-        <button onclick="openAdmin()" class="text-slate-400 text-xl"><i class="fa-solid fa-circle-user"></i></button>
+        <button onclick="openAdmin()" class="text-slate-400 text-xl hover:text-white transition" title="Secret Admin Login">
+            <i class="fa-solid fa-dharmachakra"></i>
+        </button>
     </header>
 
     <!-- Main Content Area -->
@@ -175,6 +216,7 @@
         <div id="tab-home" class="tab-pane active">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-blue-400"><i class="fa-solid fa-bullhorn mr-2"></i> နောက်ဆုံးရ ကြေညာချက်များ</h2>
+                <button onclick="copyToClip(window.location.origin + window.location.pathname + '#home')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
             </div>
             <div id="homePosts">
                 <div class="text-center text-slate-500 py-10"><i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2"></i><br>ရှာဖွေနေပါသည်...</div>
@@ -183,7 +225,10 @@
 
         <!-- 2. ZOOM TAB -->
         <div id="tab-zoom" class="tab-pane">
-            <h2 class="text-xl font-bold text-blue-400 mb-6"><i class="fa-solid fa-video mr-2"></i> သင်တန်း Zoom အချက်အလက်</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-blue-400"><i class="fa-solid fa-video mr-2"></i> သင်တန်း Zoom အချက်အလက်</h2>
+                <button onclick="copyToClip(window.location.origin + window.location.pathname + '#zoom')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+            </div>
             
             <div class="post-card border-t-4 border-t-blue-400">
                 <div class="zoom-box">
@@ -203,16 +248,16 @@
                         <button onclick="copyToClip('185447')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-blue-500 text-blue-400 hover:text-white transition flex justify-center items-center"><i class="fa-regular fa-copy"></i></button>
                     </div>
 
-                    <a href="https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1" target="_blank" class="block text-center bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-blue-500/30 transition mb-4">
-                        <i class="fa-solid fa-video mr-2"></i> Zoom Meeting သို့ ဝင်မည်
-                    </a>
-
                     <div class="text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-3 rounded-xl text-sm font-bold">
                         <i class="fa-regular fa-calendar-check mr-1"></i> အပတ်စဉ် အင်္ဂါ၊ ဗုဒ္ဓဟူး၊ ကြာသပတေး
                     </div>
                 </div>
+
+                <!-- 3D Uiverse Button -->
+                <a href="https://us06web.zoom.us/j/81440284637?pwd=z7OgdUyucvDcsziuNzkIJUvjx0APA0.1" target="_blank" class="uiverse-btn mb-4 mt-2">
+                    <i class="fa-solid fa-video mr-2"></i> Zoom သို့ဝင်မည်
+                </a>
             </div>
-            <!-- Zoom specific posts will load here -->
             <div id="zoomPosts"></div>
         </div>
 
@@ -220,6 +265,7 @@
         <div id="tab-books" class="tab-pane">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-purple-400"><i class="fa-solid fa-book-open mr-2"></i> စာအုပ်စာတမ်းများ</h2>
+                <button onclick="copyToClip(window.location.origin + window.location.pathname + '#books')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
             </div>
             <div id="booksPosts"></div>
         </div>
@@ -228,6 +274,7 @@
         <div id="tab-records" class="tab-pane">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-emerald-400"><i class="fa-solid fa-folder-open mr-2"></i> သင်တန်းမှတ်တမ်း ဗီဒီယိုများ</h2>
+                <button onclick="copyToClip(window.location.origin + window.location.pathname + '#records')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
             </div>
             <div id="recordsPosts"></div>
         </div>
@@ -236,19 +283,19 @@
 
     <!-- Mobile Bottom Navigation -->
     <nav class="bottom-nav flex md:hidden justify-around items-center fixed bottom-0 w-full z-40 pt-3">
-        <a href="#home" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="home">
+        <a href="#home" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="home" onclick="navTo('home')">
             <i class="fa-solid fa-house text-xl"></i>
             <span class="text-[10px] font-bold">ပင်မ</span>
         </a>
-        <a href="#zoom" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="zoom">
+        <a href="#zoom" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="zoom" onclick="navTo('zoom')">
             <i class="fa-solid fa-video text-xl"></i>
             <span class="text-[10px] font-bold">ZOOM</span>
         </a>
-        <a href="#books" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="books">
+        <a href="#books" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="books" onclick="navTo('books')">
             <i class="fa-solid fa-book-open text-xl"></i>
             <span class="text-[10px] font-bold">စာအုပ်</span>
         </a>
-        <a href="#records" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="records">
+        <a href="#records" class="tab-btn flex flex-col items-center gap-1 w-1/4 pb-2" data-tab="records" onclick="navTo('records')">
             <i class="fa-solid fa-folder-open text-xl"></i>
             <span class="text-[10px] font-bold">မှတ်တမ်း</span>
         </a>
@@ -295,9 +342,11 @@
                 </div>
                 <div id="postContent" contenteditable="true" class="editor-content mb-4" placeholder="ဒီမှာ ရေးပါ..."></div>
 
-                <button id="submitBtn" onclick="publish()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold p-3 rounded-lg transition mb-3">
-                    <i class="fa-solid fa-paper-plane mr-2"></i> တင်မည်
+                <!-- 3D Uiverse Button for Submit -->
+                <button id="submitBtn" onclick="publish()" class="uiverse-btn mb-4 mt-2">
+                    <span id="btnText"><i class="fa-solid fa-paper-plane mr-2"></i> ယခု တင်မည် (Publish)</span>
                 </button>
+
                 <button onclick="logout()" class="w-full bg-transparent border border-red-500/50 text-red-400 hover:bg-red-500/10 font-bold p-3 rounded-lg transition">
                     <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> ထွက်မည် (Logout)
                 </button>
@@ -306,7 +355,7 @@
     </div>
 
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 border border-slate-600 text-white px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-10 z-50 flex items-center gap-3 min-w-[250px]">
+    <div id="toast" class="fixed bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 border border-slate-600 text-white px-4 py-3 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-10 z-50 flex items-center gap-3 min-w-[250px] pointer-events-none">
         <i class="fa-solid fa-circle-check text-emerald-400 text-xl" id="toastIcon"></i>
         <span id="toastMsg" class="font-bold"></span>
     </div>
@@ -329,30 +378,49 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 2. Global State & Routing
+        // 2. Global State & Smart Routing
         window.isAdmin = localStorage.getItem('pali_admin') === 'true';
-        let allPosts = []; // Cache posts
+        let allPosts = []; 
 
-        function navigate() {
-            let hash = window.location.hash.substring(1) || 'home';
-            const validTabs = ['home', 'zoom', 'books', 'records'];
-            if (!validTabs.includes(hash)) hash = 'home';
+        function processHash() {
+            const hash = window.location.hash.substring(1);
+            let tabToOpen = 'home';
+
+            if(hash.startsWith('post-')) {
+                // If deep linked to a post, find its category
+                const targetPost = allPosts.find(p => `post-${p.id}` === hash);
+                if(targetPost) {
+                    tabToOpen = targetPost.category || 'home';
+                    setTimeout(() => {
+                        const el = document.getElementById(hash);
+                        if(el) {
+                            el.scrollIntoView({ behavior: 'smooth' });
+                            el.classList.add('highlight');
+                            setTimeout(() => el.classList.remove('highlight'), 2000);
+                        }
+                    }, 500);
+                }
+            } else if (['home', 'zoom', 'books', 'records'].includes(hash)) {
+                tabToOpen = hash;
+            }
 
             // Switch Content
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + hash).classList.add('active');
+            document.getElementById('tab-' + tabToOpen).classList.add('active');
 
             // Switch Nav Highlights
             document.querySelectorAll('.nav-link, .tab-btn').forEach(el => {
-                if(el.dataset.tab === hash) el.classList.add('active');
+                if(el.dataset.tab === tabToOpen) el.classList.add('active');
                 else el.classList.remove('active');
             });
-
-            // Scroll to top safely
-            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        window.addEventListener('hashchange', navigate);
-        window.navigate = (hash) => { window.location.hash = hash; };
+
+        window.navTo = function(tabName) {
+            window.location.hash = tabName;
+            processHash();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+        window.addEventListener('hashchange', processHash);
 
         // 3. Data Fetching & Rendering
         async function fetchPosts() {
@@ -362,8 +430,8 @@
                 allPosts = [];
                 snap.forEach(d => { allPosts.push({id: d.id, ...d.data()}); });
                 renderPosts();
+                processHash(); // Check hash after posts load
                 
-                // Request Notification Permission on first successful load
                 if(Notification && Notification.permission === "default") {
                     Notification.requestPermission();
                 }
@@ -381,7 +449,6 @@
                 'records': document.getElementById('recordsPosts')
             };
 
-            // Clear all first
             Object.values(containers).forEach(c => c.innerHTML = '');
 
             if(allPosts.length === 0) {
@@ -393,14 +460,15 @@
                 const cat = post.category || 'home';
                 const targetContainer = containers[cat] || containers['home'];
 
-                // Format Date
                 let timeStr = "";
                 if(post.timestamp) {
                     const d = post.timestamp.toDate ? post.timestamp.toDate() : new Date(post.timestamp);
                     timeStr = new Intl.DateTimeFormat('my-MM', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(d);
                 }
 
-                const delBtn = window.isAdmin ? `<button onclick="delPost('${post.id}')" class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white p-2 rounded-lg transition"><i class="fa-solid fa-trash"></i></button>` : '';
+                const postLink = `${window.location.origin}${window.location.pathname}#post-${post.id}`;
+                
+                const adminBtns = window.isAdmin ? `<button onclick="delPost('${post.id}')" class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white px-3 py-1 rounded-lg transition ml-2"><i class="fa-solid fa-trash"></i></button>` : '';
 
                 const html = `
                     <div class="post-card" id="post-${post.id}">
@@ -409,7 +477,10 @@
                                 <div class="post-title">${post.title}</div>
                                 <div class="post-meta"><i class="fa-regular fa-clock mr-1"></i> ${timeStr}</div>
                             </div>
-                            ${delBtn}
+                            <div class="flex">
+                                <button onclick="copyToClip('${postLink}', 'လင့်ခ်')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                                ${adminBtns}
+                            </div>
                         </div>
                         <div class="post-content">${post.content}</div>
                     </div>
@@ -417,7 +488,6 @@
                 targetContainer.insertAdjacentHTML('beforeend', html);
             });
             
-            // Show empty states for other tabs if no posts
             ['zoom', 'books', 'records'].forEach(cat => {
                 if(containers[cat].innerHTML === '') {
                     containers[cat].innerHTML = `<div class="text-slate-500 text-center py-10 text-sm">ယခုကဏ္ဍတွင် ပို့စ်မရှိသေးပါ။</div>`;
@@ -431,15 +501,17 @@
             const content = document.getElementById('postContent').innerHTML.trim();
             const category = document.getElementById('postCategory').value;
             const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
 
             if(!title || !content || content === "<br>") return window.toast("အချက်အလက် ပြည့်စုံစွာထည့်ပါ။", true);
 
-            btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true; 
+            btn.style.pointerEvents = 'none';
+            btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> တင်နေပါသည်...';
 
             try {
                 await addDoc(collection(db, "posts"), { title, content, category, timestamp: new Date() });
                 
-                // Show Local Notification if permitted
                 if(Notification && Notification.permission === "granted") {
                     new Notification("ကြေညာချက်အသစ်: " + title, { body: "ပါဠိစကားပြောသင်တန်းတွင် ပို့စ်အသစ်တင်လိုက်ပါပြီ။", icon: "icon-192.png" });
                 }
@@ -450,7 +522,9 @@
             } catch (e) {
                 window.toast("ပို့စ်တင်ခွင့် မရှိပါ။", true);
             } finally {
-                btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> တင်မည်';
+                btn.disabled = false; 
+                btn.style.pointerEvents = 'auto';
+                btnText.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> ယခု တင်မည် (Publish)';
             }
         };
 
@@ -465,7 +539,8 @@
         };
 
         // Init
-        navigate();
+        if(!window.location.hash) window.location.hash = 'home';
+        processHash();
         fetchPosts();
 
     </script>
@@ -473,9 +548,11 @@
     <!-- UI & PWA Scripts -->
     <script>
         // Copy to clipboard
-        window.copyToClip = function(text) {
+        window.copyToClip = function(text, typeName = "စာသား") {
             navigator.clipboard.writeText(text).then(() => {
-                window.toast("Copy ကူးယူပြီးပါပြီ");
+                window.toast(typeName + " ကို Copy ကူးယူပြီးပါပြီ");
+            }).catch(() => {
+                window.toast("Copy ကူးရာတွင် အမှားဖြစ်နေပါသည်", true);
             });
         };
 
@@ -508,7 +585,7 @@
                 localStorage.setItem('pali_admin', 'true');
                 window.isAdmin = true;
                 openAdmin(); // refresh view
-                location.reload(); // Quick reload to show delete buttons
+                location.reload(); 
             } else {
                 window.toast("Password မှားနေပါသည်။", true);
             }
@@ -539,7 +616,6 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Show custom install banner
             setTimeout(() => { document.getElementById('installBanner').classList.add('show'); }, 2000);
         });
 

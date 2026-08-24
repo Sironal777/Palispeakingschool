@@ -26,192 +26,64 @@
             scroll-behavior: smooth;
         }
 
-        /* Ambient Glow */
-        .ambient-glow {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            z-index: -1;
-            pointer-events: none;
-        }
+        .ambient-glow { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.4; z-index: -1; pointer-events: none; }
         .glow-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: rgba(59, 130, 246, 0.4); }
         .glow-2 { bottom: 10%; right: -10%; width: 500px; height: 500px; background: rgba(139, 92, 246, 0.2); }
 
-        /* Uiverse Button Style */
         .uiverse-btn {
-            font-size: 1.1rem;
-            padding: 1rem 2rem;
-            border: none;
-            outline: none;
-            border-radius: 0.8rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            background-color: rgb(14, 14, 26);
-            color: rgb(234, 234, 234);
-            font-weight: 700;
-            transition: 0.6s;
-            box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.5);
+            font-size: 1.1rem; padding: 1rem 2rem; border: none; outline: none; border-radius: 0.8rem; cursor: pointer; text-transform: uppercase;
+            background-color: rgb(14, 14, 26); color: rgb(234, 234, 234); font-weight: 700; transition: 0.6s; box-shadow: 0px 0px 40px rgba(31, 76, 101, 0.5);
             -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.3));
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            text-decoration: none;
+            display: inline-flex; justify-content: center; align-items: center; width: 100%; text-decoration: none;
         }
-
-        .uiverse-btn:active {
-            transform: scale(0.92);
-        }
-
+        .uiverse-btn:active { transform: scale(0.92); }
         .uiverse-btn:hover {
-            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
-            color: rgb(4, 4, 38);
+            background: linear-gradient(270deg, rgba(2, 29, 78, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%); color: rgb(4, 4, 38);
             box-shadow: 0px 0px 60px rgba(31, 215, 232, 0.6);
         }
 
-        /* Desktop Navbar */
-        .desktop-nav {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .desktop-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         .nav-link { color: #94a3b8; border-bottom: 2px solid transparent; transition: all 0.3s; padding: 0 10px; }
         .nav-link:hover { color: #fff; }
         .nav-link.active { color: #60a5fa; border-bottom-color: #60a5fa; }
 
-        /* Mobile Bottom Tab */
-        .bottom-nav {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+        .bottom-nav { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.1); padding-bottom: env(safe-area-inset-bottom); }
         .tab-btn { color: #64748b; transition: all 0.3s; flex: 1; text-align: center; }
         .tab-btn.active { color: #60a5fa; transform: translateY(-2px); }
 
-        /* Install Banner */
-        #installBanner {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            transform: translateY(-100%);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        #installBanner { background: linear-gradient(135deg, #3b82f6, #8b5cf6); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         #installBanner.show { transform: translateY(0); }
 
-        /* Content Area */
-        .main-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 15px 100px 15px; 
-        }
+        .main-content { max-width: 900px; margin: 0 auto; padding: 20px 15px 100px 15px; }
         @media (min-width: 768px) { .main-content { padding: 40px 20px; } }
 
         .tab-pane { display: none; animation: fadeIn 0.4s ease; }
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Post Cards */
-        .post-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.3s;
-            scroll-margin-top: 100px; 
-        }
+        .post-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s, box-shadow 0.3s; scroll-margin-top: 100px; }
         .post-card:hover { border-color: rgba(96, 165, 250, 0.3); }
-        .post-card.highlight {
-            animation: highlightGlow 2s ease-out;
-        }
-        @keyframes highlightGlow {
-            0% { box-shadow: 0 0 0 2px rgba(31, 215, 232, 0.8), 0 0 30px rgba(31, 215, 232, 0.5); }
-            100% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-        }
+        .post-card.highlight { animation: highlightGlow 2s ease-out; }
+        @keyframes highlightGlow { 0% { box-shadow: 0 0 0 2px rgba(31, 215, 232, 0.8), 0 0 30px rgba(31, 215, 232, 0.5); } 100% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); } }
 
         .post-title { font-size: 1.3rem; font-weight: bold; color: #60a5fa; margin-bottom: 8px; }
         .post-meta { font-size: 0.8rem; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 12px; }
         .post-content { font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; }
         .post-content a { color: #34d399; text-decoration: underline; }
 
-        .share-btn {
-            color: #64748b;
-            background: rgba(255,255,255,0.05);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
+        .share-btn { color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; transition: all 0.2s; white-space: nowrap; }
         .share-btn:hover { background: rgba(96, 165, 250, 0.2); color: #60a5fa; }
 
-        /* Zoom Info & Student Codes */
-        .zoom-info-box {
-            background: rgba(15, 23, 42, 0.4);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .zoom-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        .info-group { background: rgba(255, 255, 255, 0.03); border-radius: 10px; padding: 12px 15px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;}
+        .info-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; display: block; }
+        .info-value { font-size: 1.2rem; font-weight: bold; color: #e2e8f0; }
 
-        .info-group {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 12px 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .copy-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--primary-light); cursor: pointer; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .copy-btn:hover { background: var(--primary-color); color: white; transform: scale(1.05); }
 
-        .info-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .info-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #e2e8f0;
-        }
-
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--primary-light);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .copy-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Modals & Inputs */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px);
-            display: flex; justify-content: center; align-items: center; z-index: 100;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-box { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
 
@@ -219,6 +91,7 @@
         .editor-content:focus { border-color: #60a5fa; }
         .editor-content:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.3); }
 
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -255,7 +128,9 @@
             <a href="#zoom" class="nav-link py-2" data-tab="zoom" onclick="navTo('zoom')"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
             <a href="#books" class="nav-link py-2" data-tab="books" onclick="navTo('books')"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
             <a href="#records" class="nav-link py-2" data-tab="records" onclick="navTo('records')"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
-            <a href="#students" class="nav-link py-2" data-tab="students" onclick="navTo('students')"><i class="fa-solid fa-users mr-1"></i> သင်တန်းသားများ</a>
+            
+            <!-- Hidden Admin Only Nav Tab -->
+            <a href="#students" id="navStudents" class="nav-link py-2 hidden text-rose-400" data-tab="students" onclick="navTo('students')"><i class="fa-solid fa-user-secret mr-1"></i> သင်တန်းသားများ (Secret)</a>
         </div>
     </nav>
 
@@ -337,81 +212,17 @@
             <div id="recordsPosts"></div>
         </div>
 
-        <!-- 5. STUDENTS TAB -->
+        <!-- 5. SECRET STUDENTS TAB (Hidden by Default) -->
         <div id="tab-students" class="tab-pane">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-rose-400"><i class="fa-solid fa-users mr-2"></i> သင်တန်းသား ကိုယ်ပိုင်ကုဒ်များ</h2>
-                <button onclick="copyToClip(window.location.origin + window.location.pathname + '#students', 'စာမျက်နှာလင့်ခ်')" class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+                <h2 class="text-xl font-bold text-rose-400"><i class="fa-solid fa-user-secret mr-2"></i> သင်တန်းသား ကိုယ်ပိုင်ကုဒ်များ (Admin Only)</h2>
+            </div>
+            <div class="bg-black/20 p-4 rounded-xl border border-white/5 mb-6 text-sm text-slate-300">
+                <i class="fa-solid fa-circle-info text-blue-400 mr-2"></i> ဤကဏ္ဍသည် Admin အတွက်သာ သီးသန့်မြင်ရသော လျှို့ဝှက်ကဏ္ဍဖြစ်သည်။ အခြားသူများ လုံးဝ မမြင်တွေ့နိုင်ပါ။
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5 mb-6 text-sm text-slate-300">
-                <i class="fa-solid fa-circle-info text-blue-400 mr-2"></i> မိမိ၏ အမည်ကိုရှာဖွေပြီး ကိုယ်ပိုင်ကုဒ် (ID) အား Copy ကူးယူထားနိုင်ပါသည်။
-            </div>
-
-            <!-- Grid for Student Codes -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- 60 Generated Students -->
-                <div class="info-group"><div><span class="info-label">ဦးအောင်ကျော်</span><div class="info-value text-emerald-400">PL-EHY5W</div></div><button class="copy-btn" onclick="copyToClip('PL-EHY5W', 'ဦးအောင်ကျော် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်စန္ဒာဝင်း</span><div class="info-value text-emerald-400">PL-M2B7A</div></div><button class="copy-btn" onclick="copyToClip('PL-M2B7A', 'ဒေါ်စန္ဒာဝင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုသူရိန်</span><div class="info-value text-emerald-400">PL-3NVP8</div></div><button class="copy-btn" onclick="copyToClip('PL-3NVP8', 'ကိုသူရိန် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မသီတာ</span><div class="info-value text-emerald-400">PL-F8L6X</div></div><button class="copy-btn" onclick="copyToClip('PL-F8L6X', 'မသီတာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးမင်းမင်း</span><div class="info-value text-emerald-400">PL-T7C9R</div></div><button class="copy-btn" onclick="copyToClip('PL-T7C9R', 'ဦးမင်းမင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်နီလာ</span><div class="info-value text-emerald-400">PL-J4YZB</div></div><button class="copy-btn" onclick="copyToClip('PL-J4YZB', 'ဒေါ်နီလာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုဇော်လင်း</span><div class="info-value text-emerald-400">PL-A5M7T</div></div><button class="copy-btn" onclick="copyToClip('PL-A5M7T', 'ကိုဇော်လင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မအေးအေး</span><div class="info-value text-emerald-400">PL-P9X4C</div></div><button class="copy-btn" onclick="copyToClip('PL-P9X4C', 'မအေးအေး ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးကျော်စွာ</span><div class="info-value text-emerald-400">PL-G6NKV</div></div><button class="copy-btn" onclick="copyToClip('PL-G6NKV', 'ဦးကျော်စွာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်ခင်မာ</span><div class="info-value text-emerald-400">PL-H2RQD</div></div><button class="copy-btn" onclick="copyToClip('PL-H2RQD', 'ဒေါ်ခင်မာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုမျိုးမင်း</span><div class="info-value text-emerald-400">PL-E7UWA</div></div><button class="copy-btn" onclick="copyToClip('PL-E7UWA', 'ကိုမျိုးမင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မစုစု</span><div class="info-value text-emerald-400">PL-8YJ9L</div></div><button class="copy-btn" onclick="copyToClip('PL-8YJ9L', 'မစုစု ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးလှဝင်း</span><div class="info-value text-emerald-400">PL-Z3XMC</div></div><button class="copy-btn" onclick="copyToClip('PL-Z3XMC', 'ဦးလှဝင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်တင်တင်</span><div class="info-value text-emerald-400">PL-D4NGP</div></div><button class="copy-btn" onclick="copyToClip('PL-D4NGP', 'ဒေါ်တင်တင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုအောင်သူ</span><div class="info-value text-emerald-400">PL-7TWH5</div></div><button class="copy-btn" onclick="copyToClip('PL-7TWH5', 'ကိုအောင်သူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မဝေဝေ</span><div class="info-value text-emerald-400">PL-V2F3R</div></div><button class="copy-btn" onclick="copyToClip('PL-V2F3R', 'မဝေဝေ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးကျော်ဇင်</span><div class="info-value text-emerald-400">PL-J8P9B</div></div><button class="copy-btn" onclick="copyToClip('PL-J8P9B', 'ဦးကျော်ဇင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်မြတ်မွန်</span><div class="info-value text-emerald-400">PL-X4KZN</div></div><button class="copy-btn" onclick="copyToClip('PL-X4KZN', 'ဒေါ်မြတ်မွန် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုရဲထက်</span><div class="info-value text-emerald-400">PL-L9M7E</div></div><button class="copy-btn" onclick="copyToClip('PL-L9M7E', 'ကိုရဲထက် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မချိုချို</span><div class="info-value text-emerald-400">PL-C5H2T</div></div><button class="copy-btn" onclick="copyToClip('PL-C5H2T', 'မချိုချို ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးစိုးမင်း</span><div class="info-value text-emerald-400">PL-R6VZ8</div></div><button class="copy-btn" onclick="copyToClip('PL-R6VZ8', 'ဦးစိုးမင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်လဲ့လဲ့</span><div class="info-value text-emerald-400">PL-B3QJ5</div></div><button class="copy-btn" onclick="copyToClip('PL-B3QJ5', 'ဒေါ်လဲ့လဲ့ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုဟိန်းထက်</span><div class="info-value text-emerald-400">PL-M8C7N</div></div><button class="copy-btn" onclick="copyToClip('PL-M8C7N', 'ကိုဟိန်းထက် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မနုနု</span><div class="info-value text-emerald-400">PL-G2P9Z</div></div><button class="copy-btn" onclick="copyToClip('PL-G2P9Z', 'မနုနု ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးဝင်းနိုင်</span><div class="info-value text-emerald-400">PL-F4WXR</div></div><button class="copy-btn" onclick="copyToClip('PL-F4WXR', 'ဦးဝင်းနိုင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်ယဉ်ယဉ်</span><div class="info-value text-emerald-400">PL-D5H8J</div></div><button class="copy-btn" onclick="copyToClip('PL-D5H8J', 'ဒေါ်ယဉ်ယဉ် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုနေလင်း</span><div class="info-value text-emerald-400">PL-T9B2C</div></div><button class="copy-btn" onclick="copyToClip('PL-T9B2C', 'ကိုနေလင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မမိုးမိုး</span><div class="info-value text-emerald-400">PL-N6W4V</div></div><button class="copy-btn" onclick="copyToClip('PL-N6W4V', 'မမိုးမိုး ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးသန်းထွန်း</span><div class="info-value text-emerald-400">PL-K3M7F</div></div><button class="copy-btn" onclick="copyToClip('PL-K3M7F', 'ဦးသန်းထွန်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်ဖြူဖြူ</span><div class="info-value text-emerald-400">PL-R8P5Q</div></div><button class="copy-btn" onclick="copyToClip('PL-R8P5Q', 'ဒေါ်ဖြူဖြူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုအောင်နိုင်</span><div class="info-value text-emerald-400">PL-C2J9E</div></div><button class="copy-btn" onclick="copyToClip('PL-C2J9E', 'ကိုအောင်နိုင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မဆုမွန်</span><div class="info-value text-emerald-400">PL-Y5H7K</div></div><button class="copy-btn" onclick="copyToClip('PL-Y5H7K', 'မဆုမွန် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးကျော်ထွန်း</span><div class="info-value text-emerald-400">PL-L4U3M</div></div><button class="copy-btn" onclick="copyToClip('PL-L4U3M', 'ဦးကျော်ထွန်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်ချယ်ရီ</span><div class="info-value text-emerald-400">PL-Q9X8B</div></div><button class="copy-btn" onclick="copyToClip('PL-Q9X8B', 'ဒေါ်ချယ်ရီ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုကျော်သူ</span><div class="info-value text-emerald-400">PL-A3T6R</div></div><button class="copy-btn" onclick="copyToClip('PL-A3T6R', 'ကိုကျော်သူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မသဉ္ဇာ</span><div class="info-value text-emerald-400">PL-W8N5C</div></div><button class="copy-btn" onclick="copyToClip('PL-W8N5C', 'မသဉ္ဇာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးစောလင်း</span><div class="info-value text-emerald-400">PL-Z5Y7H</div></div><button class="copy-btn" onclick="copyToClip('PL-Z5Y7H', 'ဦးစောလင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်သန်းသန်း</span><div class="info-value text-emerald-400">PL-V4F2M</div></div><button class="copy-btn" onclick="copyToClip('PL-V4F2M', 'ဒေါ်သန်းသန်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုမင်းသူ</span><div class="info-value text-emerald-400">PL-B6C9R</div></div><button class="copy-btn" onclick="copyToClip('PL-B6C9R', 'ကိုမင်းသူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မခင်စန်း</span><div class="info-value text-emerald-400">PL-X2U7D</div></div><button class="copy-btn" onclick="copyToClip('PL-X2U7D', 'မခင်စန်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးဇော်မင်း</span><div class="info-value text-emerald-400">PL-J5M4K</div></div><button class="copy-btn" onclick="copyToClip('PL-J5M4K', 'ဦးဇော်မင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်အေးသီတာ</span><div class="info-value text-emerald-400">PL-T3Q9V</div></div><button class="copy-btn" onclick="copyToClip('PL-T3Q9V', 'ဒေါ်အေးသီတာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုဝေလင်း</span><div class="info-value text-emerald-400">PL-G8C2N</div></div><button class="copy-btn" onclick="copyToClip('PL-G8C2N', 'ကိုဝေလင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မမြတ်ဆု</span><div class="info-value text-emerald-400">PL-P4F7Z</div></div><button class="copy-btn" onclick="copyToClip('PL-P4F7Z', 'မမြတ်ဆု ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးအောင်မျိုး</span><div class="info-value text-emerald-400">PL-H9B3C</div></div><button class="copy-btn" onclick="copyToClip('PL-H9B3C', 'ဦးအောင်မျိုး ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်နှင်းဆီ</span><div class="info-value text-emerald-400">PL-N2M5R</div></div><button class="copy-btn" onclick="copyToClip('PL-N2M5R', 'ဒေါ်နှင်းဆီ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုထက်အောင်</span><div class="info-value text-emerald-400">PL-C7X9A</div></div><button class="copy-btn" onclick="copyToClip('PL-C7X9A', 'ကိုထက်အောင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မမေသူ</span><div class="info-value text-emerald-400">PL-E6U4F</div></div><button class="copy-btn" onclick="copyToClip('PL-E6U4F', 'မမေသူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးလင်းထက်</span><div class="info-value text-emerald-400">PL-R4Q8T</div></div><button class="copy-btn" onclick="copyToClip('PL-R4Q8T', 'ဦးလင်းထက် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်ရွှေရည်</span><div class="info-value text-emerald-400">PL-L8N2V</div></div><button class="copy-btn" onclick="copyToClip('PL-L8N2V', 'ဒေါ်ရွှေရည် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုစည်သူ</span><div class="info-value text-emerald-400">PL-X5F7M</div></div><button class="copy-btn" onclick="copyToClip('PL-X5F7M', 'ကိုစည်သူ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မအိအိ</span><div class="info-value text-emerald-400">PL-D2J4E</div></div><button class="copy-btn" onclick="copyToClip('PL-D2J4E', 'မအိအိ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးကျော်မင်း</span><div class="info-value text-emerald-400">PL-W7P6Z</div></div><button class="copy-btn" onclick="copyToClip('PL-W7P6Z', 'ဦးကျော်မင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်သီတာဝင်း</span><div class="info-value text-emerald-400">PL-A9T5K</div></div><button class="copy-btn" onclick="copyToClip('PL-A9T5K', 'ဒေါ်သီတာဝင်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုအောင်ကျော်ဇော</span><div class="info-value text-emerald-400">PL-F3U9D</div></div><button class="copy-btn" onclick="copyToClip('PL-F3U9D', 'ကိုအောင်ကျော်ဇော ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မသဲသဲ</span><div class="info-value text-emerald-400">PL-M6C4Q</div></div><button class="copy-btn" onclick="copyToClip('PL-M6C4Q', 'မသဲသဲ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဦးရန်နိုင်</span><div class="info-value text-emerald-400">PL-T4Z8H</div></div><button class="copy-btn" onclick="copyToClip('PL-T4Z8H', 'ဦးရန်နိုင် ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ဒေါ်မေမြတ်နိုး</span><div class="info-value text-emerald-400">PL-J9N3B</div></div><button class="copy-btn" onclick="copyToClip('PL-J9N3B', 'ဒေါ်မေမြတ်နိုး ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">ကိုထွန်းထွန်း</span><div class="info-value text-emerald-400">PL-B5X2R</div></div><button class="copy-btn" onclick="copyToClip('PL-B5X2R', 'ကိုထွန်းထွန်း ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-                <div class="info-group"><div><span class="info-label">မဇင်မာ</span><div class="info-value text-emerald-400">PL-G3F8M</div></div><button class="copy-btn" onclick="copyToClip('PL-G3F8M', 'မဇင်မာ ၏ ကုဒ်')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button></div>
-            </div>
+            <!-- Populated via Javascript if Admin -->
+            <div id="studentListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
 
     </main>
@@ -434,8 +245,10 @@
             <i class="fa-solid fa-folder-open text-xl"></i>
             <span class="text-[10px] font-bold">မှတ်တမ်း</span>
         </a>
-        <a href="#students" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="students" onclick="navTo('students')">
-            <i class="fa-solid fa-users text-xl"></i>
+        
+        <!-- Hidden Admin Only Mobile Tab -->
+        <a href="#students" id="mobStudents" class="tab-btn hidden flex-col items-center gap-1 pb-2 text-rose-400" data-tab="students" onclick="navTo('students')">
+            <i class="fa-solid fa-user-secret text-xl"></i>
             <span class="text-[10px] font-bold">စာရင်း</span>
         </a>
     </nav>
@@ -499,9 +312,8 @@
         <span id="toastMsg" class="font-bold"></span>
     </div>
 
-    <!-- Logic Scripts -->
+    <!-- Firebase SDK Integration -->
     <script type="module">
-        // 1. Firebase Initialization
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -517,16 +329,55 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 2. Global State & Smart Routing
+        // Global State & Smart Routing
         window.isAdmin = localStorage.getItem('pali_admin') === 'true';
         let allPosts = []; 
+        
+        // Secret Student Data (Embedded from Excel)
+        const secretStudents = [{"name": "ဦးဇောတိက", "code": "PL-77LBY"}, {"name": "မသုဝရဉာဏီ", "code": "PL-KQN7C"}, {"name": "ဆရာလေးဝိဝေကစာရီ", "code": "PL-6434W"}, {"name": "အရှင်ကုသလဓမ္မ", "code": "PL-MKPH2"}, {"name": "မီးမီး", "code": "PL-4NTVT"}, {"name": "Ei Ei Aung", "code": "PL-NHFYG"}, {"name": "အရှင်ပညာနန္ဒ", "code": "PL-LGA5U"}, {"name": "အရှင်သုတဝံသ", "code": "PL-LLKAA"}, {"name": "မဇေယျသိရီ", "code": "PL-99Q74"}, {"name": "အရှင်အာလောက", "code": "PL-EAD8C"}, {"name": "Siddhi", "code": "PL-ANHHC"}, {"name": "ဦးဝင်းမြင့်", "code": "PL-DVKXV"}, {"name": "ဒေါ်သက်သက်ဝါ", "code": "PL-MXQRC"}, {"name": "Ven Thāvariya", "code": "PL-KJAZ6"}, {"name": "ချောဝင့်သူ", "code": "PL-52Z2Y"}, {"name": "NYI NYI MOE", "code": "PL-QALBE"}, {"name": "မမြရှင်", "code": "PL-ZP8PX"}, {"name": "ရှင်သုမန", "code": "PL-K7E3Q"}, {"name": "အောင်သီဟကျော်", "code": "PL-8UCHT"}, {"name": "ဦးဝင်းနိုင်", "code": "PL-BAU7C"}, {"name": "ကိုအောင်ဖေနိုင်", "code": "PL-V7S52"}, {"name": "Ma Sandartheingi", "code": "PL-WU3NK"}, {"name": "မစည်းစိမ်ဦး", "code": "PL-PLHXB"}, {"name": "Candasiri", "code": "PL-J8H3J"}, {"name": "Dr Tinmar Tun", "code": "PL-5DKQS"}, {"name": "ဦးစရိယာနန္ဒ", "code": "PL-PVKR8"}, {"name": "သက်နောင်ဦး", "code": "PL-LFGZ9"}, {"name": "Ven . YASDHAMAMA", "code": "PL-N6P6D"}, {"name": "ဒေါ်ယုယုခိုင်", "code": "PL-HWCKP"}, {"name": "ဦးဥတ္တမ", "code": "PL-HW9T8"}, {"name": "ဦးမြင့်စိုး", "code": "PL-5L9LL"}, {"name": "ဒေါ်စန်းစန်းနွယ်", "code": "PL-6EYLJ"}, {"name": "အရှကဝိန္ဒ", "code": "PL-NH3Y5"}, {"name": "အရှင်နန္ဒဝံသ", "code": "PL-4WY8M"}, {"name": "မသုမာလာ", "code": "PL-HS9FM"}, {"name": "မနိမလ", "code": "PL-7XHPZ"}, {"name": "U Tun Tun", "code": "PL-83HZ4"}, {"name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "code": "PL-FN429"}, {"name": "အရှင်နန္ဒဝံသ", "code": "PL-VRMJC"}, {"name": "ဒါဒါ", "code": "PL-PW7TS"}, {"name": "U KeLaSa", "code": "PL-MMLN7"}, {"name": "ဦးတေဇနိယ", "code": "PL-KPVDU"}, {"name": "phyuphyuseine", "code": "PL-2EZV7"}, {"name": "မသုမာလာ", "code": "PL-PH8WU"}, {"name": "Ven Ādicca", "code": "PL-VBYY2"}, {"name": "အရှင်နန္ဒဝံသ", "code": "PL-FL5DY"}, {"name": "သိမ်မွေ့ဦး", "code": "PL-HZAAE"}, {"name": "အရှင်နန္ဒဝံသ", "code": "PL-P5EKV"}, {"name": "ဒေါ်ရည်မွန်", "code": "PL-S9ZEG"}, {"name": "စန္ဒ", "code": "PL-2APA3"}, {"name": "ဒေါ်သန်းသန်းမြင့်", "code": "PL-NH7US"}, {"name": "Chaw Su Hlaing", "code": "PL-3YXBC"}, {"name": "Daw Pye Pye Aung", "code": "PL-B34GA"}, {"name": "ဦးအရိယ", "code": "PL-DV5ZC"}, {"name": "Ashin Sucitta", "code": "PL-6J2KJ"}, {"name": "Ma Khemãnandī", "code": "PL-XRXJD"}, {"name": "ဦးသုဇာတဇောတိ", "code": "PL-5G3VV"}, {"name": "A Shin Kusaladhamma", "code": "PL-JMUV6"}, {"name": "Ashin Sucitta", "code": "PL-2AKJ3"}, {"name": "Daw Win Sanda Kyaw", "code": "PL-BUJW7"}];
+
+        function verifyAdminAccess() {
+            const navStudents = document.getElementById('navStudents');
+            const mobStudents = document.getElementById('mobStudents');
+            const studentContainer = document.getElementById('studentListContainer');
+
+            if(window.isAdmin) {
+                // Show links
+                navStudents.classList.remove('hidden');
+                mobStudents.classList.remove('hidden');
+                mobStudents.classList.add('flex');
+                
+                // Inject student data
+                studentContainer.innerHTML = secretStudents.map(student => `
+                    <div class="info-group">
+                        <div>
+                            <span class="info-label">${student.name}</span>
+                            <div class="info-value text-emerald-400">${student.code}</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClip('${student.code}', '${student.name} ၏ ကုဒ်')">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                // Hide links and remove data
+                navStudents.classList.add('hidden');
+                mobStudents.classList.add('hidden');
+                mobStudents.classList.remove('flex');
+                studentContainer.innerHTML = '';
+                
+                // Redirect if trying to access secret tab without auth
+                if(window.location.hash === '#students') {
+                    window.location.hash = 'home';
+                }
+            }
+        }
 
         function processHash() {
             const hash = window.location.hash.substring(1);
             let tabToOpen = 'home';
 
             if(hash.startsWith('post-')) {
-                // If deep linked to a post, find its category
                 const targetPost = allPosts.find(p => `post-${p.id}` === hash);
                 if(targetPost) {
                     tabToOpen = targetPost.category || 'home';
@@ -540,7 +391,12 @@
                     }, 500);
                 }
             } else if (['home', 'zoom', 'books', 'records', 'students'].includes(hash)) {
-                tabToOpen = hash;
+                // Block 'students' tab if not admin
+                if(hash === 'students' && !window.isAdmin) {
+                    tabToOpen = 'home';
+                } else {
+                    tabToOpen = hash;
+                }
             }
 
             // Switch Content
@@ -561,7 +417,7 @@
         };
         window.addEventListener('hashchange', processHash);
 
-        // 3. Data Fetching & Rendering
+        // Fetch Posts
         async function fetchPosts() {
             try {
                 const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
@@ -593,7 +449,7 @@
 
             allPosts.forEach(post => {
                 const cat = post.category || 'home';
-                if(!containers[cat]) return; // Skip if invalid category
+                if(!containers[cat]) return; 
                 
                 const targetContainer = containers[cat];
 
@@ -632,7 +488,6 @@
             });
         }
 
-        // 4. Publish Post
         window.publish = async function() {
             const title = document.getElementById('postTitle').value.trim();
             const content = document.getElementById('postContent').innerHTML.trim();
@@ -651,9 +506,10 @@
                 
                 window.closeAdmin();
                 window.toast("အောင်မြင်စွာ တင်ပြီးပါပြီ။");
-                fetchPosts(); // Reload
+                fetchPosts(); 
             } catch (e) {
-                window.toast("ပို့စ်တင်ခွင့် မရှိပါ။", true);
+                console.error("Error adding document: ", error);
+                window.toast("ပို့စ်တင်ခွင့် မရှိပါ။ (Firebase Rules စစ်ဆေးပါ)", true);
             } finally {
                 btn.disabled = false; 
                 btn.style.pointerEvents = 'auto';
@@ -661,7 +517,6 @@
             }
         };
 
-        // 5. Delete Post
         window.delPost = async function(id) {
             if(!confirm("အပြီးတိုင် ဖျက်မည်မှာ သေချာပါသလား?")) return;
             try {
@@ -671,7 +526,14 @@
             } catch(e) { window.toast("ဖျက်မရပါ။", true); }
         };
 
-        // Init
+        window.setAdminStatus = function(status) {
+            window.isAdmin = status;
+            verifyAdminAccess(); // Trigger Secret Tab Visibility
+            loadPosts(); 
+        }
+        
+        // Init Check
+        verifyAdminAccess();
         if(!window.location.hash) window.location.hash = 'home';
         processHash();
         fetchPosts();
@@ -719,9 +581,11 @@
         window.checkPwd = function() {
             if(document.getElementById('adminPwd').value === 'palivoice') {
                 localStorage.setItem('pali_admin', 'true');
-                window.isAdmin = true;
-                openAdmin(); 
-                location.reload(); 
+                if(typeof window.setAdminStatus === 'function') {
+                    window.setAdminStatus(true);
+                }
+                openAdmin(); // refresh view
+                window.toast("Admin စနစ်သို့ ဝင်ရောက်ပြီးပါပြီ။", false);
             } else {
                 document.getElementById('passwordError').classList.remove('hidden');
             }
@@ -729,12 +593,15 @@
 
         window.logout = function() {
             localStorage.removeItem('pali_admin');
-            window.isAdmin = false;
+            if(typeof window.setAdminStatus === 'function') {
+                window.setAdminStatus(false);
+            }
             window.closeAdmin();
-            location.reload();
+            window.toast("Admin အကောင့်မှ ထွက်ပြီးပါပြီ။", false);
+            if(window.location.hash === '#students') window.location.hash = 'home';
         };
 
-        // Post Editor Commands
+        // Editor Formatter
         window.format = function(cmd, val = null) {
             document.getElementById('postContent').focus();
             document.execCommand(cmd, false, val);

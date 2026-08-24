@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ပါဠိစကားပြောသင်တန်း - Dashboard</title>
+    
+    <!-- PWA Web App Settings -->
+    <!-- Inline Manifest to avoid needing a separate manifest.json file -->
+    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%22%E1%80%95%E1%80%AB%E1%80%B8%E1%80%A1%E1%80%92%E1%80%AC%E1%80%B8%E1%80%80%E1%80%BB%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%84%E1%80%BA%E1%80%B8%22%2C%22short_name%22%3A%22Pali%20Class%22%2C%22description%22%3A%22%E1%80%95%E1%80%AB%E1%80%B8%E1%80%A1%E1%80%92%E1%80%AC%E1%80%B8%E1%80%80%E1%80%BB%E1%80%AC%E1%80%B8%E1%80%95%E1%80%BC%E1%80%84%E1%80%BA%E1%80%B8%20(%E1%80%92%E1%80%AF%E1%80%90%E1%80%AD%E1%80%9A%E1%80%A1%E1%80%80%E1%80%BC%E1%80%AD%E1%80%99%E1%80%BA)%20Dashboard%22%2C%22start_url%22%3A%22./index.html%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%233b82f6%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22icon-192.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%7D%2C%7B%22src%22%3A%22icon-512.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D'>
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -491,6 +498,7 @@
     <div class="glass-card">
         <div class="card-header">
             <div class="logo-circle" onclick="openAdminPanel()" title="Admin Login">
+                <!-- Fallback icon in case no images uploaded -->
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
                     <path d="M12 6v6l4 2"></path>
@@ -591,6 +599,30 @@
             </div>
         </div>
     </div>
+
+    <!-- PWA Service Worker Inline Setup -->
+    <script>
+        // Use an inline blob to register a simple service worker
+        // This avoids needing a separate sw.js file uploaded manually.
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                self.addEventListener('install', (e) => {
+                  console.log('[Service Worker] Install');
+                });
+                self.addEventListener('fetch', (e) => {
+                  // Basic fetch to pass PWA checks
+                });
+            `;
+            const blob = new Blob([swCode], {type: 'application/javascript'});
+            const swUrl = URL.createObjectURL(blob);
+            
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => console.log('PWA Ready & Registered'))
+                    .catch(err => console.log('Service Worker Failed', err));
+            });
+        }
+    </script>
 
     <!-- Firebase SDK Integration -->
     <script type="module">

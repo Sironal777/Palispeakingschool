@@ -91,7 +91,8 @@
         .editor-content:focus { border-color: #60a5fa; }
         .editor-content:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.3); }
 
-        .hidden { display: none !important; }
+        /* User text selection */
+        .select-all { user-select: all; -webkit-user-select: all; cursor: copy; }
     </style>
 </head>
 <body>
@@ -307,28 +308,14 @@
         <span id="toastMsg" class="font-bold"></span>
     </div>
 
-    <!-- Script Logics -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBgZ1pdU96FxwFbhSFWKPwq7RKaVw9JHRk",
-            authDomain: "palispeaking-e2407.firebaseapp.com",
-            projectId: "palispeaking-e2407",
-            storageBucket: "palispeaking-e2407.firebasestorage.app",
-            messagingSenderId: "52655990560",
-            appId: "1:52655990560:web:349d0ab432f703dd48d945"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
+    <!-- MAIN UI LOGIC (Safe from CORS blocks) -->
+    <script>
+        // Global State & Data
         window.isAdmin = localStorage.getItem('pali_admin') === 'true';
-        let allPosts = []; 
+        window.allPosts = []; 
         
         // Full Extracted Student Details Embedded from Excel
-        const secretStudents = [{"code": "PL-XJXNR", "name": "ဦးဇောတိက", "type": "ရဟန်း", "gender": "", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါလို့", "viber": "09693331093", "city": "တာမွေ၊ရန်ကုန်။", "online_exp": "မရှိ"}, {"code": "PL-4E3BJ", "name": "မသုဝရဉာဏီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၂", "pali_exp": "", "reason": "တတ်သိနားလည်ချင်လို့ပါဘုရား", "viber": "09450488611", "city": "မင်ဘူးမြို့", "online_exp": "မရှိ"}, {"code": "PL-TTALA", "name": "ဆရာလေးဝိဝေကစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၆၀", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားစာပေများ၏အနက်ကိုသေချာသိရန်", "viber": "၀၉၆၉၁၀၇၈၉၀၀", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-V428N", "name": "အရှင်ကုသလဓမ္မ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စိတ်ဝင်စားပါသည်", "viber": "၀၉၄၂၃၆၇၃၂၇၄", "city": "ကျောက်တလုံးကြီးမြို့", "online_exp": "ရှိပါသည်"}, {"code": "PL-3NLLG", "name": "မီးမီး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၅၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘာသာစကားအနေဖြင့်ရော မြတ်စွားဘုရားရှင်တို့သုံးခဲ့သောခက်ခဲနက်နံသည့်ဘာသာကိုလေ့လာချင်လို့ပါ", "viber": "09796138248", "city": "ရန်ကုန်", "online_exp": "Yes"}, {"code": "PL-HPEW8", "name": "Ei Ei Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "တရားစာအုပ်များဖတ်သောအခါအများအားဖြင့်ပါဠိလိုရေးထားတာများလို့နားလည်ချင်ပါတယ်။", "viber": "09448011993", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-AWRU2", "name": "အရှင်ပညာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား​ပြောတတ်ချင်လို့", "viber": "၀၉၉၅၈၆၇၂၂၂၉", "city": "ထားဝယ်", "online_exp": "ရှိ"}, {"code": "PL-T5Z5M", "name": "အရှင်သုတဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၇", "pali_exp": "ပထမကြီး အောင်", "reason": "ဝါသနာပါ၍", "viber": "09440614050", "city": "ပြင်ဦးလွင်", "online_exp": "ရှိ"}, {"code": "PL-6DCA2", "name": "မဇေယျသိရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါ၍", "viber": "09403752538", "city": "ပုသိမ်", "online_exp": "ရှိ"}, {"code": "PL-K2HME", "name": "အရှင်အာလောက", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "20", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09968257008", "city": "Bago", "online_exp": "ရှိ"}, {"code": "PL-N8JAY", "name": "Siddhi", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Learn to Pali text as Buddha's teaching accurately and spread Buddha's Dhamma globally.", "viber": "917596041040", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-VXZ4G", "name": "ဦးဝင်းမြင့်", "type": "လူ", "gender": "အမျိုးသား", "age": "၅၄", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိပုဒ်တွေကို သိချင်လို့ပါ။", "viber": "09260278786", "city": "သန်လျင်", "online_exp": "မရှိ"}, {"code": "PL-8JQQD", "name": "ဒေါ်သက်သက်ဝါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလို နားလည်အောင်", "viber": "09420063231", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-6EVMX", "name": "Ven Thāvariya", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "55", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိဘာသာလေ့လာနေသောကြောင့်", "viber": "09420237722", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-2N4D6", "name": "ချောဝင့်သူ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိကို နားလည်ပြီး ပြောတတ်ချင်လို့ပါ", "viber": "095039023", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-NDPE5", "name": "NYI NYI MOE", "type": "လူ", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဝါသနာပါလို့", "viber": "09673024840", "city": "Kyaukpadaung", "online_exp": "ရှိ"}, {"code": "PL-GNRG6", "name": "မမြရှင်", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပထမကြီး အောင်", "reason": "ဘုရားဟောပါဠိတော်များကိုနားလည်သဘောပေါက်ချင်၍", "viber": "09261298462", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-7S6T3", "name": "ရှင်သုမန", "type": "သာမဏေ", "gender": "အမျိုးသား", "age": "၁၈", "pali_exp": "အခြေခံအောင်", "reason": "ဘုရားဟောပါဠိများကို ကောင်းမွန်စွာနားလည်နိုင်ရန်။", "viber": "09893077759", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-X5EAS", "name": "အောင်သီဟကျော်", "type": "လူ", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို မူရင်းပါဠိဘာသာဖြင့် နားလည်ချင်ပါသဖြင့်", "viber": "၀၉၉၇၄၂၃၄၂၈၃", "city": "တောင်ဥက္ကလာပမြို့နယ်", "online_exp": "ရှိ"}, {"code": "PL-Z66M4", "name": "ဦးဝင်းနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဗုဒ္ဓဘာသာဆိုင်ရာများကိုပိုမိုသိရှိနားလည်လို၍", "viber": "095015383", "city": "YGN", "online_exp": "ရှိ"}, {"code": "PL-A5HUV", "name": "ကိုအောင်ဖေနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "၃၄နှစ်", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကားကိုစိတ်ဝင်စားလို့ပါဗျာ", "viber": "၀၉၇၆၆၀၈၇၇၂၂", "city": "မြောက်ဥက္ကလာ", "online_exp": "ရှိ"}, {"code": "PL-9U3QG", "name": "Ma Sandartheingi", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပထမလတ် အောင်", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09449833583", "city": "တောင်ကြီး", "online_exp": "ရှိ"}, {"code": "PL-7L2A2", "name": "မစည်းစိမ်ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၃၂", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဗုဒ္ဓသာသနာကို ပါဠိလိုလေ့လာမှတ်သားနာယူနိုင်ဖို့", "viber": "09265053911", "city": "မြင်းခြံမြို့", "online_exp": "ရှိ"}, {"code": "PL-MCLQM", "name": "Candasiri", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "57", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "Because of Buddha words.", "viber": "+94814881512", "city": "Tachileik", "online_exp": "မရှိ"}, {"code": "PL-PE5W3", "name": "Dr Tinmar Tun", "type": "လူ", "gender": "အမျိုးသမီး", "age": "49", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကား ကို နားလည်တက်ကျွမ်းချင်ပါသည်", "viber": "09420063065", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-5UXXA", "name": "ဦးစရိယာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "21", "pali_exp": "ပထမလတ် အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09664539660", "city": "စစ်တွေ", "online_exp": "ရှိ"}, {"code": "PL-GQQ3B", "name": "သက်နောင်ဦး", "type": "လူ", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလိုဖတ်တတ်ပြီး အဓိပ္ပါယ်ကို နားလည်ချင်ပါတယ်", "viber": "09778799986", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-W27C9", "name": "Ven . YASDHAMAMA", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently pali Language .", "viber": "09798485292", "city": "Pakhokku", "online_exp": "ရှိ"}, {"code": "PL-84X4S", "name": "ဒေါ်ယုယုခိုင်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "51", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိတွေကို နားလည်ချင်လို့ပါ", "viber": "09420042456", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-HSSCH", "name": "ဦးဥတ္တမ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ပထမငယ် အောင်", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါဘုရား", "viber": "09265115201", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-G7DVM", "name": "ဦးမြင့်စိုး", "type": "လူ", "gender": "အမျိုးသား", "age": "60", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ပါဠိတော်များကိုသိရှိလိုခြင်း", "viber": "095116744", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-87DMM", "name": "ဒေါ်စန်းစန်းနွယ်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "61", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို ကိုယ်တိုင် နားလည်ချင်လို့ပါ", "viber": "09971217646", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-V4ZSE", "name": "အရှကဝိန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိစကားကို ပြောတတ်ချင်ပါသည်", "viber": "09886477174", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-2L2W9", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "22", "pali_exp": "ပထမကြီး အောင်", "reason": "Speaking စွမ်းရည်ကို လိုချင်ပါတယ်", "viber": "09890838186", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-HSSZJ", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၄၁၄၁၅၉၈၂", "city": "စစ်ကိုင်း", "online_exp": "ရှိ"}, {"code": "PL-X5E8W", "name": "မနိမလ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိ စကားကိုကျွမ်းကျင်စွာ ပြောတတ်ချင်လို့ပါဘုရား", "viber": "၀၉၄၀၇၄၁၁၅၆၈", "city": "ရန်ကုန်", "online_exp": "မရှိ"}, {"code": "PL-45TDD", "name": "U Tun Tun", "type": "လူ", "gender": "အမျိုးသား", "age": "48", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိများကိုနားလည်သဘောပေါက်ချင်လို့ပါ", "viber": "09 43058864", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-E4Z5P", "name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာစကားဖြင့် မေးမြန်းပြောဆိုတတ်ချင်လို့ပါ", "viber": "09765103445", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-GYYT9", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၅၂၃၅၁၂၉၁", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-SFXZN", "name": "ဒါဒါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "41", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "နားလည်ချင်ပါတယ်ရှင့်", "viber": "09420067645", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-84X49", "name": "U KeLaSa", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "47", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "သင်ချင်လို့", "viber": "+9509422055104", "city": "ကန့်ဘလူမြို့", "online_exp": "ရှိ"}, {"code": "PL-KCAYW", "name": "ဦးတေဇနိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၇", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာကိုကျွမ်းကျင်လို၍", "viber": "09444158485", "city": "သာကေတ", "online_exp": "ရှိ"}, {"code": "PL-V4TNE", "name": "phyuphyuseine", "type": "လူ", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "To gain paril knowleget", "viber": "09420138908", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-EBN48", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၃", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါ", "viber": "09403756855", "city": "ပုသိမ်မြို့", "online_exp": "ရှိ"}, {"code": "PL-EUVDE", "name": "Ven Ādicca", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "40", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak in Pali.", "viber": "9964601445", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-Z68U4", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "15", "pali_exp": "အခြေခံအောင်", "reason": "ပြောတတ်ချင်လို​့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-RSEAZ", "name": "သိမ်မွေ့ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "24", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "စိတ်ဝင်စား၍", "viber": "+6581451559", "city": "Singapore", "online_exp": "ရှိ"}, {"code": "PL-4G4K5", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၀", "pali_exp": "ပထမကြီး အောင်", "reason": "တက်ချင်လို့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-BTVWQ", "name": "ဒေါ်ရည်မွန်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၄၈", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိများကိုနားလည်ချင်ပါတယ်", "viber": "095036720", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-3J5W4", "name": "စန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "32", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား‌ပြောတတ်ချင်လို့ပါ", "viber": "+959684949540", "city": "ချောက်မြို့", "online_exp": "ရှိ"}, {"code": "PL-V4JEU", "name": "ဒေါ်သန်းသန်းမြင့်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို နားလည် သဘောပေါက် လို၍ပါ။", "viber": "09250005118", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-R45H9", "name": "Chaw Su Hlaing", "type": "လူ", "gender": "အမျိုးသမီး", "age": "38", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Pali စကားကို နားလည်ချင်ပါတယ်။", "viber": "09420084534", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-74U24", "name": "Daw Pye Pye Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "57", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "To be able to comprehend Buddha's words more clearly", "viber": "095015093", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-45F45", "name": "ဦးအရိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၄၃", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09455325807", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-XYYDM", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "29", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To be able to speak fluently", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-QNK4G", "name": "Ma Khemãnandī", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To understand easily the pali sentences what Buddha taugt and to speak.", "viber": "09428318357", "city": "Sagaing", "online_exp": "ရှိ"}, {"code": "PL-YALN5", "name": "ဦးသုဇာတဇောတိ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "45", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စာပေနားလည်နိုင်ရန်နှင့်သာသနာပြုနိုင်ရန်", "viber": "0943187178", "city": "အမရပူရမြို့", "online_exp": "ရှိ"}, {"code": "PL-NBLN5", "name": "A Shin Kusaladhamma", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "52", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိ လို ကျွမ်းကျင်စွာ ပြောတတ်ချင်ပါတယ်", "viber": "+940763261273", "city": "Pyin Oo Lwin", "online_exp": "ရှိ"}, {"code": "PL-Z662L", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently.", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-S9AUM", "name": "Daw Win Sanda Kyaw", "type": "လူ", "gender": "အမျိုးသမီး", "age": "54", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိတော်များကိုဖတ်ရှုနားလည်လိုပါသည်", "viber": "09765052932", "city": "Yangon", "online_exp": "ရှိ"}];
+        const secretStudents = [{"code": "PL-MHWY6", "name": "ဦးဇောတိက", "type": "ရဟန်း", "gender": "", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါလို့", "viber": "09693331093", "city": "တာမွေ၊ရန်ကုန်။", "online_exp": "မရှိ"}, {"code": "PL-PPHAE", "name": "မသုဝရဉာဏီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၂", "pali_exp": "", "reason": "တတ်သိနားလည်ချင်လို့ပါဘုရား", "viber": "09450488611", "city": "မင်ဘူးမြို့", "online_exp": "မရှိ"}, {"code": "PL-YYK78", "name": "ဆရာလေးဝိဝေကစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၆၀", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားစာပေများ၏အနက်ကိုသေချာသိရန်", "viber": "၀၉၆၉၁၀၇၈၉၀၀", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-XYYDM", "name": "အရှင်ကုသလဓမ္မ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စိတ်ဝင်စားပါသည်", "viber": "၀၉၄၂၃၆၇၃၂၇၄", "city": "ကျောက်တလုံးကြီးမြို့", "online_exp": "ရှိပါသည်"}, {"code": "PL-UUNB7", "name": "မီးမီး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၅၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘာသာစကားအနေဖြင့်ရော မြတ်စွားဘုရားရှင်တို့သုံးခဲ့သောခက်ခဲနက်နံသည့်ဘာသာကိုလေ့လာချင်လို့ပါ", "viber": "09796138248", "city": "ရန်ကုန်", "online_exp": "Yes"}, {"code": "PL-9HHRY", "name": "Ei Ei Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "တရားစာအုပ်များဖတ်သောအခါအများအားဖြင့်ပါဠိလိုရေးထားတာများလို့နားလည်ချင်ပါတယ်။", "viber": "09448011993", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-T5Z5M", "name": "အရှင်ပညာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား​ပြောတတ်ချင်လို့", "viber": "၀၉၉၅၈၆၇၂၂၂၉", "city": "ထားဝယ်", "online_exp": "ရှိ"}, {"code": "PL-GNRG6", "name": "အရှင်သုတဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၇", "pali_exp": "ပထမကြီး အောင်", "reason": "ဝါသနာပါ၍", "viber": "09440614050", "city": "ပြင်ဦးလွင်", "online_exp": "ရှိ"}, {"code": "PL-UGR5G", "name": "မဇေယျသိရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါ၍", "viber": "09403752538", "city": "ပုသိမ်", "online_exp": "ရှိ"}, {"code": "PL-S9AUM", "name": "အရှင်အာလောက", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "20", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09968257008", "city": "Bago", "online_exp": "ရှိ"}, {"code": "PL-QNK4G", "name": "Siddhi", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Learn to Pali text as Buddha's teaching accurately and spread Buddha's Dhamma globally.", "viber": "917596041040", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-44SCT", "name": "ဦးဝင်းမြင့်", "type": "လူ", "gender": "အမျိုးသား", "age": "၅၄", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိပုဒ်တွေကို သိချင်လို့ပါ။", "viber": "09260278786", "city": "သန်လျင်", "online_exp": "မရှိ"}, {"code": "PL-F5W5F", "name": "ဒေါ်သက်သက်ဝါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလို နားလည်အောင်", "viber": "09420063231", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-BMATL", "name": "Ven Thāvariya", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "55", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိဘာသာလေ့လာနေသောကြောင့်", "viber": "09420237722", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-S9ZEG", "name": "ချောဝင့်သူ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိကို နားလည်ပြီး ပြောတတ်ချင်လို့ပါ", "viber": "095039023", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-WQFQU", "name": "NYI NYI MOE", "type": "လူ", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဝါသနာပါလို့", "viber": "09673024840", "city": "Kyaukpadaung", "online_exp": "ရှိ"}, {"code": "PL-9U3QG", "name": "မမြရှင်", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပထမကြီး အောင်", "reason": "ဘုရားဟောပါဠိတော်များကိုနားလည်သဘောပေါက်ချင်၍", "viber": "09261298462", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-V4ZSE", "name": "ရှင်သုမန", "type": "သာမဏေ", "gender": "အမျိုးသား", "age": "၁၈", "pali_exp": "အခြေခံအောင်", "reason": "ဘုရားဟောပါဠိများကို ကောင်းမွန်စွာနားလည်နိုင်ရန်။", "viber": "09893077759", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-HSSZJ", "name": "အောင်သီဟကျော်", "type": "လူ", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို မူရင်းပါဠိဘာသာဖြင့် နားလည်ချင်ပါသဖြင့်", "viber": "၀၉၉၇၄၂၃၄၂၈၃", "city": "တောင်ဥက္ကလာပမြို့နယ်", "online_exp": "ရှိ"}, {"code": "PL-X5EAS", "name": "ဦးဝင်းနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဗုဒ္ဓဘာသာဆိုင်ရာများကိုပိုမိုသိရှိနားလည်လို၍", "viber": "095015383", "city": "YGN", "online_exp": "ရှိ"}, {"code": "PL-7L2A2", "name": "ကိုအောင်ဖေနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "၃၄နှစ်", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကားကိုစိတ်ဝင်စားလို့ပါဗျာ", "viber": "၀၉၇၆၆၀၈၇၇၂၂", "city": "မြောက်ဥက္ကလာ", "online_exp": "ရှိ"}, {"code": "PL-2L2W9", "name": "Ma Sandartheingi", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပထမလတ် အောင်", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09449833583", "city": "တောင်ကြီး", "online_exp": "ရှိ"}, {"code": "PL-G7DVM", "name": "မစည်းစိမ်ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၃၂", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဗုဒ္ဓသာသနာကို ပါဠိလိုလေ့လာမှတ်သားနာယူနိုင်ဖို့", "viber": "09265053911", "city": "မြင်းခြံမြို့", "online_exp": "ရှိ"}, {"code": "PL-HSSCH", "name": "Candasiri", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "57", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "Because of Buddha words.", "viber": "+94814881512", "city": "Tachileik", "online_exp": "မရှိ"}, {"code": "PL-45F45", "name": "Dr Tinmar Tun", "type": "လူ", "gender": "အမျိုးသမီး", "age": "49", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကား ကို နားလည်တက်ကျွမ်းချင်ပါသည်", "viber": "09420063065", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-Z66M4", "name": "ဦးစရိယာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "21", "pali_exp": "ပထမလတ် အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09664539660", "city": "စစ်တွေ", "online_exp": "ရှိ"}, {"code": "PL-MCLQM", "name": "သက်နောင်ဦး", "type": "လူ", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလိုဖတ်တတ်ပြီး အဓိပ္ပါယ်ကို နားလည်ချင်ပါတယ်", "viber": "09778799986", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-SH63X", "name": "Ven . YASDHAMAMA", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently pali Language .", "viber": "09798485292", "city": "Pakhokku", "online_exp": "ရှိ"}, {"code": "PL-9Z4E7", "name": "ဒေါ်ယုယုခိုင်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "51", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိတွေကို နားလည်ချင်လို့ပါ", "viber": "09420042456", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-4G4K5", "name": "ဦးဥတ္တမ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ပထမငယ် အောင်", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါဘုရား", "viber": "09265115201", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-EBN48", "name": "ဦးမြင့်စိုး", "type": "လူ", "gender": "အမျိုးသား", "age": "60", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ပါဠိတော်များကိုသိရှိလိုခြင်း", "viber": "095116744", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-PE5W3", "name": "ဒေါ်စန်းစန်းနွယ်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "61", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို ကိုယ်တိုင် နားလည်ချင်လို့ပါ", "viber": "09971217646", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-5UXXA", "name": "အရှကဝိန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိစကားကို ပြောတတ်ချင်ပါသည်", "viber": "09886477174", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-KCAYW", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "22", "pali_exp": "ပထမကြီး အောင်", "reason": "Speaking စွမ်းရည်ကို လိုချင်ပါတယ်", "viber": "09890838186", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-6EVMX", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၄၁၄၁၅၉၈၂", "city": "စစ်ကိုင်း", "online_exp": "ရှိ"}, {"code": "PL-87DMM", "name": "မနိမလ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိ စကားကိုကျွမ်းကျင်စွာ ပြောတတ်ချင်လို့ပါဘုရား", "viber": "၀၉၄၀၇၄၁၁၅၆၈", "city": "ရန်ကုန်", "online_exp": "မရှိ"}, {"code": "PL-3J5W4", "name": "U Tun Tun", "type": "လူ", "gender": "အမျိုးသား", "age": "48", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိများကိုနားလည်သဘောပေါက်ချင်လို့ပါ", "viber": "09 43058864", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-W27C9", "name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာစကားဖြင့် မေးမြန်းပြောဆိုတတ်ချင်လို့ပါ", "viber": "09765103445", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-GYYT9", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၅၂၃၅၁၂၉၁", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-SFXZN", "name": "ဒါဒါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "41", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "နားလည်ချင်ပါတယ်ရှင့်", "viber": "09420067645", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-84X49", "name": "U KeLaSa", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "47", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "သင်ချင်လို့", "viber": "+9509422055104", "city": "ကန့်ဘလူမြို့", "online_exp": "ရှိ"}, {"code": "PL-JXXGK", "name": "ဦးတေဇနိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၇", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာကိုကျွမ်းကျင်လို၍", "viber": "09444158485", "city": "သာကေတ", "online_exp": "ရှိ"}, {"code": "PL-V4TNE", "name": "phyuphyuseine", "type": "လူ", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "To gain paril knowleget", "viber": "09420138908", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-X5E8W", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၃", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါ", "viber": "09403756855", "city": "ပုသိမ်မြို့", "online_exp": "ရှိ"}, {"code": "PL-EUVDE", "name": "Ven Ādicca", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "40", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak in Pali.", "viber": "9964601445", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-Z68U4", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "15", "pali_exp": "အခြေခံအောင်", "reason": "ပြောတတ်ချင်လို​့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-RSEAZ", "name": "သိမ်မွေ့ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "24", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "စိတ်ဝင်စား၍", "viber": "+6581451559", "city": "Singapore", "online_exp": "ရှိ"}, {"code": "PL-4FPD5", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၀", "pali_exp": "ပထမကြီး အောင်", "reason": "တက်ချင်လို့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-XUC6Z", "name": "ဒေါ်ရည်မွန်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၄၈", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိများကိုနားလည်ချင်ပါတယ်", "viber": "095036720", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-5WT3W", "name": "စန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "32", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား‌ပြောတတ်ချင်လို့ပါ", "viber": "+959684949540", "city": "ချောက်မြို့", "online_exp": "ရှိ"}, {"code": "PL-3RL8Z", "name": "ဒေါ်သန်းသန်းမြင့်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို နားလည် သဘောပေါက် လို၍ပါ။", "viber": "09250005118", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-HH3QG", "name": "Chaw Su Hlaing", "type": "လူ", "gender": "အမျိုးသမီး", "age": "38", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Pali စကားကို နားလည်ချင်ပါတယ်။", "viber": "09420084534", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-3K8CZ", "name": "Daw Pye Pye Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "57", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "To be able to comprehend Buddha's words more clearly", "viber": "095015093", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-KJ8Q5", "name": "ဦးအရိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၄၃", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09455325807", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-EJ8K3", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "29", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To be able to speak fluently", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-YALN5", "name": "Ma Khemãnandī", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To understand easily the pali sentences what Buddha taugt and to speak.", "viber": "09428318357", "city": "Sagaing", "online_exp": "ရှိ"}, {"code": "PL-GYYT9", "name": "ဦးသုဇာတဇောတိ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "45", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စာပေနားလည်နိုင်ရန်နှင့်သာသနာပြုနိုင်ရန်", "viber": "0943187178", "city": "အမရပူရမြို့", "online_exp": "ရှိ"}, {"code": "PL-NBLN5", "name": "A Shin Kusaladhamma", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "52", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိ လို ကျွမ်းကျင်စွာ ပြောတတ်ချင်ပါတယ်", "viber": "+940763261273", "city": "Pyin Oo Lwin", "online_exp": "ရှိ"}, {"code": "PL-Z662L", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently.", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-2RD7A", "name": "Daw Win Sanda Kyaw", "type": "လူ", "gender": "အမျိုးသမီး", "age": "54", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိတော်များကိုဖတ်ရှုနားလည်လိုပါသည်", "viber": "09765052932", "city": "Yangon", "online_exp": "ရှိ"}];
 
         function verifyAdminAccess() {
             const navStudents = document.getElementById('navStudents');
@@ -377,12 +364,12 @@
             }
         }
 
-        function processHash() {
+        window.processHash = function() {
             const hash = window.location.hash.substring(1);
             let tabToOpen = 'home';
 
             if(hash.startsWith('post-')) {
-                const targetPost = allPosts.find(p => `post-${p.id}` === hash);
+                const targetPost = window.allPosts.find(p => `post-${p.id}` === hash);
                 if(targetPost) {
                     tabToOpen = targetPost.category || 'home';
                     setTimeout(() => {
@@ -404,6 +391,9 @@
             }
 
             // Switch Content
+            const targetTabPane = document.getElementById('tab-' + tabToOpen);
+            if(!targetTabPane) tabToOpen = 'home';
+
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabToOpen).classList.add('active');
 
@@ -416,27 +406,13 @@
 
         window.navTo = function(tabName) {
             window.location.hash = tabName;
-            processHash();
+            window.processHash();
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
-        window.addEventListener('hashchange', processHash);
+        window.addEventListener('hashchange', window.processHash);
 
-        // Fetch Posts
-        async function fetchPosts() {
-            try {
-                const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
-                const snap = await getDocs(q);
-                allPosts = [];
-                snap.forEach(d => { allPosts.push({id: d.id, ...d.data()}); });
-                renderPosts();
-                processHash(); 
-            } catch (e) {
-                console.error(e);
-                document.getElementById('homePosts').innerHTML = '<div class="text-red-400 text-center py-5">ဒေတာချိတ်ဆက်မှု အမှားဖြစ်နေပါသည်။</div>';
-            }
-        }
-
-        function renderPosts() {
+        // Fetch Posts (will be overwritten by Firebase if loaded)
+        window.renderPosts = function() {
             const containers = {
                 'home': document.getElementById('homePosts'),
                 'zoom': document.getElementById('zoomPosts'),
@@ -446,12 +422,12 @@
 
             Object.values(containers).forEach(c => c.innerHTML = '');
 
-            if(allPosts.length === 0) {
+            if(window.allPosts.length === 0) {
                 containers['home'].innerHTML = '<div class="text-slate-500 text-center py-10">ကြေညာချက် မရှိသေးပါ။</div>';
                 return;
             }
 
-            allPosts.forEach(post => {
+            window.allPosts.forEach(post => {
                 const cat = post.category || 'home';
                 if(!containers[cat]) return; 
                 
@@ -490,6 +466,151 @@
                     containers[cat].innerHTML = `<div class="text-slate-500 text-center py-10 text-sm">ယခုကဏ္ဍတွင် ပို့စ်မရှိသေးပါ။</div>`;
                 }
             });
+        };
+
+        // Fallback robust copy
+        window.copyToClip = function(text, typeName = "စာသား") {
+            if(navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    window.toast(typeName + " ကို Copy ကူးယူပြီးပါပြီ");
+                }).catch(() => {
+                    window.toast("Copy ကူးရာတွင် အမှားဖြစ်နေပါသည်", true);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    window.toast(typeName + " ကို Copy ကူးယူပြီးပါပြီ");
+                } catch (err) {
+                    window.toast("Copy ကူးရာတွင် အမှားဖြစ်နေပါသည်", true);
+                }
+                document.body.removeChild(textArea);
+            }
+        };
+
+        window.toast = function(msg, isErr = false) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            document.getElementById('toastIcon').className = isErr ? "fa-solid fa-circle-xmark text-red-400 text-xl" : "fa-solid fa-circle-check text-emerald-400 text-xl";
+            t.style.opacity = '1'; t.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translate(-50%, 40px)'; }, 3000);
+        };
+
+        window.openAdmin = function() {
+            document.getElementById('adminModal').classList.add('active');
+            if(window.isAdmin) {
+                document.getElementById('loginView').style.display = 'none';
+                document.getElementById('editorView').style.display = 'block';
+            } else {
+                document.getElementById('loginView').style.display = 'block';
+                document.getElementById('editorView').style.display = 'none';
+                document.getElementById('adminPwd').value = '';
+                document.getElementById('passwordError').classList.add('hidden');
+                setTimeout(() => document.getElementById('adminPwd').focus(), 100);
+            }
+        };
+
+        window.closeAdmin = function() { document.getElementById('adminModal').classList.remove('active'); };
+
+        window.checkPwd = function() {
+            if(document.getElementById('adminPwd').value === 'palivoice') {
+                localStorage.setItem('pali_admin', 'true');
+                window.isAdmin = true;
+                window.openAdmin(); 
+                verifyAdminAccess();
+                window.renderPosts();
+                window.toast("Admin စနစ်သို့ ဝင်ရောက်ပြီးပါပြီ။", false);
+            } else {
+                document.getElementById('passwordError').classList.remove('hidden');
+            }
+        };
+
+        window.logout = function() {
+            localStorage.removeItem('pali_admin');
+            window.isAdmin = false;
+            window.closeAdmin();
+            verifyAdminAccess();
+            window.renderPosts();
+            window.toast("Admin အကောင့်မှ ထွက်ပြီးပါပြီ။", false);
+            if(window.location.hash === '#students') window.location.hash = 'home';
+        };
+
+        window.format = function(cmd, val = null) {
+            document.getElementById('postContent').focus();
+            document.execCommand(cmd, false, val);
+        };
+        window.addLink = function() {
+            const url = prompt("Link ထည့်ပါ:", "https://");
+            if(url) {
+                document.getElementById('postContent').focus();
+                document.execCommand('insertHTML', false, `<a href="${url}" target="_blank" style="color:#34d399;text-decoration:underline;">${url}</a>`);
+            }
+        };
+        document.getElementById('postContent').addEventListener("paste", function(e) {
+            e.preventDefault();
+            const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+            document.execCommand('insertText', false, text);
+        });
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => { document.getElementById('installBanner').classList.add('show'); }, 2000);
+        });
+
+        document.getElementById('installBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                document.getElementById('installBanner').classList.remove('show');
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            const swCode = `self.addEventListener('install', (e)=>{}); self.addEventListener('fetch', (e)=>{});`;
+            const blob = new Blob([swCode], {type: 'application/javascript'});
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
+
+        verifyAdminAccess();
+        if(!window.location.hash) window.location.hash = 'home';
+        window.processHash();
+    </script>
+
+    <!-- FIREBASE SYSTEM -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgZ1pdU96FxwFbhSFWKPwq7RKaVw9JHRk",
+            authDomain: "palispeaking-e2407.firebaseapp.com",
+            projectId: "palispeaking-e2407",
+            storageBucket: "palispeaking-e2407.firebasestorage.app",
+            messagingSenderId: "52655990560",
+            appId: "1:52655990560:web:349d0ab432f703dd48d945"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchPosts() {
+            try {
+                const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+                const snap = await getDocs(q);
+                window.allPosts = [];
+                snap.forEach(d => { window.allPosts.push({id: d.id, ...d.data()}); });
+                window.renderPosts();
+                window.processHash(); 
+            } catch (e) {
+                console.error(e);
+                document.getElementById('homePosts').innerHTML = '<div class="text-red-400 text-center py-5">ဒေတာချိတ်ဆက်မှု အမှားဖြစ်နေပါသည်။</div>';
+            }
         }
 
         window.publish = async function() {
@@ -507,7 +628,6 @@
 
             try {
                 await addDoc(collection(db, "posts"), { title, content, category, timestamp: new Date() });
-                
                 window.closeAdmin();
                 window.toast("အောင်မြင်စွာ တင်ပြီးပါပြီ။");
                 fetchPosts(); 
@@ -530,123 +650,7 @@
             } catch(e) { window.toast("ဖျက်မရပါ။", true); }
         };
 
-        window.setAdminStatus = function(status) {
-            window.isAdmin = status;
-            verifyAdminAccess(); // Trigger Secret Tab Visibility
-            loadPosts(); 
-        }
-        
-        // Init Check
-        verifyAdminAccess();
-        if(!window.location.hash) window.location.hash = 'home';
-        processHash();
         fetchPosts();
-
-    </script>
-
-    <!-- UI & App Logic Scripts -->
-    <script>
-        // Copy function
-        window.copyToClip = function(text, typeName = "စာသား") {
-            navigator.clipboard.writeText(text).then(() => {
-                window.toast(typeName + " ကို Copy ကူးယူပြီးပါပြီ");
-            }).catch(() => {
-                window.toast("Copy ကူးရာတွင် အမှားဖြစ်နေပါသည်", true);
-            });
-        };
-
-        // Toast Notification
-        window.toast = function(msg, isErr = false) {
-            const t = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            document.getElementById('toastIcon').className = isErr ? "fa-solid fa-circle-xmark text-red-400 text-xl" : "fa-solid fa-circle-check text-emerald-400 text-xl";
-            t.style.opacity = '1'; t.style.transform = 'translate(-50%, 0)';
-            setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translate(-50%, 40px)'; }, 3000);
-        };
-
-        // Admin Panel Controls
-        function openAdmin() {
-            document.getElementById('adminModal').classList.add('active');
-            if(window.isAdmin) {
-                document.getElementById('loginView').style.display = 'none';
-                document.getElementById('editorView').style.display = 'block';
-            } else {
-                document.getElementById('loginView').style.display = 'block';
-                document.getElementById('editorView').style.display = 'none';
-                document.getElementById('adminPwd').value = '';
-                document.getElementById('passwordError').classList.add('hidden');
-                setTimeout(() => document.getElementById('adminPwd').focus(), 100);
-            }
-        }
-        window.openAdmin = openAdmin;
-
-        window.closeAdmin = function() { document.getElementById('adminModal').classList.remove('active'); };
-
-        window.checkPwd = function() {
-            if(document.getElementById('adminPwd').value === 'palivoice') {
-                localStorage.setItem('pali_admin', 'true');
-                if(typeof window.setAdminStatus === 'function') {
-                    window.setAdminStatus(true);
-                }
-                openAdmin(); // refresh view
-                window.toast("Admin စနစ်သို့ ဝင်ရောက်ပြီးပါပြီ။", false);
-            } else {
-                document.getElementById('passwordError').classList.remove('hidden');
-            }
-        };
-
-        window.logout = function() {
-            localStorage.removeItem('pali_admin');
-            if(typeof window.setAdminStatus === 'function') {
-                window.setAdminStatus(false);
-            }
-            window.closeAdmin();
-            window.toast("Admin အကောင့်မှ ထွက်ပြီးပါပြီ။", false);
-            if(window.location.hash === '#students') window.location.hash = 'home';
-        };
-
-        // Editor Formatter
-        window.format = function(cmd, val = null) {
-            document.getElementById('postContent').focus();
-            document.execCommand(cmd, false, val);
-        };
-        window.addLink = function() {
-            const url = prompt("Link ထည့်ပါ:", "https://");
-            if(url) {
-                document.getElementById('postContent').focus();
-                document.execCommand('insertHTML', false, `<a href="${url}" target="_blank" style="color:#34d399;text-decoration:underline;">${url}</a>`);
-            }
-        };
-        
-        // Strip bad formatting on paste
-        document.getElementById('postContent').addEventListener("paste", function(e) {
-            e.preventDefault();
-            const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-            document.execCommand('insertText', false, text);
-        });
-
-        // PWA Install Prompt handling
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            setTimeout(() => { document.getElementById('installBanner').classList.add('show'); }, 2000);
-        });
-
-        document.getElementById('installBtn').addEventListener('click', async () => {
-            if (deferredPrompt) {
-                document.getElementById('installBanner').classList.remove('show');
-                deferredPrompt.prompt();
-                await deferredPrompt.userChoice;
-                deferredPrompt = null;
-            }
-        });
-
-        if ('serviceWorker' in navigator) {
-            const swCode = `self.addEventListener('install', (e)=>{}); self.addEventListener('fetch', (e)=>{});`;
-            const blob = new Blob([swCode], {type: 'application/javascript'});
-            navigator.serviceWorker.register(URL.createObjectURL(blob));
-        }
     </script>
 </body>
 </html>

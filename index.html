@@ -42,13 +42,15 @@
             box-shadow: 0px 0px 60px rgba(31, 215, 232, 0.6);
         }
 
+        /* Desktop Nav */
         .desktop-nav { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-link { color: #94a3b8; border-bottom: 2px solid transparent; transition: all 0.3s; padding: 0 10px; }
+        .nav-link { color: #94a3b8; border-bottom: 2px solid transparent; transition: all 0.3s; padding: 0 10px; cursor: pointer; }
         .nav-link:hover { color: #fff; }
         .nav-link.active { color: #60a5fa; border-bottom-color: #60a5fa; }
 
+        /* Mobile Nav */
         .bottom-nav { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(15px); border-top: 1px solid rgba(255,255,255,0.1); padding-bottom: env(safe-area-inset-bottom); }
-        .tab-btn { color: #64748b; transition: all 0.3s; flex: 1; text-align: center; }
+        .tab-btn { color: #64748b; transition: all 0.3s; flex: 1; text-align: center; cursor: pointer; }
         .tab-btn.active { color: #60a5fa; transform: translateY(-2px); }
 
         #installBanner { background: linear-gradient(135deg, #3b82f6, #8b5cf6); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -71,7 +73,7 @@
         .post-content { font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; }
         .post-content a { color: #34d399; text-decoration: underline; }
 
-        .share-btn { color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; transition: all 0.2s; white-space: nowrap; }
+        .share-btn { color: #64748b; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; transition: all 0.2s; white-space: nowrap; border: none; cursor: pointer; }
         .share-btn:hover { background: rgba(96, 165, 250, 0.2); color: #60a5fa; }
 
         .zoom-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.05); }
@@ -91,7 +93,7 @@
         .editor-content:focus { border-color: #60a5fa; }
         .editor-content:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.3); }
 
-        .hidden { display: none !important; }
+        .hide-element { display: none !important; }
         .select-all { user-select: all; -webkit-user-select: all; cursor: copy; }
     </style>
 </head>
@@ -124,13 +126,13 @@
             </div>
         </div>
         <div class="flex gap-4 font-semibold text-sm">
-            <a href="#home" class="nav-link py-2" data-tab="home" onclick="navTo('home')"><i class="fa-solid fa-house mr-1"></i> ကြေညာချက်များ</a>
-            <a href="#zoom" class="nav-link py-2" data-tab="zoom" onclick="navTo('zoom')"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
-            <a href="#books" class="nav-link py-2" data-tab="books" onclick="navTo('books')"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
-            <a href="#records" class="nav-link py-2" data-tab="records" onclick="navTo('records')"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
-            <a href="#feedback" class="nav-link py-2 text-yellow-400" data-tab="feedback" onclick="navTo('feedback')"><i class="fa-solid fa-comments mr-1"></i> Feedback</a>
+            <a class="nav-link py-2" data-tab="home" onclick="navTo('home')"><i class="fa-solid fa-house mr-1"></i> ကြေညာချက်များ</a>
+            <a class="nav-link py-2" data-tab="zoom" onclick="navTo('zoom')"><i class="fa-solid fa-video mr-1"></i> ZOOM</a>
+            <a class="nav-link py-2" data-tab="books" onclick="navTo('books')"><i class="fa-solid fa-book-open mr-1"></i> စာအုပ်များ</a>
+            <a class="nav-link py-2" data-tab="records" onclick="navTo('records')"><i class="fa-solid fa-folder-open mr-1"></i> မှတ်တမ်းများ</a>
+            <a class="nav-link py-2 text-yellow-400" data-tab="feedback" onclick="navTo('feedback')"><i class="fa-solid fa-comments mr-1"></i> Feedback</a>
             
-            <a href="#students" id="navStudents" class="nav-link py-2 hidden text-rose-400" data-tab="students" onclick="navTo('students')"><i class="fa-solid fa-user-secret mr-1"></i> Admin</a>
+            <a id="navStudents" class="nav-link py-2 hide-element text-rose-400" data-tab="students" onclick="navTo('students')"><i class="fa-solid fa-user-secret mr-1"></i> Admin</a>
         </div>
     </nav>
 
@@ -225,13 +227,13 @@
                 <p class="text-sm text-slate-400 mb-6">ဤကဏ္ဍကို ဝင်ကြည့်ရန် စကားဝှက်လိုအပ်ပါသည်။</p>
                 
                 <input type="password" id="fbPwdInput" class="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white mb-3 outline-none focus:border-yellow-400 text-center tracking-widest" placeholder="••••••••">
-                <p id="fbPwdError" class="text-red-400 text-sm mb-3 hidden">စကားဝှက် မှားယွင်းနေပါသည်။</p>
+                <p id="fbPwdError" class="text-red-400 text-sm mb-3 hide-element">စကားဝှက် မှားယွင်းနေပါသည်။</p>
                 
                 <button onclick="checkFbPwd()" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold p-3 rounded-lg transition shadow-lg shadow-yellow-500/20">ဝင်မည်</button>
             </div>
 
             <!-- Feedback Content (Hidden by default) -->
-            <div id="feedbackContent" class="hidden">
+            <div id="feedbackContent" class="hide-element">
                 <div class="bg-black/20 p-4 rounded-xl border border-white/5 mb-6 text-sm text-slate-300">
                     <i class="fa-solid fa-circle-info text-yellow-400 mr-2"></i> သင်တန်းသားများ၏ အပတ်စဉ် (၁) အကြံပြုချက်များ
                 </div>
@@ -258,28 +260,28 @@
 
     <!-- Mobile Bottom Navigation -->
     <nav class="bottom-nav flex md:hidden justify-around items-center fixed bottom-0 w-full z-40 pt-3">
-        <a href="#home" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="home" onclick="navTo('home')">
+        <a class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="home" onclick="navTo('home')">
             <i class="fa-solid fa-house text-xl"></i>
             <span class="text-[10px] font-bold">ပင်မ</span>
         </a>
-        <a href="#zoom" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="zoom" onclick="navTo('zoom')">
+        <a class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="zoom" onclick="navTo('zoom')">
             <i class="fa-solid fa-video text-xl"></i>
             <span class="text-[10px] font-bold">ZOOM</span>
         </a>
-        <a href="#books" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="books" onclick="navTo('books')">
+        <a class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="books" onclick="navTo('books')">
             <i class="fa-solid fa-book-open text-xl"></i>
             <span class="text-[10px] font-bold">စာအုပ်</span>
         </a>
-        <a href="#records" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="records" onclick="navTo('records')">
+        <a class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="records" onclick="navTo('records')">
             <i class="fa-solid fa-folder-open text-xl"></i>
             <span class="text-[10px] font-bold">မှတ်တမ်း</span>
         </a>
-        <a href="#feedback" class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="feedback" onclick="navTo('feedback')">
+        <a class="tab-btn flex flex-col items-center gap-1 pb-2" data-tab="feedback" onclick="navTo('feedback')">
             <i class="fa-solid fa-comments text-xl"></i>
             <span class="text-[10px] font-bold">Feedback</span>
         </a>
         
-        <a href="#students" id="mobStudents" class="tab-btn hidden flex-col items-center gap-1 pb-2 text-rose-400" data-tab="students" onclick="navTo('students')">
+        <a id="mobStudents" class="tab-btn hide-element flex-col items-center gap-1 pb-2 text-rose-400" data-tab="students" onclick="navTo('students')">
             <i class="fa-solid fa-user-secret text-xl"></i>
             <span class="text-[10px] font-bold">Admin</span>
         </a>
@@ -294,7 +296,7 @@
                 <h2 class="text-xl font-bold text-blue-400 mb-2"><i class="fa-solid fa-lock mr-2"></i> Admin Login</h2>
                 <p class="text-sm text-slate-400 mb-6">အက်ဒမင်စနစ် ဝင်ရောက်ရန် လျှို့ဝှက်ကုဒ် ရိုက်ပါ။</p>
                 <input type="password" id="adminPwd" class="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-white mb-4 outline-none focus:border-blue-400 text-center tracking-widest" placeholder="••••••••">
-                <p id="passwordError" class="text-red-400 text-sm mb-3 hidden">စကားဝှက် မှားယွင်းနေပါသည်။</p>
+                <p id="passwordError" class="text-red-400 text-sm mb-3 hide-element">စကားဝှက် မှားယွင်းနေပါသည်။</p>
                 <button onclick="checkPwd()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold p-3 rounded-lg transition">ဝင်မည်</button>
             </div>
 
@@ -352,7 +354,7 @@
         const secretStudents = [{"code": "PL-MHWY6", "name": "ဦးဇောတိက", "type": "ရဟန်း", "gender": "", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါလို့", "viber": "09693331093", "city": "တာမွေ၊ရန်ကုန်။", "online_exp": "မရှိ"}, {"code": "PL-PPHAE", "name": "မသုဝရဉာဏီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၂", "pali_exp": "", "reason": "တတ်သိနားလည်ချင်လို့ပါဘုရား", "viber": "09450488611", "city": "မင်ဘူးမြို့", "online_exp": "မရှိ"}, {"code": "PL-YYK78", "name": "ဆရာလေးဝိဝေကစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၆၀", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားစာပေများ၏အနက်ကိုသေချာသိရန်", "viber": "၀၉၆၉၁၀၇၈၉၀၀", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-XYYDM", "name": "အရှင်ကုသလဓမ္မ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စိတ်ဝင်စားပါသည်", "viber": "၀၉၄၂၃၆၇၃၂၇၄", "city": "ကျောက်တလုံးကြီးမြို့", "online_exp": "ရှိပါသည်"}, {"code": "PL-UUNB7", "name": "မီးမီး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၅၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘာသာစကားအနေဖြင့်ရော မြတ်စွားဘုရားရှင်တို့သုံးခဲ့သောခက်ခဲနက်နံသည့်ဘာသာကိုလေ့လာချင်လို့ပါ", "viber": "09796138248", "city": "ရန်ကုန်", "online_exp": "Yes"}, {"code": "PL-9HHRY", "name": "Ei Ei Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "တရားစာအုပ်များဖတ်သောအခါအများအားဖြင့်ပါဠိလိုရေးထားတာများလို့နားလည်ချင်ပါတယ်။", "viber": "09448011993", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-T5Z5M", "name": "အရှင်ပညာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား​ပြောတတ်ချင်လို့", "viber": "၀၉၉၅၈၆၇၂၂၂၉", "city": "ထားဝယ်", "online_exp": "ရှိ"}, {"code": "PL-GNRG6", "name": "အရှင်သုတဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၇", "pali_exp": "ပထမကြီး အောင်", "reason": "ဝါသနာပါ၍", "viber": "09440614050", "city": "ပြင်ဦးလွင်", "online_exp": "ရှိ"}, {"code": "PL-UGR5G", "name": "မဇေယျသိရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ဝါသနာပါ၍", "viber": "09403752538", "city": "ပုသိမ်", "online_exp": "ရှိ"}, {"code": "PL-S9AUM", "name": "အရှင်အာလောက", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "20", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09968257008", "city": "Bago", "online_exp": "ရှိ"}, {"code": "PL-QNK4G", "name": "Siddhi", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Learn to Pali text as Buddha's teaching accurately and spread Buddha's Dhamma globally.", "viber": "917596041040", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-44SCT", "name": "ဦးဝင်းမြင့်", "type": "လူ", "gender": "အမျိုးသား", "age": "၅၄", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိပုဒ်တွေကို သိချင်လို့ပါ။", "viber": "09260278786", "city": "သန်လျင်", "online_exp": "မရှိ"}, {"code": "PL-F5W5F", "name": "ဒေါ်သက်သက်ဝါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလို နားလည်အောင်", "viber": "09420063231", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-BMATL", "name": "Ven Thāvariya", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "55", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိဘာသာလေ့လာနေသောကြောင့်", "viber": "09420237722", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-S9ZEG", "name": "ချောဝင့်သူ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိကို နားလည်ပြီး ပြောတတ်ချင်လို့ပါ", "viber": "095039023", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-WQFQU", "name": "NYI NYI MOE", "type": "လူ", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဝါသနာပါလို့", "viber": "09673024840", "city": "Kyaukpadaung", "online_exp": "ရှိ"}, {"code": "PL-9U3QG", "name": "မမြရှင်", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပထမကြီး အောင်", "reason": "ဘုရားဟောပါဠိတော်များကိုနားလည်သဘောပေါက်ချင်၍", "viber": "09261298462", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-V4ZSE", "name": "ရှင်သုမန", "type": "သာမဏေ", "gender": "အမျိုးသား", "age": "၁၈", "pali_exp": "အခြေခံအောင်", "reason": "ဘုရားဟောပါဠိများကို ကောင်းမွန်စွာနားလည်နိုင်ရန်။", "viber": "09893077759", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-HSSZJ", "name": "အောင်သီဟကျော်", "type": "လူ", "gender": "အမျိုးသား", "age": "၂၉", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို မူရင်းပါဠိဘာသာဖြင့် နားလည်ချင်ပါသဖြင့်", "viber": "၀၉၉၇၄၂၃၄၂၈၃", "city": "တောင်ဥက္ကလာပမြို့နယ်", "online_exp": "ရှိ"}, {"code": "PL-X5EAS", "name": "ဦးဝင်းနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဗုဒ္ဓဘာသာဆိုင်ရာများကိုပိုမိုသိရှိနားလည်လို၍", "viber": "095015383", "city": "YGN", "online_exp": "ရှိ"}, {"code": "PL-7L2A2", "name": "ကိုအောင်ဖေနိုင်", "type": "လူ", "gender": "အမျိုးသား", "age": "၃၄နှစ်", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကားကိုစိတ်ဝင်စားလို့ပါဗျာ", "viber": "၀၉၇၆၆၀၈၇၇၂၂", "city": "မြောက်ဥက္ကလာ", "online_exp": "ရှိ"}, {"code": "PL-2L2W9", "name": "Ma Sandartheingi", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "32", "pali_exp": "ပထမလတ် အောင်", "reason": "ပါဠိစာပေကိုအခြေခံကစတင်လေ့လာချင်လို့ပါ", "viber": "09449833583", "city": "တောင်ကြီး", "online_exp": "ရှိ"}, {"code": "PL-G7DVM", "name": "မစည်းစိမ်ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "၃၂", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဗုဒ္ဓသာသနာကို ပါဠိလိုလေ့လာမှတ်သားနာယူနိုင်ဖို့", "viber": "09265053911", "city": "မြင်းခြံမြို့", "online_exp": "ရှိ"}, {"code": "PL-HSSCH", "name": "Candasiri", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "57", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "Because of Buddha words.", "viber": "+94814881512", "city": "Tachileik", "online_exp": "မရှိ"}, {"code": "PL-45F45", "name": "Dr Tinmar Tun", "type": "လူ", "gender": "အမျိုးသမီး", "age": "49", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ပါဠိဘာသာစကား ကို နားလည်တက်ကျွမ်းချင်ပါသည်", "viber": "09420063065", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-Z66M4", "name": "ဦးစရိယာနန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "21", "pali_exp": "ပထမလတ် အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09664539660", "city": "စစ်တွေ", "online_exp": "ရှိ"}, {"code": "PL-MCLQM", "name": "သက်နောင်ဦး", "type": "လူ", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိလိုဖတ်တတ်ပြီး အဓိပ္ပါယ်ကို နားလည်ချင်ပါတယ်", "viber": "09778799986", "city": "မန္တလေး", "online_exp": "ရှိ"}, {"code": "PL-SH63X", "name": "Ven . YASDHAMAMA", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "43", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently pali Language .", "viber": "09798485292", "city": "Pakhokku", "online_exp": "ရှိ"}, {"code": "PL-9Z4E7", "name": "ဒေါ်ယုယုခိုင်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "51", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိတွေကို နားလည်ချင်လို့ပါ", "viber": "09420042456", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-4G4K5", "name": "ဦးဥတ္တမ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၄", "pali_exp": "ပထမငယ် အောင်", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါဘုရား", "viber": "09265115201", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-EBN48", "name": "ဦးမြင့်စိုး", "type": "လူ", "gender": "အမျိုးသား", "age": "60", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ပါဠိတော်များကိုသိရှိလိုခြင်း", "viber": "095116744", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-PE5W3", "name": "ဒေါ်စန်းစန်းနွယ်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "61", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို ကိုယ်တိုင် နားလည်ချင်လို့ပါ", "viber": "09971217646", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-5UXXA", "name": "အရှကဝိန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "24", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိစကားကို ပြောတတ်ချင်ပါသည်", "viber": "09886477174", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-KCAYW", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "22", "pali_exp": "ပထမကြီး အောင်", "reason": "Speaking စွမ်းရည်ကို လိုချင်ပါတယ်", "viber": "09890838186", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-6EVMX", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၉", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၄၁၄၁၅၉၈၂", "city": "စစ်ကိုင်း", "online_exp": "ရှိ"}, {"code": "PL-87DMM", "name": "မနိမလ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပါဠိ စကားကိုကျွမ်းကျင်စွာ ပြောတတ်ချင်လို့ပါဘုရား", "viber": "၀၉၄၀၇၄၁၁၅၆၈", "city": "ရန်ကုန်", "online_exp": "မရှိ"}, {"code": "PL-3J5W4", "name": "U Tun Tun", "type": "လူ", "gender": "အမျိုးသား", "age": "48", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ဘုရားဟောပါဠိများကိုနားလည်သဘောပေါက်ချင်လို့ပါ", "viber": "09 43058864", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-W27C9", "name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၃၄", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာစကားဖြင့် မေးမြန်းပြောဆိုတတ်ချင်လို့ပါ", "viber": "09765103445", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-GYYT9", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၁", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "၀၉၉၅၂၃၅၁၂၉၁", "city": "ရန်ကုန်မြို့", "online_exp": "ရှိ"}, {"code": "PL-SFXZN", "name": "ဒါဒါ", "type": "လူ", "gender": "အမျိုးသမီး", "age": "41", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "နားလည်ချင်ပါတယ်ရှင့်", "viber": "09420067645", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-84X49", "name": "U KeLaSa", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "47", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "သင်ချင်လို့", "viber": "+9509422055104", "city": "ကန့်ဘလူမြို့", "online_exp": "ရှိ"}, {"code": "PL-JXXGK", "name": "ဦးတေဇနိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၃၇", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိဘာသာကိုကျွမ်းကျင်လို၍", "viber": "09444158485", "city": "သာကေတ", "online_exp": "ရှိ"}, {"code": "PL-V4TNE", "name": "phyuphyuseine", "type": "လူ", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "To gain paril knowleget", "viber": "09420138908", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-X5E8W", "name": "မသုမာလာ", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "၄၃", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား ပြောတတ်ချင်လို့ပါ", "viber": "09403756855", "city": "ပုသိမ်မြို့", "online_exp": "ရှိ"}, {"code": "PL-EUVDE", "name": "Ven Ādicca", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "40", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak in Pali.", "viber": "9964601445", "city": "Mandalay", "online_exp": "ရှိ"}, {"code": "PL-Z68U4", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "15", "pali_exp": "အခြေခံအောင်", "reason": "ပြောတတ်ချင်လို​့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-RSEAZ", "name": "သိမ်မွေ့ဦး", "type": "လူ", "gender": "အမျိုးသမီး", "age": "24", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "စိတ်ဝင်စား၍", "viber": "+6581451559", "city": "Singapore", "online_exp": "ရှိ"}, {"code": "PL-4FPD5", "name": "အရှင်နန္ဒဝံသ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၂၀", "pali_exp": "ပထမကြီး အောင်", "reason": "တက်ချင်လို့ပါ", "viber": "09890838186", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-XUC6Z", "name": "ဒေါ်ရည်မွန်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိများကိုနားလည်ချင်ပါတယ်", "viber": "095036720", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-5WT3W", "name": "စန္ဒ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "32", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "ပါဠိစကား‌ပြောတတ်ချင်လို့ပါ", "viber": "+959684949540", "city": "ချောက်မြို့", "online_exp": "ရှိ"}, {"code": "PL-3RL8Z", "name": "ဒေါ်သန်းသန်းမြင့်", "type": "လူ", "gender": "အမျိုးသမီး", "age": "50", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "မြတ်စွာဘုရား၏ တရားတော်များကို နားလည် သဘောပေါက် လို၍ပါ။", "viber": "09250005118", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-HH3QG", "name": "Chaw Su Hlaing", "type": "လူ", "gender": "အမျိုးသမီး", "age": "38", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "Pali စကားကို နားလည်ချင်ပါတယ်။", "viber": "09420084534", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-3K8CZ", "name": "Daw Pye Pye Aung", "type": "လူ", "gender": "အမျိုးသမီး", "age": "57", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "To be able to comprehend Buddha's words more clearly", "viber": "095015093", "city": "Yangon", "online_exp": "ရှိ"}, {"code": "PL-KJ8Q5", "name": "ဦးအရိယ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "၄၃", "pali_exp": "ပထမကြီး အောင်", "reason": "ပြောတတ်ချင်လို့ပါ", "viber": "09455325807", "city": "ရန်ကုန်", "online_exp": "ရှိ"}, {"code": "PL-EJ8K3", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "29", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To be able to speak fluently", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-YALN5", "name": "Ma Khemãnandī", "type": "သီလရှင်", "gender": "အမျိုးသမီး", "age": "48", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To understand easily the pali sentences what Buddha taugt and to speak.", "viber": "09428318357", "city": "Sagaing", "online_exp": "ရှိ"}, {"code": "PL-GYYT9", "name": "ဦးသုဇာတဇောတိ", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "45", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "စာပေနားလည်နိုင်ရန်နှင့်သာသနာပြုနိုင်ရန်", "viber": "0943187178", "city": "အမရပူရမြို့", "online_exp": "ရှိ"}, {"code": "PL-NBLN5", "name": "A Shin Kusaladhamma", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "52", "pali_exp": "ကိုယ်တိုင်လေ့လာဖူး", "reason": "ပါဠိ လို ကျွမ်းကျင်စွာ ပြောတတ်ချင်ပါတယ်", "viber": "+940763261273", "city": "Pyin Oo Lwin", "online_exp": "ရှိ"}, {"code": "PL-Z662L", "name": "Ashin Sucitta", "type": "ရဟန်း", "gender": "အမျိုးသား", "age": "28", "pali_exp": "ဓမ္မာစရိယ ဘွဲ့ရ", "reason": "To speak fluently.", "viber": "09968461019", "city": "Patheingyi", "online_exp": "ရှိ"}, {"code": "PL-2RD7A", "name": "Daw Win Sanda Kyaw", "type": "လူ", "gender": "အမျိုးသမီး", "age": "54", "pali_exp": "ပါဠိဘာသာစကား မသင်ဖူးပါ", "reason": "ဘုရားဟောပါဠိတော်များကိုဖတ်ရှုနားလည်လိုပါသည်", "viber": "09765052932", "city": "Yangon", "online_exp": "ရှိ"}];
 
         // Extracted Feedback Data Embedded from Excel
-        const feedbackData = [{"name": "Ei Ei Aung", "location": "Yangon", "feedback": "တပည့်တော်ကအခုမှလေ့လာတာမို့တပည့်တော်အတွက်အတော်ခက်တယ်ဘုရာ့။ ဆရာတော်  ဦးဣန္ဒကာလင်္ကာရ PowerPoint slide လေးတွေနဲ့သင်ပေးတာ စိတ်ဝင်စားစရာကောင်းသလိုမှတ်လည်းမှတ်မိတယ်ဘုရာ့။ Activity လေးတွေနဲ့ သင်ကြားပေးပါဘုရာ့။ Zoom log in details လေးကို အငြိမ်ထားပေး ပါ ဘုရာ့။ ကျေးဇူးအများကြီးတင်ပါတယ်ဘုရာ့🙏🙏🙏"}, {"name": "အရှင်ထာဝရိယ", "location": "မွန်ပြည်နယ်", "feedback": "တစ်နေ့ချင်း သိမှတ်စရာများ တိုးပွားလာခြင်း၊\nမသိသေးတဲ့ ပုဒ်အဆက်အစပ်တွေကို သိလာရခြင်းအကျိုးကျေးဇူးတွေ ရရှိပါတယ်။"}, {"name": "ဆရာလေးခေမာ", "location": "စစ်ကိုင်း", "feedback": "ကြိုက်ပါတယ်ဘုရား\nဆရာတော်တွေရဲ့သင်ကြားပေးမှူတွေက\nကောင်းပါတယ်"}, {"name": "Ven .YASDHAMMA", "location": "Pakhokku", "feedback": "ဆရာတော်များ၏သင်ကြားမှုအလွန်ကောင်းပါသည်၊ နောင်ကိုလည်းဆက်လက်၍တက်ရောက်ပါမည်၊ ပါဠိစကားပြောသင်တန်းဖွင့်လှစ်ပေးသည့်အတွက်လည်းအလွန်ပင်ဝမ်းမြောက်ကျေးဇူးတင်ရှိပါသည်၊"}, {"name": "အရှင်ပညာနန္ဒ", "location": "ထားဝယ်", "feedback": "အခုလို အခမဲ့ သင်ကြားပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ်ဘုရား"}, {"name": "သိမ်မွေ့ဦး", "location": "Singapore", "feedback": "သင်ကြားရတာပျော်ဖို့ကောင်းပါတယ်။ သို့ပေမယ့် beginner အနေနဲ့လိုက်သွားဖို့တော့ နည်းနည်းအရှိန်ယူရပါမယ်။"}, {"name": "ဦးတေဇနိယ", "location": "သာကေတ", "feedback": "အလွန်ကောင်းပါသည်"}, {"name": "Candasiri", "location": "Boston", "feedback": "ဆရာတော်တွေ သင်တာ အရမ်းကောင်းပါတယ်၊ ပါဠိစကားပြောကို လေ့ကျင့်ချင်လို့ ဒီထက် စကားပြောတဲ့အပိုင်းကို ပိုပြီး ထည့်ပေးစေချင်ပါတယ်။"}, {"name": "ဉာဏဝံသ", "location": "မြန်မာ၊ တောင်ကြီး", "feedback": "ပါဠိစကားပြောသင်တန်းဖြစ်သည့်အတွက် ပါဠိစကားပြောကို ပိုမိုသင်ကြားပေးစေလိုပါသည်။"}, {"name": "မမြရှင်", "location": "တောင်ကြီး", "feedback": "အလွန်ကောင်းမွန်တဲ့ သင်တန်း ဖြစ်ပါတယ်။\nဆရာတော်များအားလုံး သင်ကြားပို့ချမှု အလွန် ကောင်းမွန်ပါတယ်။\nဒီထက်မက အောင်မြင်ပါစေ။"}, {"name": "ဒေါ်ချယ်ရီ", "location": "မန္တလေး", "feedback": "အခုလိုသင်တန်းကိုဖွင့်လှစ်ပေးတဲ့ဆရာတော်များကိုကျေးဇူးအထူးတင်ပါတယ်ဘုရား တပည့်တော်ကအခုမှအခြေခံစလေ့လာတာဆိုတော့ အခက်အခဲလေးတွေရှိနေပါတယ်ဘုရား\nအချိန်က၁နာရီဆိုတော့ နည်းနည်းတိုသလိုခံစားရပါတယ်ဘုရား"}, {"name": "မသီတာခိုင်", "location": "မန္တလေးမြို့", "feedback": "ဝါကျတည်ဆောက်ပုံများကို \nသင်ကြားပေးပါရန် 🙏🙏🙏"}, {"name": "Ashin Kusaladhamma", "location": "Shan", "feedback": "သင်တန်းကောင်းပါတယ် သို့သော် ရုတ်တရက် မေးသောအခါ ပြန်ဖြေဖို့ရန် နှောင့်နှေးမှု ရှိပါသည်"}, {"name": "Ma Sandartheingi", "location": "Mingaladon", "feedback": "သင်ကြားမှုကောင်းပါသည်"}, {"name": "အရှကဝိန္ဒ", "location": "ပခုက္ကူ", "feedback": "ကျေနပ်အားရမှု့ရှိပါတယ်၊ အကြံပြုချင်တာက လေ့ကျင့်ခန်းများများလုပ်ပေးပါ"}, {"name": "စန္ဒ", "location": "ချောက်", "feedback": "တပည့်တော်အနေနဲ့ အခုလိုသင်ကြားပေးတဲ့အပေါ် ဝမ်းမြောက်မိပါတယ်ဘုရား၊ တစ်ခုအကြံပြုချင်တာက ပါဠိစကားပြောသင်တန်းဖြစ်တာကြောင့် သဒ္ဒါပိုင်းထက် စကားပြောပိုများများသင်စေချင်ပါတယ်ဘုရား။"}, {"name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "location": "တောင်ကြီး", "feedback": "အချိန်လုပြီး သင်နေရသလိုဖြစ်လို့ပါ၊ နည်းနည်း မြန်တယ်လို့ ထင်မိလို့ပါ၊ တပည့်တော်တို့က အစ ဆိုတော့လေ..."}, {"name": "အရှင်ကုသလဓမ္မ", "location": "ကျောက်တလုံးကြီး", "feedback": "အားရကျေနပ်မှုရှိပါသည်။ \nလိုအပ်ချက်ကတော့ သင်တန်းသားများသည် မိမိကိုယ်တိုင် ပြောဖို့ ဝန်လေးနေကြတယ်။ ပြောရဲဲအောင် စွမ်းရည်လေးတွေကို မြှင့်တင်ပေးစေချင်ပါသည်။\nနောက်တစ်ခုက အပတ်စဥ် သင်တန်းအချိန် မှန်ကန်စေချင်ပါသည်။\nနောက်တစ်ခုက ရံဖန်ရံခါ internet connection မကောင်းလို့ ပြတ်တောက်သွားတဲ့အခါမျိုးမှာ နောက်တစ်ကြိမ် ပြန်လည်ကြည့်ရှု နားထောင်နိုင်ဖို့ရန်အတွက် viber group လေးတွေမှာ video records လေးတွေ တင်ပေးထားရင် ပိုပြီးအဆင်ပြေမည်ဟု ထင်မိပါသည်။"}, {"name": "အရှင်အာလောက", "location": "Bago", "feedback": "အလွန်ကောင်းပါသည်ဘုရား ဆက်လက်၍လည်း လေ့လာသင်ယူလိုပါသည် နောက်ပိုင်းများတွင်လည်း အခုထက်မက တိုးတက်အောင်မြင်ပါစေ"}];
+        const feedbackData = [{"name": "Ei Ei Aung", "location": "Yangon", "feedback": "တပည့်တော်ကအခုမှလေ့လာတာမို့တပည့်တော်အတွက်အတော်ခက်တယ်ဘုရာ့။ ဆရာတော်  ဦးဣန္ဒကာလင်္ကာရ PowerPoint slide လေးတွေနဲ့သင်ပေးတာ စိတ်ဝင်စားစရာကောင်းသလိုမှတ်လည်းမှတ်မိတယ်ဘုရာ့။ Activity လေးတွေနဲ့ သင်ကြားပေးပါဘုရာ့။ Zoom log in details လေးကို အငြိမ်ထားပေး ပါ ဘုရာ့။ ကျေးဇူးအများကြီးတင်ပါတယ်ဘုရာ့🙏🙏🙏"}, {"name": "အရှင်ထာဝရိယ", "location": "မွန်ပြည်နယ်", "feedback": "တစ်နေ့ချင်း သိမှတ်စရာများ တိုးပွားလာခြင်း၊<br>မသိသေးတဲ့ ပုဒ်အဆက်အစပ်တွေကို သိလာရခြင်းအကျိုးကျေးဇူးတွေ ရရှိပါတယ်။"}, {"name": "ဆရာလေးခေမာ", "location": "စစ်ကိုင်း", "feedback": "ကြိုက်ပါတယ်ဘုရား<br>ဆရာတော်တွေရဲ့သင်ကြားပေးမှူတွေက<br>ကောင်းပါတယ်"}, {"name": "Ven .YASDHAMMA", "location": "Pakhokku", "feedback": "ဆရာတော်များ၏သင်ကြားမှုအလွန်ကောင်းပါသည်၊ နောင်ကိုလည်းဆက်လက်၍တက်ရောက်ပါမည်၊ ပါဠိစကားပြောသင်တန်းဖွင့်လှစ်ပေးသည့်အတွက်လည်းအလွန်ပင်ဝမ်းမြောက်ကျေးဇူးတင်ရှိပါသည်၊"}, {"name": "အရှင်ပညာနန္ဒ", "location": "ထားဝယ်", "feedback": "အခုလို အခမဲ့ သင်ကြားပေးတဲ့အတွက် ကျေးဇူးတင်ပါတယ်ဘုရား"}, {"name": "သိမ်မွေ့ဦး", "location": "Singapore", "feedback": "သင်ကြားရတာပျော်ဖို့ကောင်းပါတယ်။ သို့ပေမယ့် beginner အနေနဲ့လိုက်သွားဖို့တော့ နည်းနည်းအရှိန်ယူရပါမယ်။"}, {"name": "ဦးတေဇနိယ", "location": "သာကေတ", "feedback": "အလွန်ကောင်းပါသည်"}, {"name": "Candasiri", "location": "Boston", "feedback": "ဆရာတော်တွေ သင်တာ အရမ်းကောင်းပါတယ်၊ ပါဠိစကားပြောကို လေ့ကျင့်ချင်လို့ ဒီထက် စကားပြောတဲ့အပိုင်းကို ပိုပြီး ထည့်ပေးစေချင်ပါတယ်။"}, {"name": "ဉာဏဝံသ", "location": "မြန်မာ၊ တောင်ကြီး", "feedback": "ပါဠိစကားပြောသင်တန်းဖြစ်သည့်အတွက် ပါဠိစကားပြောကို ပိုမိုသင်ကြားပေးစေလိုပါသည်။"}, {"name": "မမြရှင်", "location": "တောင်ကြီး", "feedback": "အလွန်ကောင်းမွန်တဲ့ သင်တန်း ဖြစ်ပါတယ်။<br>ဆရာတော်များအားလုံး သင်ကြားပို့ချမှု အလွန် ကောင်းမွန်ပါတယ်။<br>ဒီထက်မက အောင်မြင်ပါစေ။"}, {"name": "ဒေါ်ချယ်ရီ", "location": "မန္တလေး", "feedback": "အခုလိုသင်တန်းကိုဖွင့်လှစ်ပေးတဲ့ဆရာတော်များကိုကျေးဇူးအထူးတင်ပါတယ်ဘုရား တပည့်တော်ကအခုမှအခြေခံစလေ့လာတာဆိုတော့ အခက်အခဲလေးတွေရှိနေပါတယ်ဘုရား<br>အချိန်က၁နာရီဆိုတော့ နည်းနည်းတိုသလိုခံစားရပါတယ်ဘုရား"}, {"name": "မသီတာခိုင်", "location": "မန္တလေးမြို့", "feedback": "ဝါကျတည်ဆောက်ပုံများကို <br>သင်ကြားပေးပါရန် 🙏🙏🙏"}, {"name": "Ashin Kusaladhamma", "location": "Shan", "feedback": "သင်တန်းကောင်းပါတယ် သို့သော် ရုတ်တရက် မေးသောအခါ ပြန်ဖြေဖို့ရန် နှောင့်နှေးမှု ရှိပါသည်"}, {"name": "Ma Sandartheingi", "location": "Mingaladon", "feedback": "သင်ကြားမှုကောင်းပါသည်"}, {"name": "အရှကဝိန္ဒ", "location": "ပခုက္ကူ", "feedback": "ကျေနပ်အားရမှု့ရှိပါတယ်၊ အကြံပြုချင်တာက လေ့ကျင့်ခန်းများများလုပ်ပေးပါ"}, {"name": "စန္ဒ", "location": "ချောက်", "feedback": "တပည့်တော်အနေနဲ့ အခုလိုသင်ကြားပေးတဲ့အပေါ် ဝမ်းမြောက်မိပါတယ်ဘုရား၊ တစ်ခုအကြံပြုချင်တာက ပါဠိစကားပြောသင်တန်းဖြစ်တာကြောင့် သဒ္ဒါပိုင်းထက် စကားပြောပိုများများသင်စေချင်ပါတယ်ဘုရား။"}, {"name": "ဒေါ်ဝိသုဒ္ဓါစာရီ", "location": "တောင်ကြီး", "feedback": "အချိန်လုပြီး သင်နေရသလိုဖြစ်လို့ပါ၊ နည်းနည်း မြန်တယ်လို့ ထင်မိလို့ပါ၊ တပည့်တော်တို့က အစ ဆိုတော့လေ..."}, {"name": "အရှင်ကုသလဓမ္မ", "location": "ကျောက်တလုံးကြီး", "feedback": "အားရကျေနပ်မှုရှိပါသည်။ <br>လိုအပ်ချက်ကတော့ သင်တန်းသားများသည် မိမိကိုယ်တိုင် ပြောဖို့ ဝန်လေးနေကြတယ်။ ပြောရဲဲအောင် စွမ်းရည်လေးတွေကို မြှင့်တင်ပေးစေချင်ပါသည်။<br>နောက်တစ်ခုက အပတ်စဥ် သင်တန်းအချိန် မှန်ကန်စေချင်ပါသည်။<br>နောက်တစ်ခုက ရံဖန်ရံခါ internet connection မကောင်းလို့ ပြတ်တောက်သွားတဲ့အခါမျိုးမှာ နောက်တစ်ကြိမ် ပြန်လည်ကြည့်ရှု နားထောင်နိုင်ဖို့ရန်အတွက် viber group လေးတွေမှာ video records လေးတွေ တင်ပေးထားရင် ပိုပြီးအဆင်ပြေမည်ဟု ထင်မိပါသည်။"}, {"name": "အရှင်အာလောက", "location": "Bago", "feedback": "အလွန်ကောင်းပါသည်ဘုရား ဆက်လက်၍လည်း လေ့လာသင်ယူလိုပါသည် နောက်ပိုင်းများတွင်လည်း အခုထက်မက တိုးတက်အောင်မြင်ပါစေ"}];
 
         function verifyAdminAccess() {
             const navStudents = document.getElementById('navStudents');
@@ -360,8 +362,8 @@
             const studentContainer = document.getElementById('studentListContainer');
 
             if(window.isAdmin) {
-                navStudents.classList.remove('hidden');
-                mobStudents.classList.remove('hidden');
+                navStudents.classList.remove('hide-element');
+                mobStudents.classList.remove('hide-element');
                 mobStudents.classList.add('flex');
                 
                 studentContainer.innerHTML = secretStudents.map(student => `
@@ -386,8 +388,8 @@
                     </div>
                 `).join('');
             } else {
-                navStudents.classList.add('hidden');
-                mobStudents.classList.add('hidden');
+                navStudents.classList.add('hide-element');
+                mobStudents.classList.add('hide-element');
                 mobStudents.classList.remove('flex');
                 studentContainer.innerHTML = '';
             }
@@ -413,12 +415,12 @@
             const input = document.getElementById('fbPwdInput').value;
             if(input === 'buddhais') {
                 localStorage.setItem('feedback_auth', 'true');
-                document.getElementById('feedbackPwdPrompt').classList.add('hidden');
-                document.getElementById('feedbackContent').classList.remove('hidden');
+                document.getElementById('feedbackPwdPrompt').classList.add('hide-element');
+                document.getElementById('feedbackContent').classList.remove('hide-element');
                 renderFeedback();
                 window.toast("မှန်ကန်ပါသည်။", false);
             } else {
-                document.getElementById('fbPwdError').classList.remove('hidden');
+                document.getElementById('fbPwdError').classList.remove('hide-element');
             }
         }
 
@@ -461,14 +463,14 @@
             // Special check for Feedback Tab
             if(tabToOpen === 'feedback') {
                 if(localStorage.getItem('feedback_auth') === 'true') {
-                    document.getElementById('feedbackPwdPrompt').classList.add('hidden');
-                    document.getElementById('feedbackContent').classList.remove('hidden');
+                    document.getElementById('feedbackPwdPrompt').classList.add('hide-element');
+                    document.getElementById('feedbackContent').classList.remove('hide-element');
                     renderFeedback();
                 } else {
-                    document.getElementById('feedbackPwdPrompt').classList.remove('hidden');
-                    document.getElementById('feedbackContent').classList.add('hidden');
+                    document.getElementById('feedbackPwdPrompt').classList.remove('hide-element');
+                    document.getElementById('feedbackContent').classList.add('hide-element');
                     document.getElementById('fbPwdInput').value = '';
-                    document.getElementById('fbPwdError').classList.add('hidden');
+                    document.getElementById('fbPwdError').classList.add('hide-element');
                 }
             }
         }
@@ -574,7 +576,7 @@
                 document.getElementById('loginView').style.display = 'block';
                 document.getElementById('editorView').style.display = 'none';
                 document.getElementById('adminPwd').value = '';
-                document.getElementById('passwordError').classList.add('hidden');
+                document.getElementById('passwordError').classList.add('hide-element');
                 setTimeout(() => document.getElementById('adminPwd').focus(), 100);
             }
         };
@@ -590,7 +592,7 @@
                 window.renderPosts();
                 window.toast("Admin စနစ်သို့ ဝင်ရောက်ပြီးပါပြီ။", false);
             } else {
-                document.getElementById('passwordError').classList.remove('hidden');
+                document.getElementById('passwordError').classList.remove('hide-element');
             }
         };
 
